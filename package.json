@@ -1,0 +1,25 @@
+{
+  "name": "foodndate",
+  "version": "1.0.0",
+  "description": "An online restaurant ready for your virtual dinner dates. A final capstone project for KodeGO WebDev Batch 3: Exceeds.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "online",
+    "restaurant",
+    "virtual",
+    "dating",
+    "food",
+    "meetings"
+  ],
+  "author": "Ryan Gerome Regis, Ron Velarde, Ralph Santolorin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
+}
