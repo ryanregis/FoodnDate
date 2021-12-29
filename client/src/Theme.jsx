@@ -2,22 +2,13 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    primary: { //Red
-      main: "#FF5656",
-    },
-    secondary: { //Blue
-       main: "#6A7EFC"
-    },
-    neutral: { // Gray
-        main: "#9B9DA4"
-    },
-    black: {
-        main: "#494953"
-    },
-    white: {
-        main:"#EDF2F6"
-    },
+    primary: "#FF5656",
+    secondary:"#6A7EFC",
+    neutral: "#9B9DA4",
+    black: "#494953",
+    white: "#EDF2F6",
   },
+  
   typography: {
       brand: {
           fontFamily: "'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif",
