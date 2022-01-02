@@ -47,7 +47,7 @@ const AboutUs = () => {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <Box sx={{bgcolor: 'white.main'}}> 
+                <Box sx={{bgcolor: 'white'}}> 
                     <div className={styles.hero}>
                         <Box >
                             <p style={{textAlign:'left'}}>Not just for <b>convenience</b> but also for ....</p>
