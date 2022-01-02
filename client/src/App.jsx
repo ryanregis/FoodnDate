@@ -9,18 +9,9 @@ function App() {
     // <Router>
     <ThemeProvider theme={theme}>
       <Header />
-<<<<<<< HEAD
-      <AboutUs/>
-      <ThemeProvider theme={theme}>
-        <Typography variant="h1">FoodnDate</Typography>
-      </ThemeProvider>
-      
-    </Router>
-=======
       {/* <Typography variant="h2">FoodnDate</Typography> */}
     </ThemeProvider>
     // </Router>
->>>>>>> 420382ae0fa0743b26b5bf833f6ae9f463e870f5
   );
 }
 
