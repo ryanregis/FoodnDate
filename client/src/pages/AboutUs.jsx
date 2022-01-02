@@ -55,7 +55,7 @@ const AboutUs = () => {
                         </Box>
                     </div>
                     <div>
-                        <Typography sx={{ textAlign:'center'}} variant='h3'>Our Vision</Typography>
+                        <Typography align='center' variant='h3'>Our Vision</Typography>
                     </div>
                     <Box className={styles.vision} sx={{ display: 'grid', gridTemplateColumns: {sm:'1fr 1fr 1fr 1fr', xs:'1fr'}, gap:2}}>
                         {visionContent.map((item) => {
