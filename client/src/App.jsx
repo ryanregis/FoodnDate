@@ -9,6 +9,7 @@ function App() {
     // <Router>
     <ThemeProvider theme={theme}>
       <Header />
+      <AboutUs/>
       {/* <Typography variant="h2">FoodnDate</Typography> */}
     </ThemeProvider>
     // </Router>
