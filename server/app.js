@@ -7,8 +7,8 @@ app.post("/api", (req, res) => {
     res.redirect("/");
 });
 
-const PORT = process.env.PORT || 8080;
-const buildPath = path.join(__dirname, 'client', 'dist');
-app.use(express.static(buildPath));
+const PORT = process.env.PORT || 5000;
+// const buildPath = path.join(__dirname, '../client/dist');
+// app.use(express.static(buildPath));
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`));
+app.listen(PORT, console.log(`Server started on port ${PORT}.`));
