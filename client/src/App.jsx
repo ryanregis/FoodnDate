@@ -6,12 +6,12 @@ import Header from "./components/Header";
 
 function App() {
   return (
-    <Router>
+    // <Router>
+    <ThemeProvider theme={theme}>
       <Header />
-      <ThemeProvider theme={theme}>
-        <Typography variant="h1">FoodnDate</Typography>
-      </ThemeProvider>
-    </Router>
+      {/* <Typography variant="h2">FoodnDate</Typography> */}
+    </ThemeProvider>
+    // </Router>
   );
 }
 
