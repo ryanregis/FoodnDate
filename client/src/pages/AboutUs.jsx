@@ -30,7 +30,14 @@ const useStyles = makeStyles(() => ({
         align:'center',
         fontFamily:'Roboto, Helvetica, Arial, sans-serif',
         
-    }
+    },
+    image:{
+        width: 'clamp(10rem, 2vw, 12rem)',
+        height: 'clamp(10rem, 2vw, 12rem)',
+        borderRadius: '50%',
+        objectFit: 'cover',
+        margin:'auto'
+    },
 
 }))
 const AboutUs = () => {
@@ -87,10 +94,10 @@ const AboutUs = () => {
                         <Typography align='center' variant='h3' pt={2}>Our Vision</Typography>
                     </div>
                     <Box className={styles.vision} sx={{ display: 'grid', gridTemplateColumns: {sm:'1fr 1fr 1fr 1fr', xs:'1fr'}, gap:2}}>
-                        {visionContent.map((item) => {
+                        {visionContent.map((item, index) => {
                                 return (
                                     
-                                        <Box className={styles.vision}>
+                                        <Box className={styles.vision} key={index}>
                                             <Typography >
                                                     <b>{item.title}</b>
                                             </Typography>
@@ -117,22 +124,21 @@ const AboutUs = () => {
                         <Typography align='center' variant='h3' pt={2}>Our Team</Typography>
                     </div>
                     <Box className={styles.vision} sx={{ display: 'grid', gridTemplateColumns: {sm:'1fr 1fr 1fr', xs:'1fr'}, gap:2, align:'center'}}>
-                        {teamContent.map((item) => {
+                        {teamContent.map((item, index) => {
                                 return (
                                     
-                                        <Box className={styles.vision} sx={{mx:'auto'}}>
-                                            <Card sx={{ maxWidth: 300, bgcolor: 'secondary.main', color: 'white.main' }}>
+                                        <Box className={styles.vision} sx={{mx:'auto'}} key={index}>
+                                            <Card sx={{ maxWidth: 300, bgcolor: 'secondary.main', color: 'white.main', padding: '5%'}}>
                                                 <CardActionArea>
                                                 <   Typography gutterBottom variant="h5" component="div">
                                                         {item.position}
                                                     </Typography>
                                                     <CardMedia
                                                     component="img"
-                                                    height="140"
-                                                    width="140"
+
                                                     image={item.imgSource}
-                                                    alt="green iguana"
-                                                    sx={{borderRadius:'50%'}}
+                                                    alt="profilepic"
+                                                    className={styles.image}
                                                     />
                                                     <CardContent>
                                                     <Typography gutterBottom variant="h5" component="div">
