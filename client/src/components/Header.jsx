@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 const styles = {
     root: {
         bgcolor: "black.main",
@@ -15,7 +16,7 @@ const styles = {
         alignItems: "center"
     },
     contents: {
-        width: "40%",
+        width: "35%",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center"
@@ -31,16 +32,16 @@ export default function Header() {
     return (
         <Box sx={styles.root}>
             <Typography variant="brand">
-                <span style={{ color: "#FF5656" }}>Food</span>n<span style={{ color: "#6A7EFC" }}>Date</span>
+                <span style={{ color: "#FF5656" }}>Food</span><span>n</span><span style={{ color: "#6A7EFC" }}>Date</span>
             </Typography>
 
             <Box sx={styles.contents}>
                 <Typography variant="navlink">About Us</Typography>
                 <Typography variant="navlink">Contact Us</Typography>
-                <IconButton sx={{ml: -2, mr:-3}}>
-                    <NotificationsNoneIcon sx={{ color: "white.main" }} fontSize="large" />
-                </IconButton>
                 <Box sx={styles.icons}>
+                    <IconButton>
+                        <NotificationsNoneIcon sx={{ color: "white.main" }} fontSize="large" />
+                    </IconButton>
                     <Typography variant="navlink">Hi, @user</Typography>
                     <IconButton sx={{ mt: 0.5 }}>
                         <AccountCircleOutlinedIcon sx={{ color: "secondary.main", fontSize: "3rem", bgcolor: "white.main", borderRadius: 200, }} fontSize="large" />
