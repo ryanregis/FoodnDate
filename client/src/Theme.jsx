@@ -10,6 +10,16 @@ let theme = createTheme({
   },
 
   typography: {
+    button: {
+      textTransform: "none",
+    },
+    login_title: {
+      fontFamily: "'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif",
+      fontWeight: 700,
+      fontSize: "5rem",
+      lineHeight: 1.167,
+      letterSpacing: "0em"
+    },
     brand: {
       fontFamily: "'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif",
       fontWeight: 700,
@@ -58,7 +68,9 @@ let theme = createTheme({
       xl: 1280,
       xxl: 1536
     }
-  }
+  },
+
+
 });
 
 theme = responsiveFontSizes(theme);

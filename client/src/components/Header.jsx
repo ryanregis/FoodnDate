@@ -16,7 +16,7 @@ const styles = {
         alignItems: "center"
     },
     contents: {
-        width: "35%",
+        width: "33%",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center"
@@ -38,10 +38,10 @@ export default function Header() {
             <Box sx={styles.contents}>
                 <Typography variant="navlink">About Us</Typography>
                 <Typography variant="navlink">Contact Us</Typography>
+                <IconButton sx={{p: 0}}>
+                    <NotificationsNoneIcon sx={{ color: "white.main" }} fontSize="large" />
+                </IconButton>
                 <Box sx={styles.icons}>
-                    <IconButton>
-                        <NotificationsNoneIcon sx={{ color: "white.main" }} fontSize="large" />
-                    </IconButton>
                     <Typography variant="navlink">Hi, @user</Typography>
                     <IconButton sx={{ mt: 0.5 }}>
                         <AccountCircleOutlinedIcon sx={{ color: "secondary.main", fontSize: "3rem", bgcolor: "white.main", borderRadius: 200, }} fontSize="large" />

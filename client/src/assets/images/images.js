@@ -1,0 +1,1 @@
+export const LoginBG = require('loginBG.png').default;
