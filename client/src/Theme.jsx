@@ -7,6 +7,7 @@ let theme = createTheme({
     neutral: { main: "#9B9DA4" },
     black: { main: "#494953" },
     white: { main: "#EDF2F6" },
+    divider: "#9B9DA4",
   },
 
   typography: {
@@ -70,8 +71,47 @@ let theme = createTheme({
     }
   },
 
-
 });
+
+theme = createTheme(theme, {
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+
+        }
+      }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.black.main,
+        },
+        focused: {
+          color: theme.palette.secondary.main,
+        },
+        notchedOutline: {
+          borderWidth: "3px !important",
+        }
+      }
+    },
+
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.black.main,
+          "&:focused": {
+            fontWeight: "bold"
+          }
+        },
+        asterisk: {
+          color: theme.palette.primary.main
+        }
+      }
+    },
+    
+  }
+})
 
 theme = responsiveFontSizes(theme);
 

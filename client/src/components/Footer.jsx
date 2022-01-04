@@ -46,6 +46,7 @@ const styles = {
         justifyContent: "center",
     }
 };
+
 export default function Footer() {
 
     const gridTexts = [
