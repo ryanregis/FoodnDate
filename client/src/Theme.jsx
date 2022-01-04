@@ -1,6 +1,6 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: { main: "#FF5656" },
     secondary: { main: "#6A7EFC" },
@@ -10,6 +10,16 @@ const theme = createTheme({
   },
 
   typography: {
+    button: {
+      textTransform: "none",
+    },
+    login_title: {
+      fontFamily: "'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif",
+      fontWeight: 700,
+      fontSize: "5rem",
+      lineHeight: 1.167,
+      letterSpacing: "0em"
+    },
     brand: {
       fontFamily: "'Poppins', 'Roboto', 'Helvetica', 'Arial', sans-serif",
       fontWeight: 700,
@@ -21,9 +31,48 @@ const theme = createTheme({
       fontWeight: 600,
       fontSize: "1.25rem",
       lineHeight: 1.6,
-      letterSPacing: "0.0075em"
+      letterSpacing: "0.0075em"
+    },
+    footer_title: {
+      fontWeight: 700,
+      fontSize: "1.35rem",
+      lineHeight: 1.334,
+      letterSpacing: "0em"
+    },
+    footer_subtitle: {
+      fontWeight: 400,
+      fontSize: "0.85rem",
+      lineHeight: 1.334,
+      letterSpacing: "0.0075em"
+    },
+    subscribe: {
+      fontWeight: 600,
+      fontSize: "1rem",
+      lineHeight: 1.334,
+      letterSpacing: "0.05em"
+    },
+    footer_info: {
+      fontWeight: 400,
+      fontSize: "0.95rem",
+      lineHeight: 1.5,
+      letterSpacing: "0.0075em"
     }
-  }
+  },
+
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      xxl: 1536
+    }
+  },
+
+
 });
+
+theme = responsiveFontSizes(theme);
 
 export default theme;
