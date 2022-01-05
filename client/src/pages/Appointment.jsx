@@ -2,7 +2,9 @@ import React from 'react';
 import { Grid, ThemeProvider, Typography, Box, TextField, Button, Card, CardActionArea, CardContent } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import theme from '../Theme';
-
+import DateAdapter from '@mui/lab/AdapterMoment'
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import "../App.css";
 
 const useStyles = makeStyles (() => ({
@@ -30,6 +32,7 @@ const useStyles = makeStyles (() => ({
     }
 }))
 const Appointment = () => {
+    const [value, setValue] = React.useState(new moment());
     const classes = useStyles();
     return (
         <div>
@@ -65,7 +68,17 @@ const Appointment = () => {
                                     </Typography>
                                     </CardContent>
                                     <CardContent align='center'>
-                                        
+                                        <LocalizationProvider dateAdapter={DateAdapter}>
+                                            <StaticDatePicker
+                                                displayStaticWrapperAs="desktop"
+                                                openTo="year"
+                                                value={value}
+                                                onChange={(newValue) => {
+                                                setValue(newValue);
+                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
+                                            />
+                                        </LocalizationProvider>
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
