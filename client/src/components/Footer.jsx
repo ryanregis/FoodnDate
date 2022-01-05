@@ -7,7 +7,7 @@ const styles = {
         bgcolor: "black.main",
         color: "white.main",
         px: "clamp(50px, 7%, 200px)",
-        pt: "2%",
+        py: "2%",
         position: 'absolute',
         left: 0,
         right: 0
