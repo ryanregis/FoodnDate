@@ -9,13 +9,22 @@
 }
 
 .intro{
-    background: url(./assets/images/about-us-titleBG.jpg);
+    background: linear-gradient(0deg, rgba(73, 73, 83, 0.8), rgba(73, 73, 83, 0.8)),    
+    url(./assets/images/about-us-titleBG.jpg);
     background-size: cover;
     background-position: center;  
+    color: #EDF2F6;
+    padding: 4% 20%;
+    font-size: clamp(1rem, 2vw, 2rem);
 }
 
 .our-story{
     background: url(./assets/images/about-us-our-storyBG.jpg);
     background-size: cover;
     background-position: center;
+    font-weight: 500;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    text-align:center;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    padding: 2%;
 }

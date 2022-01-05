@@ -5,9 +5,10 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import SendIcon from '@mui/icons-material/Send';
 import { makeStyles } from '@mui/styles'
 import theme from '../Theme';
-import { ThemeProvider, Typography, Box, Button, FormControl, Input, InputLabel} from '@mui/material';
+import { ThemeProvider, Typography, Box, Button, TextField} from '@mui/material';
 
 
 const useStyles = makeStyles(()=>({
@@ -26,21 +27,16 @@ const useStyles = makeStyles(()=>({
     sendUs: {
         fontFamily:'Roboto, Helvetica, Arial, sans-serif',
         fontWeight: '700',
-        fontSize: 'clamp(1rem, 3vw, 1.5rem)',
         padding: '2%',
+        textAlign:'center'
     },
-    inputstyles: {
-        backgroundColor: '#FFFEFF',
-        borderRadius: '5px',
-        padding: '0.5rem',
-        fontWeight: '100',
-        fontSize:'clamp(1rem, 3vw, 1.5rem)',
-    },
-    labelstyles: {
+    formInput: {
+        borderRadius:'10px', 
+        marginBottom:'5%',
         color: 'black',
-        fontWeight: '100',
-        fontSize: 'clamp(1rem, 3vw, 1.5rem)',
-    },
+        fontSize: 'clamp(1.1rem, 1vw, .5rem)'
+    }
+
 }));
 const contact = [
     {
@@ -83,32 +79,15 @@ const ContactUs = () => {
                     </Box>
                     <Box variant='contained' className={classes.sendUs} sx={{bgcolor: 'secondary.main', color: 'white.main'}}>
                         <Typography variant='h4' align='center'>Send Us A Message</Typography>
-                        <Box sx={{display: 'flex', flexDirection:'row', p:3, gap: 5, mx: 'auto'}}>
-                            <form>
-                                <div>
-                                    <FormControl sx={{ margin: '3%' }}>
-                                        <InputLabel className={classes.labelstyles} htmlFor="name" >Input Your Name</InputLabel>
-                                        <Input className={classes.inputstyles} type="text"  id="name" name="name" required />
-                                    </FormControl>
-                                </div>
-
-                                <div>
-                                    <FormControl sx={{ margin: '3%' }}>
-                                        <InputLabel className={classes.labelstyles} htmlFor="email" >Input Your Email</InputLabel>
-                                        <Input className={classes.inputstyles}  id="email" name="email" type="email" required />
-                                    </FormControl>
-                                </div>
-                                <div>
-                                    <FormControl sx={{ width: 'clamp(13rem,10vmax, 100px)' }}>
-                                        <InputLabel className={classes.labelstyles}  htmlFor="message">Send Your Message</InputLabel>
-                                        <Input className={classes.inputstyles} id="message" name="message" type="text"  multiline minRows='2' maxRows='4' required />
-                                    </FormControl>
-                                </div>
-                                <div >
-                                    <Button sx={{ m: 4 }} variant='contained' color='info' type="submit" align='center'>Send</Button>
-                                    
-                                </div>
-                            </form>
+                        <Box   p={8} > 
+                        <form >
+                            <TextField  fullWidth name="name" type="text" color='black' label="Name" variant='filled' sx={{bgcolor:'white.main'}} className={classes.formInput}/>
+                            <TextField  fullWidth name="email" type="email" color='black'  label="Email" variant='filled' sx={{bgcolor:'white.main', borderRadius:'10px'}} className={classes.formInput}/>
+                            <TextField multiline rows={3}  fullWidth name="message" type="email" color='black'  label="Message" variant='filled' sx={{bgcolor:'white.main'}} className={classes.formInput}/>
+                            <Button  sx={{bgcolor:'black.main'}} variant="contained" className={classes.formInput}>
+                                SEND <SendIcon sx={{marginLeft: '30%'}}/>
+                            </Button>
+                        </form>
                         </Box>
                     </Box>
                 </Box>

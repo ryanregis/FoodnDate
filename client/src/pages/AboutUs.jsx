@@ -2,34 +2,16 @@ import React from 'react'
 import { makeStyles } from '@mui/styles'
 import theme from '../Theme';
 import { ThemeProvider, Typography, Box, Card, CardActionArea, CardContent, CardMedia} from '@mui/material';
-//import Image from '../icons/android-chrome-192x192.png';
+import "../App.css";
 
 
 const useStyles = makeStyles(() => ({
     aboutBg : {
         backgroundColor: '#EDF2F6'
     },
-    hero : {
-        backgroundImage: `url(https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80)`,
-        backgroundRepeat:'no-repeat',
-        backgroundSize:'cover',
-        color: "#EDF2F6",
-        paddingRight: '20%',
-        paddingLeft: '20%',
-        paddingTop: '2%',
-        paddingBottom: '2%',
-        fontSize: 'clamp(1rem, 2vw, 2rem)',
-    },
     vision : {
         textAlign: 'center',
-        padding: '2%'
-    },
-    story: {
-        fontWeight: '500',
-        fontSize: 'clamp(1rem, 2vw, 1.3rem)',
-        align:'center',
-        fontFamily:'Roboto, Helvetica, Arial, sans-serif',
-        
+        padding: '4%'
     },
     image:{
         width: 'clamp(10rem, 2vw, 12rem)',
@@ -84,7 +66,7 @@ const AboutUs = () => {
         <>
             <ThemeProvider theme={theme}>
                 <Box sx={{bgcolor: 'white.main'}}> 
-                    <div className={styles.hero}>
+                    <div className='intro'>
                         <Box >
                             <p style={{textAlign:'left'}}><i>Not just for <b>convenience</b> but also for ....</i></p>
                             <p style={{textAlign:'right'}}><i><b>sophistication</b></i></p>
@@ -108,17 +90,14 @@ const AboutUs = () => {
                                 )
                             })}
                     </Box> 
-                    <Box sx={{backgroundColor:"#DD7878", display: 'grid', gridTemplateColumns: {sm:'1fr 1fr', xs:'1fr'}, gap:4, padding:'5%'}}>
-                        <div>
-                            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGZpbmUlMjBkaW5pbmclMjB3aW5lJTIwZ2xhc3N8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60" alt='props' width='90%' height='400px'/>
-                        </div>
-                        <div>
-                            <Typography  sx={{color: 'white.main'}} variant='h4' align='center'>Our Story</Typography>{<br></br>}
-                            <Typography sx={{color: 'white.main'}} className={styles.story}>From the simple aspirations to bring food with convenience and deliver a novel restaurant experience to your 
+                    <Box className='our-story'>
+                        <Box p={10}>
+                            <Typography  sx={{color: 'white.main'}} variant='h3' align='center'>Our Story</Typography>{<br></br>}
+                            <Typography variant='body1' sx={{color: 'white.main'}} >From the simple aspirations to bring food with convenience and deliver a novel restaurant experience to your 
                                         home comes our idea to create FoodnDates.com {<br></br>}{<br></br>} Founded on December of 2021, FoodnDate aims to capitalize on the 
                                         current problems brought by the COVID-19 pandemic which hinders the gathering of people especially for meeting up or dates.
                             </Typography>
-                        </div>
+                        </Box>
                     </Box> 
                     <div>
                         <Typography align='center' variant='h3' pt={2}>Our Team</Typography>
@@ -127,7 +106,7 @@ const AboutUs = () => {
                         {teamContent.map((item, index) => {
                                 return (
                                     
-                                        <Box className={styles.vision} sx={{mx:'auto'}} key={index}>
+                                        <Box className={styles.vision} mx='auto' key={index} p={10}>
                                             <Card sx={{ maxWidth: 300, bgcolor: 'secondary.main', color: 'white.main', padding: '5%'}}>
                                                 <CardActionArea>
                                                 <   Typography gutterBottom variant="h5" component="div">
