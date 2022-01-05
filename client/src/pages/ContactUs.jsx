@@ -83,7 +83,7 @@ const ContactUs = () => {
                     </Box>
                     <Box variant='contained' className={classes.sendUs} sx={{bgcolor: 'secondary.main', color: 'white.main'}}>
                         <Typography variant='h4' align='center'>Send Us A Message</Typography>
-                        <Box sx={{display: 'flex', flexDirection:'row', p:3, gap: 5, mx: 'auto', width: 200}}>
+                        <Box sx={{display: 'flex', flexDirection:'row', p:3, gap: 5, mx: 'auto'}}>
                             <form>
                                 <div>
                                     <FormControl sx={{ margin: '3%' }}>
@@ -99,7 +99,7 @@ const ContactUs = () => {
                                     </FormControl>
                                 </div>
                                 <div>
-                                    <FormControl sx={{ width: 'clamp(30vw,10vmax, 100px)' }}>
+                                    <FormControl sx={{ width: 'clamp(13rem,10vmax, 100px)' }}>
                                         <InputLabel className={classes.labelstyles}  htmlFor="message">Send Your Message</InputLabel>
                                         <Input className={classes.inputstyles} id="message" name="message" type="text"  multiline minRows='2' maxRows='4' required />
                                     </FormControl>
