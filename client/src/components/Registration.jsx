@@ -10,11 +10,10 @@ const useStyles = makeStyles(() => ({
     root: {
         color: theme.palette.black.main,
         backgroundColor: theme.palette.background.paper,
-        width: "clamp(300px, 80vw, 1500px)",
-        minHeight: "clamp(400px, 80vh, 900px)",
+        width: "clamp(300px, 70vw, 1500px)",
         position: 'absolute',
         borderRadius: 30,
-        padding: "10px 30px"
+        padding: 30
     },
     title: {
         display: "block",
