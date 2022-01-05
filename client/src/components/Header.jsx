@@ -10,13 +10,13 @@ const styles = {
         bgcolor: "black.main",
         color: "white.main",
         px: "clamp(50px, 7%, 200px)",
-        minHeight: "12vh",
+        py: "clamp(5px, 1%, 20px)",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center"
     },
     contents: {
-        width: "33%",
+        width: "40%",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center"

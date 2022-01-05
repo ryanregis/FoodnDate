@@ -8,7 +8,6 @@ const styles = {
         color: "white.main",
         px: "clamp(50px, 7%, 200px)",
         pt: "2%",
-        height: "25%",
         position: 'fixed',
         bottom: 0,
         left: 0,
@@ -25,16 +24,16 @@ const styles = {
         bgcolor: "white.main",
         color: "black.main",
         px: 2,
-        height: 50,
+        height: 40,
         width: "100%",
-        fontSize: "1.15em"
+        fontSize: "1em"
     },
     subscribe: {
         bgcolor: "neutral.main",
         color: "white.main",
         px: 3,
         borderRadius: 0,
-        height: 50
+        height: 40
     },
     info: {
         width: "100%",
@@ -64,7 +63,7 @@ export default function Footer() {
                             <Typography variant="footer_title">{content.title}</Typography>
                             <Box sx={styles.subtitleTexts}>
                                 {content.subtitles.map(text => {
-                                    return <Typography variant="subtitle2" fontSize="1em">{text}</Typography>
+                                    return <Typography variant="subtitle2" fontSize="0.85em">{text}</Typography>
                                 })}
                             </Box>
                         </Grid>

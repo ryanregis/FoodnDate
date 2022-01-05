@@ -7,3 +7,15 @@
     width: 100vw;
     display: flex;
 }
+
+.intro{
+    background: url(./assets/images/about-us-titleBG.jpg);
+    background-size: cover;
+    background-position: center;  
+}
+
+.our-story{
+    background: url(./assets/images/about-us-our-storyBG.jpg);
+    background-size: cover;
+    background-position: center;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Box, Typography, Paper, TextField, Button, Divider, Modal } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import theme from '../Theme';
@@ -59,12 +60,13 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-export default function Login() {
+export default function Login(props) {
     const classes = useStyles();
 
     const [openReg, setOpenReg] = React.useState(false);
     const handleOpenReg = () => { setOpenReg(true) };
     const handleCloseReg = () => { setOpenReg(false) };
+    const handleLogin = () => { props.setLogin(true) };
     return (
         <div className="login">
             <Box className={classes.container}>
@@ -85,7 +87,7 @@ export default function Login() {
                         <TextField required fullWidth name="password" type="password" color="secondary" variant="outlined"
                             label="Password" />
 
-                        <Button fullWidth type="submit" color="secondary" variant="contained">
+                        <Button fullWidth component={Link} to="/" onClick={handleLogin} color="secondary" variant="contained">
                             <Typography fontSize="1.125rem" fontWeight={500}>Log In</Typography>
                         </Button>
                     </form>

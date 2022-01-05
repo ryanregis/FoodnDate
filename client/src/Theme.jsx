@@ -38,7 +38,7 @@ let theme = createTheme({
       fontWeight: 700,
       fontSize: "1.35rem",
       lineHeight: 1.334,
-      letterSpacing: "0em"
+      letterSpacing: "0.0165em"
     },
     footer_subtitle: {
       fontWeight: 400,
