@@ -9,14 +9,14 @@ import Login from "./pages/Login";
 
 function App() {
   return (
-    // <Router>
-    <ThemeProvider theme={theme}>
-      {/* <Header /> */}
-      <Login />
-      {/* <Footer /> */}
-      {/* <Typography variant="h2">FoodnDate</Typography> */}
-    </ThemeProvider>
-    // </Router>
+    <Router>
+      <ThemeProvider theme={theme}>
+        {/* <Header /> */}
+        <Login />
+        {/* <Footer /> */}
+        {/* <Typography variant="h2">FoodnDate</Typography> */}
+      </ThemeProvider>
+    </Router>
   );
 }
 
