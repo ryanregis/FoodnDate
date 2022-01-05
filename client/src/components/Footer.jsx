@@ -9,7 +9,6 @@ const styles = {
         px: "clamp(50px, 7%, 200px)",
         pt: "2%",
         position: 'absolute',
-        bottom: 0,
         left: 0,
         right: 0
     },
