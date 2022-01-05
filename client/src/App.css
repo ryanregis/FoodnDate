@@ -19,7 +19,8 @@
 }
 
 .our-story{
-    background: url(./assets/images/about-us-our-storyBG.jpg);
+    background: linear-gradient(0deg, rgba(73, 73, 83, 0.8), rgba(73, 73, 83, 0.8)),
+     url(./assets/images/about-us-our-storyBG.jpg);
     background-size: cover;
     background-position: center;
     font-weight: 500;
