@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
     },
     bestSeller: {
         border: '5px solid #FF5656',
-        borderRadius: '25px'
+        borderRadius: '25px',
     }
 }))
 export default function Home() {
@@ -57,31 +57,31 @@ export default function Home() {
             imgSrc: 'https://www.thespruceeats.com/thmb/yrx_72PbGi5aXCC6vGgy-gQAaBs=/3000x1687/smart/filters:no_upscale()/french-boeuf-bourguignon-recipe-1375523-d9ae2ba0ea394f71bc2576a3a0ea277e.jpg',
             title: 'Boeuf Bourguignon (Beef Stew)',
             type: 'Main Dish',
-            description: 'The staple for those looking for a comfort food.',
+            description: 'The staple for those looking for a comfort food. And gives the fresh aroma of the herbs with its melt in the mouth gelatinous texture of the meat',
         },
         {
             imgSrc: 'https://www.thespruceeats.com/thmb/yrx_72PbGi5aXCC6vGgy-gQAaBs=/3000x1687/smart/filters:no_upscale()/french-boeuf-bourguignon-recipe-1375523-d9ae2ba0ea394f71bc2576a3a0ea277e.jpg',
-            title: 'Boeuf Bourguignon (Beef Stew)',
-            type: 'Main Dish',
-            description: 'The staple for those looking for a comfort food.',
+            title: 'Cheese Souffle',
+            type: 'Appetizer',
+            description: 'Top pick for the fans of cheese',
         },
         {
             imgSrc: 'https://www.thespruceeats.com/thmb/yrx_72PbGi5aXCC6vGgy-gQAaBs=/3000x1687/smart/filters:no_upscale()/french-boeuf-bourguignon-recipe-1375523-d9ae2ba0ea394f71bc2576a3a0ea277e.jpg',
-            title: 'Boeuf Bourguignon (Beef Stew)',
-            type: 'Main Dish',
-            description: 'The staple for those looking for a comfort food.',
+            title: 'Mousse Au Chocolat',
+            type: 'Dessert',
+            description: 'The number 1 choice for chocolate lovers',
         },
         {
             imgSrc: 'https://www.thespruceeats.com/thmb/yrx_72PbGi5aXCC6vGgy-gQAaBs=/3000x1687/smart/filters:no_upscale()/french-boeuf-bourguignon-recipe-1375523-d9ae2ba0ea394f71bc2576a3a0ea277e.jpg',
-            title: 'Boeuf Bourguignon (Beef Stew)',
-            type: 'Main Dish',
-            description: 'The staple for those looking for a comfort food.',
+            title: 'Mouton Cadet Bordeaux Rouge',
+            type: 'Red Wine Drink',
+            description: 'The great drink compliment for any meals',
         },
         {
             imgSrc: 'https://www.thespruceeats.com/thmb/yrx_72PbGi5aXCC6vGgy-gQAaBs=/3000x1687/smart/filters:no_upscale()/french-boeuf-bourguignon-recipe-1375523-d9ae2ba0ea394f71bc2576a3a0ea277e.jpg',
-            title: 'Boeuf Bourguignon (Beef Stew)',
-            type: 'Main Dish',
-            description: 'The staple for those looking for a comfort food.',
+            title: 'Croissant',
+            type: 'Side Dish',
+            description: 'Great as a simple snack after meal',
         },
     ];
     const classes = useStyles();
@@ -92,7 +92,7 @@ export default function Home() {
                     <Typography variant='h4'>Welcome, @user!</Typography>
                 </Grid>
                 <Grid p={3} container  spacing={2}>
-                    <Grid item sm={4}>
+                    <Grid item sm={4} xs={12}>
                         <Box p={1} variant='contained' className={classes.viewScheds}>
                             You have 0 food orders. 
                             <Link to='/'>
@@ -102,7 +102,7 @@ export default function Home() {
                             </Link>
                         </Box>
                     </Grid>
-                    <Grid item sm={8}>
+                    <Grid item sm={8} xs={12}>
                         <Box p={1} variant='contained' className={classes.viewScheds}>
                             You have no upcoming virtual date.. 
                             <Link to='/appointment'>
@@ -126,27 +126,28 @@ export default function Home() {
                         ))}
                     </Carousel>
                 </Grid>
-                <Grid container p={3}>
+                <Grid container p={3}  >
                     <Grid item sm={12} xs={12}>
-                        <Typography align='center' variant='h3' m={2}><b>BEST SELLERS</b></Typography>
+                        <Typography align='center'  variant='h3' m={2}><b>BEST SELLERS</b></Typography>
                     </Grid>
-                    <Box sx={{ display: 'grid', gridTemplateColumns: {sm:'1fr 1fr 1fr', xs:'1fr'}, gap:3, align:'center'}}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: {sm:'25% 30% 30%', xs:'1fr'}, gridTemplateRows: { sm: '1fr, 1fr'}, gap:3, justifyContent:'center' }}>
                         {besSel.map((item, index) => (
-                            <Card sx={{minWidth:'140px'}} className={classes.bestSeller} key={index}>
+                            <Card sx={{gridRow:index === 0 ? '1/3' : 'auto'}} className={classes.bestSeller} key={index}>
                                 <CardActionArea>
                                     <CardMedia
                                         component="img"
-                                        height="140"
+                                        height="150"
                                         image={item.imgSrc}
                                         alt="Boeuf Bourguignon (Beef Stew)"
                                     />
-                                    <CardContent >
-                                        <Typography>{item.title}</Typography>
-                                        <Typography>{item.type}</Typography>
-                                        <Typography>{item.description}</Typography>
+                                    <CardContent align='center'>
+                                        <Typography variant='h5'><b>{item.title}</b></Typography>
+                                        <Typography variant='h6'>{item.type}</Typography>
+                                        <Typography variant='body1'>{item.description}</Typography>
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
+                            
                         ))}
                     </Box>
                 </Grid>
