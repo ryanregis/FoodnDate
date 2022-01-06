@@ -1,0 +1,1 @@
+export const beefStew = require("./home-Beef-Bourguignon.png");

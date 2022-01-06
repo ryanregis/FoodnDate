@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import theme from '../Theme';
 import Carousel from 'react-material-ui-carousel';
 import "../App.css";
+import beefStew from '../assets/images/images';
 
 const useStyles = makeStyles(() => ({
     viewScheds: {
@@ -36,25 +37,25 @@ const useStyles = makeStyles(() => ({
 export default function Home() {
     const promo = [
         {
-            bgImg: "intro",
+            bgImg: "holiday-promo",
             description: "Get Our Free Delivery Coupon This Holiday",
             date: "Starts at December 25, 2021 Valid until January 31, 2022"
         },
         {
-            bgImg: "our-story",
+            bgImg: "feb-promo",
             description: "Dont miss out on Our Food Promo for Your Valentine",
             date: "Coming soon this February 14, 2022"
             
         },
         {
-            bgImg: "intro",
+            bgImg: "bundle-promo",
             description: "Stay Updated to Our Food Package Promos",
             date: "Subscribe to our Newsletter Today"
         }
       ];
     const besSel = [
         {
-            imgSrc: 'https://www.thespruceeats.com/thmb/yrx_72PbGi5aXCC6vGgy-gQAaBs=/3000x1687/smart/filters:no_upscale()/french-boeuf-bourguignon-recipe-1375523-d9ae2ba0ea394f71bc2576a3a0ea277e.jpg',
+            imgSrc: <beefStew/>,
             title: 'Boeuf Bourguignon (Beef Stew)',
             type: 'Main Dish',
             description: 'The staple for those looking for a comfort food. And gives the fresh aroma of the herbs with its melt in the mouth gelatinous texture of the meat',
