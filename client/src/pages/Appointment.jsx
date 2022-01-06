@@ -1,7 +1,8 @@
 import React from 'react';
-import { Grid, ThemeProvider, Typography, Box, TextField, Button, Card, CardActionArea, CardContent } from '@mui/material';
+import { Grid, Typography, Box, TextField, Button, Card, CardActionArea, CardContent } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import theme from '../Theme';
+import moment from 'moment';
 import DateAdapter from '@mui/lab/AdapterMoment'
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
@@ -29,16 +30,16 @@ const useStyles = makeStyles (() => ({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         
-    }
+    },
+
 }))
 const Appointment = () => {
     const [value, setValue] = React.useState(new moment());
     const classes = useStyles();
     return (
         <div>
-            <ThemeProvider theme={theme}>
                 <Grid container sx={{bgcolor: 'white.main'}}>
-                    <Grid item alignItems='stretch' sm={3} xs={12} p={4} sx={{bgcolor: 'secondary.main', color:'white.main'}}>
+                    <Grid item alignItems='stretch' sm={3} xs={12} p={4} sx={{bgcolor: 'primary.main', color:'white.main'}}>
                         <Box variant='contained'>
                         <Typography variant='h3'>Appointments</Typography>
                         <Typography variant='body1'>You have no appointment yet</Typography>
@@ -51,7 +52,7 @@ const Appointment = () => {
                                 <Box >
                                     <form>
                                         <TextField className={classes.fieldInput} variant='outlined' label='Enter invite code'  />
-                                        <Button className={classes.fieldInput} variant='contained' sx={{bgcolor:'secondary.main'}}>Set Appointment</Button>
+                                        <Button className={classes.fieldInput} variant='contained' sx={{bgcolor:'primary.main'}}>Set Appointment</Button>
                                     </form>
                                 </Box>
                             </Box>
@@ -70,13 +71,14 @@ const Appointment = () => {
                                     <CardContent align='center'>
                                         <LocalizationProvider dateAdapter={DateAdapter}>
                                             <StaticDatePicker
+                                                className={classes.calendar}
                                                 displayStaticWrapperAs="desktop"
-                                                openTo="year"
+                                                openTo="day"
                                                 value={value}
                                                 onChange={(newValue) => {
                                                 setValue(newValue);
                                                 }}
-                                                renderInput={(params) => <TextField {...params} />}
+                                                renderInput={(params) => <TextField  {...params} />}
                                             />
                                         </LocalizationProvider>
                                     </CardContent>
@@ -94,7 +96,7 @@ const Appointment = () => {
                                     <CardContent className={classes.memoDesign}>
                                         <form>
                                             <TextField className={classes.fieldInput} variant='outlined' label='Input Details'  />
-                                            <Button className={classes.fieldInput} variant='contained' sx={{bgcolor:'secondary.main'}}>Save</Button>
+                                            <Button className={classes.fieldInput} variant='contained' sx={{bgcolor:'primary.main'}}>Save</Button>
                                         </form>
                                     </CardContent>
                                 </CardActionArea>
@@ -102,7 +104,6 @@ const Appointment = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-            </ThemeProvider>
         </div>
     )
 }
