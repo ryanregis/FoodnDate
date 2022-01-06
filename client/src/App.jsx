@@ -9,7 +9,6 @@ import { Login, Home, Admin, Appointment, Order } from "./pages";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
-import Appointment from "./pages/Appointment";
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -22,6 +21,8 @@ function App() {
           <Route path="/admin" element={[<Header />, <Admin />, <Footer />]} />
           <Route path="/appointment" element={[<Header />, <Appointment />, <Footer />]} />
           <Route path="/order" element={[<Header />, <Order />, <Footer />]} />
+          <Route path="/about" element={[<Header />, <AboutUs />, <Footer />]} />
+          <Route path="/contact" element={[<Header />, <ContactUs />, <Footer />]} />
           {/* </Route> */}
           <Route path="/login" element={<Login />} />
         </Routes>
