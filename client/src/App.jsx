@@ -5,7 +5,7 @@ import theme from "./Theme";
 import './App.css';
 
 import { Header, Footer } from "./components";
-import { Login, Home, Admin } from "./pages";
+import { Login, Home, Admin, Appointment, Order } from "./pages";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
@@ -18,6 +18,8 @@ function App() {
           {/* <Route exact path="/" element={<ProtectedRoute login={isLoggedIn} />}> */}
           <Route path="/" element={[<Header />, <Home />, <Footer />]} />
           <Route path="/admin" element={[<Header />, <Admin />, <Footer />]} />
+          <Route path="/appointment" element={[<Header />, <Appointment />, <Footer />]} />
+          <Route path="/order" element={[<Header />, <Order />, <Footer />]} />
           {/* </Route> */}
           <Route path="/login" element={<Login />} />
         </Routes>

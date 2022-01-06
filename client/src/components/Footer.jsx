@@ -17,7 +17,7 @@ const styles = {
         flexDirection: "column",
         justifyContent: "center",
         mt: "5%",
-        gap: 0.125,
+        gap: 0.5,
     },
     emailInput: {
         bgcolor: "white.main",
@@ -62,7 +62,7 @@ export default function Footer() {
                             <Typography variant="footer_title">{content.title}</Typography>
                             <Box sx={styles.subtitleTexts}>
                                 {content.subtitles.map(text => {
-                                    return <Typography variant="subtitle2" fontSize="0.85em">{text}</Typography>
+                                    return <Typography variant="footer_subtitle" fontSize="0.85em">{text}</Typography>
                                 })}
                             </Box>
                         </Grid>
