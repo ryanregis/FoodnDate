@@ -57,6 +57,13 @@ let theme = createTheme({
       fontSize: "0.95rem",
       lineHeight: 1.5,
       letterSpacing: "0.0075em"
+    },
+    table_header: {
+      color: "#EDF2F6",
+      fontWeight: 700,
+      fontSize: "1.35rem",
+      lineHeight: 1.334,
+      letterSpacing: "0.0165em"
     }
   },
 

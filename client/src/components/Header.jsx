@@ -1,5 +1,8 @@
+import React from "react";
 import { Box, Typography, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
+
+import { NotificationDropdown, ProfileDropdown } from "./";
 
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
@@ -16,19 +19,28 @@ const styles = {
         alignItems: "center"
     },
     contents: {
-        width: "40%",
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
         alignItems: "center"
     },
     icons: {
         display: "flex",
         justifyContent: "space-around",
-        alignItems: "center"
+        alignItems: "center",
     }
 }
 
 export default function Header() {
+
+    const [profileEl, setProfileEl] = React.useState(null);
+    const [notifEl, setNotifEl] = React.useState(null);
+    const openProfile = Boolean(profileEl);
+    const openNotif = Boolean(notifEl);
+    const handleProfileClick = (e) => setProfileEl(e.currentTarget);
+    const handleNotifClick = (e) => setNotifEl(e.currentTarget);
+    const handleProfileClose = () => setProfileEl(null);
+    const handleNotifClose = () => setNotifEl(null);
+
     return (
         <Box sx={styles.root}>
             <Typography variant="brand">
@@ -36,17 +48,17 @@ export default function Header() {
             </Typography>
 
             <Box sx={styles.contents}>
-                <Typography variant="navlink">About Us</Typography>
-                <Typography variant="navlink">Contact Us</Typography>
-                <IconButton sx={{p: 0}}>
-                    <NotificationsNoneIcon sx={{ color: "white.main" }} fontSize="large" />
-                </IconButton>
                 <Box sx={styles.icons}>
+                    <IconButton onClick={handleNotifClick} sx={{ mr: 2 }}>
+                        <NotificationsNoneIcon sx={{ color: "white.main" }} fontSize="large" />
+                    </IconButton>
+                    <NotificationDropdown handleClose={handleNotifClose} open={openNotif} anchorEl={notifEl} />
                     <Typography variant="navlink">Hi, @user</Typography>
-                    <IconButton sx={{ mt: 0.5 }}>
+                    <IconButton onClick={handleProfileClick} sx={{ mt: 0.5 }}>
                         <AccountCircleOutlinedIcon sx={{ color: "secondary.main", fontSize: "3rem", bgcolor: "white.main", borderRadius: 200, }} fontSize="large" />
                         <KeyboardArrowDownIcon sx={{ color: "white.main" }} fontSize="large" />
                     </IconButton>
+                    <ProfileDropdown handleClose={handleProfileClose} open={openProfile} anchorEl={profileEl} />
                 </Box>
             </Box>
         </Box>

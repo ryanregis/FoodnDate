@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { Grid, Typography, Box, TextField, Button, Card, CardActionArea, CardContent } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -108,3 +109,14 @@ const Appointment = () => {
 }
 
 export default Appointment
+=======
+import React from 'react'
+
+export default function Appointment() {
+    return (
+        <div>
+            
+        </div>
+    )
+}
+>>>>>>> 6bb86de172cb99c7ad9459a717ea2cf9d30f6e9f
