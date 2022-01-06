@@ -59,7 +59,7 @@ const Appointment = () => {
                         </Grid>
 
                         <Grid p={5} item sm={6} xs={12}>
-                            <Card sx={{ maxWidth: '100%'}} className={classes.calendarDesign}>
+                            <Card  className={classes.calendarDesign}>
                                 <CardActionArea>
                                     <CardContent className='intro'>
                                     <Typography gutterBottom variant="body1" component="div">
@@ -86,7 +86,7 @@ const Appointment = () => {
                             </Card>
                         </Grid>
                         <Grid p={5} item sm={6} xs={12}>
-                            <Card sx={{ maxWidth: '100%'}} className={classes.calendarDesign}>
+                            <Card  className={classes.calendarDesign}>
                                 <CardActionArea>
                                     <CardContent className='our-story'>
                                     <Typography gutterBottom variant="h3" component="div" sx={{color:'white.main'}}>
