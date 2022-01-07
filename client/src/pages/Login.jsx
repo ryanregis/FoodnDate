@@ -68,7 +68,7 @@ export default function Login(props) {
     const handleCloseReg = () => { setOpenReg(false) };
     const handleLogin = () => { props.setLogin(true) };
     return (
-        <div className="login">
+        <Box className="login">
             <Box className={classes.container}>
                 <Box className={classes.title}>
                     <Typography variant="login_title">
@@ -104,6 +104,6 @@ export default function Login(props) {
                 <Registration closeModal={handleCloseReg} />
             </Modal>
 
-        </div>
+        </Box>
     )
 }
