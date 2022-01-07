@@ -1,5 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
 import { Grid, Typography, Box, TextField, Button, Card, CardActionArea, CardContent } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import moment from 'moment';
@@ -104,14 +103,6 @@ const Appointment = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-=======
-
-export default function Appointment() {
-
-    return (
-        <div>
-
->>>>>>> ac66818dc5d62d5f5ce6b797f1a1d7aa83eb4383
         </div>
     )
 }
