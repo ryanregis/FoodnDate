@@ -46,7 +46,7 @@ export default function ProfileDropdown(props) {
                                     {content.icon}
                                 </ListItemIcon>
                                 <ListItemText sx={{ ml: 3 }}>
-                                    {content.name}
+                                  <Typography variant="h6">{content.name}</Typography>
                                 </ListItemText>
                             </MenuItem>
                         )

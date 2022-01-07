@@ -7,6 +7,7 @@ import './App.css';
 import { Header, Footer } from "./components";
 import { Login, Home, Admin, Appointment, Order } from "./pages";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import OrderFood from "./routes/OrderFood";
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,10 +17,11 @@ function App() {
       <ThemeProvider theme={theme}>
         <Routes>
           {/* <Route exact path="/" element={<ProtectedRoute login={isLoggedIn} />}> */}
-          <Route path="/" element={[<Header />, <Home />, <Footer />]} />
-          <Route path="/admin" element={[<Header />, <Admin />, <Footer />]} />
-          <Route path="/appointment" element={[<Header />, <Appointment />, <Footer />]} />
-          <Route path="/order" element={[<Header />, <Order />, <Footer />]} />
+          <Route exact path="/" element={[<Header />, <Home />, <Footer />]} />
+          <Route exact path="/admin" element={[<Header />, <Admin />, <Footer />]} />
+          <Route exact path="/appointment" element={[<Header />, <Appointment />, <Footer />]} />
+          <Route exact path="/order" element={[<Header />, <Order />, <Footer />]} />
+          <Route exact path="/order/menu" element={[<Header />, <OrderFood />, <Footer />]} />
           {/* </Route> */}
           <Route path="/login" element={<Login />} />
         </Routes>
