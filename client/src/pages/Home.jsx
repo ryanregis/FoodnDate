@@ -94,7 +94,7 @@ export default function Home() {
                     <Grid item sm={12} xs={12}>
                         <Typography align='center'  variant='h4' m={2} sx={{color:'primary.main'}}><b>BEST SELLERS</b></Typography>
                     </Grid>
-                    <Box px={10} sx={{ display: 'grid', gridTemplateColumns: {sm: '1fr 1fr', xs:'1fr'}, gridTemplateRows: { sm: '1fr 1fr 1fr'}, gap:3, justifyContent:'center'}}>
+                    <Box px={5} sx={{ display: 'grid', gridTemplateColumns: {sm: '1fr 1fr', xs:'1fr'}, gridTemplateRows: { sm: '1fr 1fr 1fr', xs: 'repeat(5, 1fr)'}, gap:3, justifyContent:'center'}}>
                         {besSel.map((item, index) => (
                             <Card sx={{gridColumn:index === 0 ? '1/3' : 'auto'}} className={classes.bestSeller} key={index}>
                                 <CardActionArea>
@@ -110,7 +110,6 @@ export default function Home() {
                                             <Typography variant='subtitle1' sx={{color:'neutral.main'}}>{item.type}</Typography>
                                             <Typography variant='h6' fontWeight={400}>{item.description}</Typography>
                                         </CardContent>
-
                                     </Box>
                                 </CardActionArea>
                             </Card>
