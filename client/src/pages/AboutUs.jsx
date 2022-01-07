@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles'
 import theme from '../Theme';
 import { ThemeProvider, Typography, Box, Card, CardActionArea, CardContent, CardMedia} from '@mui/material';
 import "../App.css";
-
+import {ronPic, ryanPic, ralphPic} from '../assets/images/images.js';
 
 const useStyles = makeStyles(() => ({
     aboutBg : {
@@ -19,6 +19,11 @@ const useStyles = makeStyles(() => ({
         borderRadius: '50%',
         objectFit: 'cover',
         margin:'auto'
+    },
+    ourTeam: {
+        textAlign: 'center',
+        padding: '4%',
+        boxShadow: '4px 4px 4px 4px #DD7878'
     },
 
 }))
@@ -44,22 +49,22 @@ const AboutUs = () => {
     ];
     const teamContent = [
         {
-            position: "Administration",
-            imgSource:'https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-            name:"Ryan Gerome Regis",
-            description: "To make your date more engaging through our virtual date meeting system and timely food delivery.",
-        }, 
-        {
             position: "Logistics",
-            imgSource:'https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+            imgSource: ronPic,
             name:"Ronald Velarde",
-            description: "To deliver the classy feeling of a restaurant even though you and your date are both staying at their corresponding homes.",
+            description: "It is always a goal to strive better in all ways possible and to exceed every high expectations by pushing ourself beyond the limits.",
+        },
+        {
+            position: "Administration",
+            imgSource: ryanPic,
+            name:"Ryan Gerome Regis",
+            description: "I believe such a mindset creates a sense of determination, ambition, and perseverance necessary to succeed in our growing world.",
         },
         {
             position: "Promotion",
-            imgSource:'https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+            imgSource: ralphPic,
             name:"Ralph Santolorin",
-            description: "To offer the most satisfying menu to satiate not just your body but also your soul."
+            description: "I am aware that flaws and imperfections not only motivates us to improve, but gives enough humility no matter how big we get in ."
         },
     ];
     return (
@@ -106,16 +111,15 @@ const AboutUs = () => {
                         {teamContent.map((item, index) => {
                                 return (
                                     
-                                        <Box className={styles.vision} mx='auto' key={index} p={10}>
-                                            <Card sx={{ maxWidth: 300, bgcolor: 'secondary.main', color: 'white.main', padding: '5%'}}>
+                                        <Box className={styles.ourTeam} mx='auto' key={index} p={10}>
+                                            <Card variant='contained' sx={{ maxWidth: 300, bgcolor: 'secondary.main', color: 'white.main', padding: '5%'}}>
                                                 <CardActionArea>
                                                 <   Typography gutterBottom variant="h5" component="div">
                                                         {item.position}
                                                     </Typography>
                                                     <CardMedia
                                                     component="img"
-
-                                                    image={item.imgSource}
+                                                    src={item.imgSource}
                                                     alt="profilepic"
                                                     className={styles.image}
                                                     />
