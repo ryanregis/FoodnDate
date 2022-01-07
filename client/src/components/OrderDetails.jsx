@@ -31,7 +31,7 @@ export default function OrderDetails(props) {
         <Paper square
             sx={{
                 color: "white.main", bgcolor: "secondary.main",
-                minHeight: "90vh", px: 3, py: 1.5
+                minHeight: "90vh", height: "100%", px: 3, py: 1.5
             }}>
             <Box display="flex" alignItems="center" gap={3}>
                 <Typography variant="h3">Order Details</Typography>

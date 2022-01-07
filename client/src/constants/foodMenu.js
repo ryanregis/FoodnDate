@@ -2,7 +2,7 @@ const foodMenu = [
     {
         course: `Appetizers / L'Entrée`,
         titles: [
-            "Concombre a la Menthe (Cucumber Salad with Mint Leaves)",
+            "Cucumber Salad with Mint Leaves",
             "Lyonnaise Salad", "Onion Galette",
             "Cheese Souffle", "Coquilles Saint-Jacques (Great Scallops)",
             "Olive Tapenade"
