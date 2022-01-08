@@ -1,41 +1,63 @@
+import {
+    souffle, cucumberSalad, coquilles, oliveTapenade, onionGalette, lyonnaise,
+    beefStew, bouillabaisse, cordonBleu, coqAuVin, ducklOrange, roastChicken,
+    croissant1, croqueMadame, croqueMonsieur, jambonBeurre, quicheLorraine,
+    canneles, coconutPie, mousse, meringue, pearTart, profiteroles, strawberryCake,
+    mimosa, redWine1, whiteWine,
+} from "../assets/images/images";
+
+
 const foodMenu = [
     {
         course: `Appetizers / L'Entrée`,
         titles: [
-            "Cucumber Salad with Mint Leaves",
-            "Lyonnaise Salad", "Onion Galette",
-            "Cheese Souffle", "Coquilles Saint-Jacques (Great Scallops)",
-            "Olive Tapenade"
+            {name: "Cucumber Salad with Mint Leaves", img: cucumberSalad},
+            {name: "Lyonnaise Salad", img: lyonnaise}, 
+            {name: "Onion Galette", img: onionGalette},
+            {name: "Cheese Souffle", img: souffle}, 
+            {name: "Coquilles Saint-Jacques (Great Scallops)", img: coquilles},
+            {name: "Olive Tapenade", img: oliveTapenade}
         ]
     },
     {
         course: `Main Course / Plat Principal`,
         titles: [
-            "Boeuf Bourguignon (Beef Stew)", "Coq Au Vin (Red Wine Chicken Stew)",
-            "Chicken Cordon Bleu", `Duck à l'Orange`, "Roasted Chicken with Herb Jus",
-            "Bouillabaisse"
+            {name: "Boeuf Bourguignon (Beef Stew)", img: beefStew}, 
+            {name: "Coq Au Vin (Red Wine Chicken Stew)", img: coqAuVin},
+            {name: "Chicken Cordon Bleu", img: cordonBleu}, 
+            {name: `Duck à l'Orange`, img: ducklOrange}, 
+            {name: "Roasted Chicken with Herb Jus", img: roastChicken},
+            {name: "Bouillabaisse", img: bouillabaisse}
         ]
     },
     {
         course: `Dessert / Le Dessert`,
         titles: [
-            "French Coconut Pie", "Passion Fruit and Lemon Meringue Tartlets",
-            "Pear Tart", "Strawberry Fraisier Chiffon Cake", "Profiteroles",
-            "Mousse Au Chocolat", "Cannelés de Bordeaux"
+            {name: "French Coconut Pie", img: coconutPie}, 
+            {name: "Passion Fruit and Lemon Meringue Tartlets", img: meringue},
+            {name: "Pear Tart", img: pearTart}, 
+            {name: "Strawberry Fraisier Chiffon Cake", img: strawberryCake}, 
+            {name: "Profiteroles", img: profiteroles},
+            {name: "Mousse Au Chocolat", img: mousse}, 
+            {name: "Cannelés de Bordeaux", img: canneles}
         ]
     },
     {
         course: `Side Dishes / Plat d'Accompagnement`,
         titles: [
-            "Quiche Lorraine", "Croque Monsieur", "Croque Madame", "Jambon - Beurre",
-            "Croissant"
+            {name: "Quiche Lorraine", img: quicheLorraine}, 
+            {name: "Croque Monsieur", img: croqueMonsieur}, 
+            {name: "Croque Madame", img: croqueMadame},
+            {name: "Jambon - Beurre", img: jambonBeurre},
+            {name: "Croissant", img: croissant1},
         ]
     },
     {
         course: `Drinks / Boissons`,
         titles: [
-            "Red Wine (Mouton Cadet Bordeaux Rouge)", "White Wine (Champagne)",
-            "Mimosa"
+            {name: "Red Wine (Mouton Cadet Bordeaux Rouge)", img: redWine1}, 
+            {name: "White Wine (Champagne)", img: whiteWine},
+            {name: "Mimosa", img: mimosa}
         ]
     }
 ];

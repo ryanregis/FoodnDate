@@ -10,7 +10,7 @@ import { makeStyles } from '@mui/styles';
 import theme from '../Theme';
 import { OrderDetails, OrderBreadcrumbs } from "../components";
 import { foodMenu } from '../constants';
-import { beefStew } from '../assets/images/images';
+import { beefStew1 } from '../assets/images/images';
 
 const useStyles = makeStyles(() => ({
     orderFood: {
@@ -52,14 +52,14 @@ function OrderFood() {
                         <Typography sx={{ mb: 2, color: "black.main" }} variant="h4" align="center" fontWeight={700}>
                             Food Menu
                         </Typography>
-                        <Divider classes={{ root: classes.mainDivider }} />
-                        <Box sx={{ maxHeight: "clamp(300px,60vh,800px)", overflowY: "auto", overflowX: "hidden" }}>
+                        {/* <Divider classes={{ root: classes.mainDivider }} /> */}
+                        <Box sx={{ border: "2px solid", borderColor: "secondary.main",maxHeight: "clamp(300px,60vh,800px)", overflowY: "auto", overflowX: "hidden" }}>
                             {
                                 foodMenu.map((food) => {
                                     return (
                                         <Box>
                                             <Box width="100%" display="flex" justifyContent="center">
-                                            <Chip sx={{ mt: 5, mb:2 }} color="primary" variant="outlined" label={
+                                            <Chip sx={{ mt: 7, mb:2 }} color="primary" variant="outlined" label={
                                                 <Typography variant="h6">
                                                     {food.course}
                                                 </Typography>
@@ -70,22 +70,21 @@ function OrderFood() {
                                                     gridAutoFlow: "column",
                                                     gridTemplateColumns: "repeat(auto-fit,minmax(350px,1fr)) !important",
                                                     gridAutoColumns: "minmax(350px, 1fr)",
-
                                                 }}>
                                                 {
                                                     food.titles.map((title) => {
                                                         return (
-                                                            <ImageListItem sx={{ border: "2px solid", borderColor: "secondary.main", mx: 2 }}>
+                                                            <ImageListItem sx={{ border: "2px solid", borderColor: "secondary.main", mx: 2, mb: 2 }}>
                                                                 <CardMedia
                                                                     component="img"
                                                                     height="150"
-                                                                    src={beefStew}
+                                                                    src={title.img}
                                                                 />
                                                                 <ImageListItemBar
                                                                     classes={{ titleWrap: classes.imgTextRoot, title: classes.imgTitle, subtitle: classes.imgSubtitle }}
-                                                                    sx={{ height: 100, p: 1 }} title={
+                                                                    sx={{ height: 100, p: 1, }} title={
                                                                         <Typography variant="body2" fontWeight={500} align="center">
-                                                                            {title}
+                                                                            {title.name}
                                                                         </Typography>
                                                                     } subtitle={
                                                                         <Button color="secondary" variant="outlined">
@@ -97,7 +96,7 @@ function OrderFood() {
                                                     })
                                                 }
                                             </ImageList>
-                                            <Divider />
+                                            
                                         </Box>
                                     )
                                 })
