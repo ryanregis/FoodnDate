@@ -19,7 +19,7 @@ export default function OrderDetails(props) {
     const classes = useStyles();
 
     let orderDetails = [
-        { label: "Order ID:", content: "" },
+        // { label: "Order ID:", content: "" },
         { label: "Order By:", content: "@user" },
         { label: `${"@user"}'s address:`, content: "" },
         { label: `SO's name:`, content: "" },
@@ -41,7 +41,7 @@ export default function OrderDetails(props) {
             }} sx={{ my: 2 }} />
             <Box>
                 {
-                    orderDetails.map(order => {
+                    orderDetails.map((order) => {
                         return (
                             <Box display="flex" alignItems="center" gap={2}>
                                 <Typography variant="subtitle1" fontWeight={300}>

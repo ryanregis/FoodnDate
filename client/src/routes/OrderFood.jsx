@@ -6,17 +6,14 @@ import {
     ImageList, ImageListItem, ImageListItemBar, CardMedia
 } from "@mui/material";
 import { makeStyles } from '@mui/styles';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 import theme from '../Theme';
 import { OrderDetails, OrderBreadcrumbs } from "../components";
 import { foodMenu } from '../constants';
-import { beefStew1 } from '../assets/images/images';
 
 const useStyles = makeStyles(() => ({
-    orderFood: {
-        minHeight: "60vh",
-        color: theme.palette.black.main,
-    },
     mainDivider: {
         backgroundColor: theme.palette.secondary.main,
         border: "none", height: 2, margin: "10px 0",
@@ -46,24 +43,24 @@ function OrderFood() {
     return (
         <Box>
             <Grid container spacing={2}>
-                <Grid item xs={12} md={8} className={classes.orderFood}>
+                <Grid item xs={12} md={8} sx={{mb:5}}>
                     <OrderBreadcrumbs current="orderFood" />
-                    <Paper elevation={12} sx={{ mx: 5, borderRadius: 5, p: 5 }}>
+                    <Paper elevation={12} sx={{ minHeight: "60vh", mx: 5, borderRadius: 5, p: 5 }}>
                         <Typography sx={{ mb: 2, color: "black.main" }} variant="h4" align="center" fontWeight={700}>
                             Food Menu
                         </Typography>
                         {/* <Divider classes={{ root: classes.mainDivider }} /> */}
-                        <Box sx={{ border: "2px solid", borderColor: "secondary.main",maxHeight: "clamp(300px,60vh,800px)", overflowY: "auto", overflowX: "hidden" }}>
+                        <Box sx={{ border: "2px solid", borderColor: "secondary.main", maxHeight: "clamp(300px,60vh,800px)", overflowY: "auto" }}>
                             {
                                 foodMenu.map((food) => {
                                     return (
                                         <Box>
                                             <Box width="100%" display="flex" justifyContent="center">
-                                            <Chip sx={{ mt: 7, mb:2 }} color="primary" variant="outlined" label={
-                                                <Typography variant="h6">
-                                                    {food.course}
-                                                </Typography>
-                                            } />
+                                                <Chip sx={{ mt: 7, mb: 2 }} color="primary" variant="outlined" label={
+                                                    <Typography variant="h6">
+                                                        {food.course}
+                                                    </Typography>
+                                                } />
                                             </Box>
                                             <ImageList
                                                 sx={{
@@ -96,11 +93,21 @@ function OrderFood() {
                                                     })
                                                 }
                                             </ImageList>
-                                            
+
                                         </Box>
                                     )
                                 })
                             }
+                        </Box>
+                        <Box mt={5} width="100%" display="flex" justifyContent="space-between" alignItems="center">
+                            <Button component={Link} to="/order" color="secondary" variant="contained" size='large'>
+                                <NavigateBeforeIcon fontSize="large" />
+                                <Typography variant="h6">View My Orders</Typography>
+                            </Button>
+                            <Button component={Link} to="/order/schedule" color="secondary" variant="contained" size='large'>
+                                <Typography variant="h6">Set Schedule/Delivery</Typography>
+                                <NavigateNextIcon fontSize="large" />
+                            </Button>
                         </Box>
                     </Paper>
                 </Grid>

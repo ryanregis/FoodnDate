@@ -58,11 +58,13 @@ export default function Footer() {
             <Grid container spacing={1}>
                 {gridTexts.map(content => {
                     return (
-                        <Grid item xs={12} md={6} lg>
+                        <Grid item xs={12} md={6} key={content.title} lg>
                             <Typography variant="footer_title">{content.title}</Typography>
                             <Box sx={styles.subtitleTexts}>
                                 {content.subtitles.map(text => {
-                                    return <Typography variant="footer_subtitle" fontSize="0.85em">{text}</Typography>
+                                    return (
+                                        <Typography key={text} variant="footer_subtitle" fontSize="0.85em">{text}</Typography>
+                                    )
                                 })}
                             </Box>
                         </Grid>
@@ -70,7 +72,7 @@ export default function Footer() {
                 })}
                 <Grid item xs={12} lg={4}>
                     <Typography variant="footer_title">Want to subscribe to our newsletter?</Typography>
-                    <Box sx={{mt: 0.05}}>
+                    <Box sx={{ mt: 0.05 }}>
                         <Typography variant="footer_subtitle">You will receive promotions, updates, and discounts when you subscribe.</Typography>
                     </Box>
                     <Box sx={{ mt: "5%", display: "flex" }}>

@@ -7,7 +7,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import "../App.css";
 
-const useStyles = makeStyles (() => ({
+const useStyles = makeStyles(() => ({
     setAppoint: {
         borderRadius: '20px',
         border: '2px solid #6A7EFC',
@@ -23,59 +23,65 @@ const useStyles = makeStyles (() => ({
     calendarDesign: {
         borderRadius: '20px',
         border: '2px solid #6A7EFC',
-    }, 
+    },
     memoDesign: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        
+
     },
 
 }))
 const Appointment = () => {
     const [value, setValue] = React.useState(new moment());
+    const [clock, setClock] = React.useState(`${moment().format('MMMM Do YYYY, h:mm a')}`);
     const classes = useStyles();
+    React.useEffect(() => {
+        setInterval(() => {
+            setClock(`${moment().format('MMMM Do YYYY, h:mm a')}`);
+        }, 0);
+    }, []);
     return (
         <div>
-                <Grid container sx={{bgcolor: 'white.main'}}>
-                    <Grid item alignItems='stretch' sm={3} xs={12} p={4} sx={{bgcolor: 'primary.main', color:'white.main'}}>
-                        <Box variant='contained'>
+            <Grid container sx={{ bgcolor: 'white.main' }}>
+                <Grid item alignItems='stretch' sm={3} xs={12} p={4} sx={{ bgcolor: 'primary.light', color: 'white.main' }}>
+                    <Box variant='contained'>
                         <Typography variant='h3'>Appointments</Typography>
-                        <Typography variant='body1'>You have no appointment yet</Typography>
-                        </Box>
-                    </Grid>
-                    <Grid p={5} container sm={9} xs={12}>
+                        <Typography variant='body1'>You have no appointments yet.</Typography>
+                    </Box>
+                </Grid>
+                <Grid item sm={9} xs={12}>
+                    <Grid container p={5} >
                         <Grid item sm={12} xs={12}>
                             <Box className={classes.setAppoint}>
                                 Hey @user has someone invited you for a virtual date?
                                 <Box >
                                     <form>
-                                        <TextField className={classes.fieldInput} variant='outlined' label='Enter invite code'  />
-                                        <Button className={classes.fieldInput} variant='contained' sx={{bgcolor:'primary.main'}}>Set Appointment</Button>
+                                        <TextField className={classes.fieldInput} variant='outlined' label='Enter invite code' />
+                                        <Button className={classes.fieldInput} variant='contained' sx={{ bgcolor: 'primary.main' }}>Set Appointment</Button>
                                     </form>
                                 </Box>
                             </Box>
                         </Grid>
 
                         <Grid p={5} item sm={6} xs={12}>
-                            <Card  className={classes.calendarDesign}>
+                            <Card className={classes.calendarDesign}>
                                 <CardActionArea>
                                     <CardContent className='intro'>
-                                    <Typography gutterBottom variant="body1" component="div">
-                                        Current Date and Time: {<br/>} 
-                                        12/20/2021 12:30 A.M. {<br/>} 
-                                        No Upcoming Virtual Date Appointment Yet.
-                                    </Typography>
+                                        <Typography gutterBottom variant="body1" component="div">
+                                            Current Date and Time: {<br />}
+                                            {clock} {<br />}
+                                            No Upcoming Virtual Date Appointment Yet.
+                                        </Typography>
                                     </CardContent>
                                     <CardContent align='center'>
                                         <LocalizationProvider dateAdapter={DateAdapter}>
                                             <StaticDatePicker
-                                                className={classes.calendar}
                                                 displayStaticWrapperAs="desktop"
                                                 openTo="day"
                                                 value={value}
                                                 onChange={(newValue) => {
-                                                setValue(newValue);
+                                                    setValue(newValue);
                                                 }}
                                                 renderInput={(params) => <TextField  {...params} />}
                                             />
@@ -85,17 +91,17 @@ const Appointment = () => {
                             </Card>
                         </Grid>
                         <Grid p={5} item sm={6} xs={12}>
-                            <Card  className={classes.calendarDesign}>
+                            <Card className={classes.calendarDesign}>
                                 <CardActionArea>
                                     <CardContent className='our-story'>
-                                    <Typography gutterBottom variant="h3" component="div" sx={{color:'white.main'}}>
-                                        Memo
-                                    </Typography>
+                                        <Typography gutterBottom variant="h3" component="div" sx={{ color: 'white.main' }}>
+                                            Memo
+                                        </Typography>
                                     </CardContent>
                                     <CardContent className={classes.memoDesign}>
                                         <form>
-                                            <TextField className={classes.fieldInput} variant='outlined' label='Input Details'  />
-                                            <Button className={classes.fieldInput} variant='contained' sx={{bgcolor:'primary.main'}}>Save</Button>
+                                            <TextField className={classes.fieldInput} variant='outlined' label='Input Details' />
+                                            <Button className={classes.fieldInput} variant='contained' sx={{ bgcolor: 'primary.main' }}>Save</Button>
                                         </form>
                                     </CardContent>
                                 </CardActionArea>
@@ -103,6 +109,7 @@ const Appointment = () => {
                         </Grid>
                     </Grid>
                 </Grid>
+            </Grid>
         </div>
     )
 }

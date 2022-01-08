@@ -82,20 +82,13 @@ let theme = createTheme({
 
 theme = createTheme(theme, {
   components: {
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-
-        }
-      }
-    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
           color: theme.palette.black.main,
-        },
-        focused: {
-          color: theme.palette.secondary.main,
+          "&.Mui-focused": {
+            color: theme.palette.secondary.main,
+          }
         },
         notchedOutline: {
           borderWidth: "3px !important",

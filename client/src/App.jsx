@@ -5,11 +5,8 @@ import theme from "./Theme";
 import './App.css';
 
 import { Header, Footer } from "./components";
-import { Login, Home, Admin, Appointment, Order } from "./pages";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import AboutUs from "./pages/AboutUs";
-import ContactUs from "./pages/ContactUs";
-import OrderFood from "./routes/OrderFood";
+import { Login, Home, Admin, Appointment, Order, AboutUs, ContactUs } from "./pages";
+import { ProtectedRoute, OrderFood, SetSchedule, Shipping, Payment } from "./routes";
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -18,7 +15,6 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <Routes>
-          {/* <Route exact path="/" element={<ProtectedRoute login={isLoggedIn} />}> */}
           <Route exact path="/" element={[<Header />, <Home />, <Footer />]} />
           <Route exact path="/admin" element={[<Header />, <Admin />, <Footer />]} />
           <Route exact path="/appointment" element={[<Header />, <Appointment />, <Footer />]} />
@@ -26,6 +22,9 @@ function App() {
           <Route path="/contact" element={[<Header />, <ContactUs />, <Footer />]} />
           <Route exact path="/order" element={[<Header />, <Order />, <Footer />]} />
           <Route exact path="/order/menu" element={[<Header />, <OrderFood />, <Footer />]} />
+          <Route exact path="/order/schedule" element={[<Header />, <SetSchedule />, <Footer />]} />
+          <Route exact path="/order/shipping" element={[<Header />, <Shipping />, <Footer />]} />
+          <Route exact path="/order/payment" element={[<Header />, <Payment />, <Footer />]} />
           {/* </Route> */}
           <Route path="/login" element={<Login />} />
         </Routes>

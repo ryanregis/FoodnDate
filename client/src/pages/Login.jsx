@@ -67,6 +67,7 @@ export default function Login(props) {
     const handleOpenReg = () => { setOpenReg(true) };
     const handleCloseReg = () => { setOpenReg(false) };
     const handleLogin = () => { props.setLogin(true) };
+
     return (
         <Box className="login">
             <Box className={classes.container}>
@@ -81,13 +82,13 @@ export default function Login(props) {
             </Box>
             <Box className={classes.container}>
                 <Paper className={classes.loginForm} sx={{ borderRadius: 10, }}>
-                    <form className={classes.loginCreds}>
+                    <form className={classes.loginCreds} onSubmit={handleLogin}>
                         <TextField required autoFocus fullWidth name="email" type="email" color="secondary" variant="outlined"
                             label="Email Address" />
                         <TextField required fullWidth name="password" type="password" color="secondary" variant="outlined"
                             label="Password" />
 
-                        <Button fullWidth component={Link} to="/" onClick={handleLogin} color="secondary" variant="contained">
+                        <Button fullWidth component={Link} to="/" type="submit" color="secondary" variant="contained">
                             <Typography fontSize="1.125rem" fontWeight={500}>Log In</Typography>
                         </Button>
                     </form>

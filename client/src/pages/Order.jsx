@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Paper, Typography, Button, Divider } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-
+import NavigateNext from '@mui/icons-material/NavigateNext';
 import { OrderTable } from '../components';
 import theme from "../Theme";
 
@@ -30,15 +30,21 @@ export default function Order() {
                 <Typography sx={{ mb: 4, color: "black.main" }} align="center" variant="h4" fontWeight={500}>
                     My Orders
                 </Typography>
+                <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" my={3}>
+                    <Button component={Link} to="menu" variant="contained" color="secondary" size='large'>
+                        <Typography variant="h6">
+                        Order Food    
+                        </Typography> 
+                        <NavigateNext />
+                    </Button>
+                </Box>
                 <Divider />
                 <OrderTable />
+                <Typography align="center" my={3} sx={{ color: "black.main" }}>
+                    It seems you don't have any orders.
+                </Typography>
                 <Divider />
-                <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" mt={3}>
-                    <Typography align="center" mb={3} sx={{ color: "black.main" }}>
-                        It seems you don't have any orders.
-                    </Typography>
-                    <Button component={Link} to="menu" variant="contained" color="secondary">Order Now</Button>
-                </Box>
+
             </Paper>
         </Box>
     )
