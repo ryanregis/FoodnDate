@@ -7,6 +7,8 @@ import './App.css';
 import { Header, Footer } from "./components";
 import { Login, Home, Admin, Appointment, Order } from "./pages";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
 import OrderFood from "./routes/OrderFood";
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
           <Route exact path="/" element={[<Header />, <Home />, <Footer />]} />
           <Route exact path="/admin" element={[<Header />, <Admin />, <Footer />]} />
           <Route exact path="/appointment" element={[<Header />, <Appointment />, <Footer />]} />
+          <Route path="/about" element={[<Header />, <AboutUs />, <Footer />]} />
+          <Route path="/contact" element={[<Header />, <ContactUs />, <Footer />]} />
           <Route exact path="/order" element={[<Header />, <Order />, <Footer />]} />
           <Route exact path="/order/menu" element={[<Header />, <OrderFood />, <Footer />]} />
           {/* </Route> */}
