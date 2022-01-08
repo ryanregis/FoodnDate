@@ -58,19 +58,19 @@ function OrderFood() {
                                 foodMenu.map((food) => {
                                     return (
                                         <Box>
-                                            <Divider  >
-                                                <Chip sx={{ my: 2 }} color="primary" variant="outlined" label={
-                                                    <Typography variant="h6">
-                                                        {food.course}
-                                                    </Typography>
-                                                } />
-                                            </Divider>
+                                            <Box width="100%" display="flex" justifyContent="center">
+                                            <Chip sx={{ mt: 5, mb:2 }} color="primary" variant="outlined" label={
+                                                <Typography variant="h6">
+                                                    {food.course}
+                                                </Typography>
+                                            } />
+                                            </Box>
                                             <ImageList
                                                 sx={{
                                                     gridAutoFlow: "column",
                                                     gridTemplateColumns: "repeat(auto-fit,minmax(350px,1fr)) !important",
                                                     gridAutoColumns: "minmax(350px, 1fr)",
-                                                    
+
                                                 }}>
                                                 {
                                                     food.titles.map((title) => {
@@ -97,6 +97,7 @@ function OrderFood() {
                                                     })
                                                 }
                                             </ImageList>
+                                            <Divider />
                                         </Box>
                                     )
                                 })
