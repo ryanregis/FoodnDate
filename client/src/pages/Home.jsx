@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import Carousel from 'react-material-ui-carousel';
 import "../App.css";
-import {beefStew, cheeseSouffle, mousseChocolat, redWine, croissant} from '../assets/images/images.js';
+import {beefStew1, cheeseSouffle, mousseChocolat, redWine, croissant} from '../assets/images/images.js';
 import theme from '../Theme';
 
 const useStyles = makeStyles(() => ({
@@ -43,7 +43,7 @@ export default function Home() {
       ];
     const besSel = [
         {
-            imgSrc: beefStew,
+            imgSrc: beefStew1,
             title: 'Boeuf Bourguignon (Beef Stew)',
             type: 'Main Dish',
             description: 'The staple for those looking for a comfort food. And gives the fresh aroma of the herbs with its melt in the mouth gelatinous texture of the meat',
