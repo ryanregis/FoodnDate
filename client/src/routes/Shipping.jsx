@@ -22,18 +22,25 @@ const useStyles = makeStyles(() => ({
 
 function Shipping() {
     const classes = useStyles();
-
+    const [defAddressChoice, setDefAddressChoice] = React.useState(null);
     return (
         <Box>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={8} sx={{ mb: 5 }}>
                     <OrderBreadcrumbs current="shipping" />
-                    <Paper elevation={12} sx={{minHeight: "60vh", mx: 5, borderRadius: 5, p: 5 }}>
+                    <Paper elevation={12} sx={{ minHeight: "60vh", mx: 5, borderRadius: 5, p: 5 }}>
                         <Typography sx={{ mb: 2, color: "black.main" }} variant="h4" align="center" fontWeight={700}>
                             Shipping
                         </Typography>
-                        <Box sx={{ border: "2px solid", borderColor: "secondary.main", height: "clamp(300px,60vh,800px)"}}>
-
+                        <Box sx={{ border: "2px solid", borderColor: "secondary.main", height: "clamp(300px,60vh,800px)" }}>
+                            <Typography>
+                                Use default address?
+                            </Typography>
+                            <RadioGroup row value={defAddressChoice}
+                                onChange={(e) => setDefAddressChoice(e.target.value)}>
+                                <FormControlLabel value="yes" control={<Radio color="secondary" required />} label="Yes" />
+                                <FormControlLabel value="no" control={<Radio color="secondary" required />} label="No" />
+                            </RadioGroup>
                         </Box>
                         <Box mt={5} width="100%" display="flex" justifyContent="space-between" alignItems="center">
                             <Button component={Link} to="/order/schedule" color="secondary" variant="contained" size='large'>
