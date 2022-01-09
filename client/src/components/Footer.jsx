@@ -8,7 +8,7 @@ const styles = {
         color: "white.main",
         px: "clamp(50px, 7%, 200px)",
         py: "2%",
-        position: 'absolute',
+        position: "absolute",
         left: 0,
         right: 0
     },

@@ -86,9 +86,9 @@ theme = createTheme(theme, {
       styleOverrides: {
         root: {
           color: theme.palette.black.main,
-          "&.Mui-focused": {
-            color: theme.palette.secondary.main,
-          }
+        },
+        focused: {
+          color: theme.palette.secondary.main,
         },
         notchedOutline: {
           borderWidth: "3px !important",

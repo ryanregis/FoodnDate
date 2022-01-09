@@ -1,10 +1,13 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+
+import { ACTIONS, OrderContext } from '../context/OrderContext';
 
 import {
-    Paper, Box, Typography, Chip, Grid, Divider, Button,
-    ImageList, ImageListItem, ImageListItemBar, CardMedia
+    Paper, Box, Typography, Grid, Button,
+    RadioGroup, Radio, FormControlLabel, TextField
 } from "@mui/material";
+
 import { makeStyles } from '@mui/styles';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
@@ -13,16 +16,13 @@ import theme from '../Theme';
 import { OrderDetails, OrderBreadcrumbs } from "../components";
 
 
-const useStyles = makeStyles(() => ({
-    mainDivider: {
-        backgroundColor: theme.palette.secondary.main,
-        border: "none", height: 2, margin: "10px 0",
-    }
-}));
+
 
 function Shipping() {
-    const classes = useStyles();
     const [defAddressChoice, setDefAddressChoice] = React.useState(null);
+
+    const { state, dispatch } = useContext(OrderContext);
+
     return (
         <Box>
             <Grid container spacing={2}>
@@ -32,16 +32,54 @@ function Shipping() {
                         <Typography sx={{ mb: 2, color: "black.main" }} variant="h4" align="center" fontWeight={700}>
                             Shipping
                         </Typography>
-                        <Box sx={{ border: "2px solid", borderColor: "secondary.main", height: "clamp(300px,60vh,800px)" }}>
-                            <Typography>
-                                Use default address?
-                            </Typography>
-                            <RadioGroup row value={defAddressChoice}
-                                onChange={(e) => setDefAddressChoice(e.target.value)}>
-                                <FormControlLabel value="yes" control={<Radio color="secondary" required />} label="Yes" />
-                                <FormControlLabel value="no" control={<Radio color="secondary" required />} label="No" />
-                            </RadioGroup>
+                        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" sx={{ border: "2px solid", borderColor: "secondary.main", height: "clamp(300px,60vh,800px)" }}>
+                            <Box width="50%" justifyContent="space-between" display="flex" alignItems="center" gap={2} >
+                                <Typography variant="h6">
+                                    Use registered address?
+                                </Typography>
+                                <RadioGroup row value={defAddressChoice}
+                                    onChange={(e) => setDefAddressChoice(e.target.value)}>
+                                    <FormControlLabel value="yes" control={<Radio color="secondary" size="large" required />} label={
+                                        <Typography variant="h6">Yes</Typography>
+                                    } />
+                                    <FormControlLabel value="no" control={<Radio color="secondary" size="large" required />} label={
+                                        <Typography variant="h6">No</Typography>
+                                    } />
+                                </RadioGroup>
+                            </Box>
+                            {defAddressChoice === "no" &&
+                                <Box mt={5} width="50%">
+                                    <Box mb={2} display="flex" justifyContent="space-between" alignItems="center">
+                                        <Typography variant="h6">
+                                            Input new delivery address:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            required color="secondary"
+                                            label="New Delivery Address"
+                                        />
+                                    </Box>
+                                </Box>
+                            }
+
+                            {
+                                state.forADate === "yes"  &&
+
+                                <Box mt={5} width="50%" >
+                                    <Box mb={2} display="flex" justifyContent="space-between" alignItems="center" gap={3}>
+                                        <Typography variant="h6">
+                                            Enter SO's address:
+                                        </Typography>
+                                        <TextField
+                                            variant="outlined"
+                                            required color="secondary"
+                                            label="SO's Delivery Address"
+                                        />
+                                    </Box>
+                                </Box>}
                         </Box>
+
+
                         <Box mt={5} width="100%" display="flex" justifyContent="space-between" alignItems="center">
                             <Button component={Link} to="/order/schedule" color="secondary" variant="contained" size='large'>
                                 <NavigateBeforeIcon fontSize="large" />

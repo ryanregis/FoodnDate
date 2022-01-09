@@ -12,3 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root {
+  z-index: 0;
+}
+
+.swal2-container{
+  z-index: 10000 !important;
+}
