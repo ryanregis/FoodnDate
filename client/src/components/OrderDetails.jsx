@@ -1,15 +1,19 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-import { OrderContext } from '../context/OrderContext';
+import { ACTIONS, OrderContext } from '../context/OrderContext';
 
-import { Paper, Box, Typography, Divider, Button } from "@mui/material";
+import { Paper, Box, Typography, Divider, Button, IconButton, Card, CardMedia, CardContent } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined';
+import ClearIcon from '@mui/icons-material/Clear';
 
 import theme from '../Theme';
 import swal from 'sweetalert';
+import Clear from '@mui/icons-material/Clear';
 
 const useStyles = makeStyles(() => ({
     divider: {
@@ -24,7 +28,8 @@ export default function OrderDetails(props) {
     const classes = useStyles();
     const navigate = useNavigate();
     const { state, dispatch } = useContext(OrderContext);
-    const { userName, userAddress, forADate, sOName, sOAddress, paymentMethod, schedule } = state;
+    const { userName, userAddress, forADate, sOName, sOAddress, paymentMethod, schedule, items } = state;
+
 
 
     const orderDetails = [
@@ -41,6 +46,16 @@ export default function OrderDetails(props) {
         swal("Success!", "Hope you enjoy your food", "success");
         navigate("/order");
     };
+
+    const handleAdd = (e, foodItem) => {
+        dispatch({ type: ACTIONS.addQuantity, payload: foodItem });
+    }
+    const handleMinus = (e, foodItem) => {
+        dispatch({ type: ACTIONS.minusQuantity, payload: foodItem });
+    }
+    const handleRemoveFromCart = (e, foodItem) => {
+        dispatch({ type: ACTIONS.removeFromCart, payload: foodItem });
+    }
 
     return (
         <Paper square
@@ -81,9 +96,63 @@ export default function OrderDetails(props) {
                     <ShoppingCartIcon fontSize="large" />
                 </Box>
                 <Paper sx={{ mt: 2, height: 300, p: 2, overflowY: "auto" }}>
-                    <Typography>
-                        Food Ordered:
-                    </Typography>
+                    <Box width="100%">
+                        {
+                            items.length >= 1 ?
+                                items.map((item, index) => {
+                                    return (
+                                        <Card key={item.name + index} sx={{
+                                            height: 120,
+                                            my: 2,
+                                            display: "flex", justifyContent: "space-between", alignItems: "stretch"
+                                        }}>
+                                            <CardMedia
+                                                component="img"
+                                                sx={{ width: 130 }}
+                                                image={item.img}
+                                                alt={item.name}
+                                            />
+                                            <Box width="60%" >
+                                                <CardContent display="flex" flexDirection="column" justifyContent="space-between">
+                                                    <Box>
+                                                        <Typography variant="subtitle1">
+                                                            {item.name}
+                                                        </Typography>
+                                                        <Typography variant="body2">
+                                                            {item.course}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                                                        <Typography>
+                                                            Quantity: {item.quantity}
+                                                        </Typography>
+                                                        <Box>
+                                                            <IconButton onClick={(e) => handleMinus(e, item)}>
+                                                                <IndeterminateCheckBoxOutlinedIcon
+                                                                    fontSize="medium" color="black" />
+                                                            </IconButton>
+                                                            <IconButton onClick={(e) => handleAdd(e, item)}>
+                                                                <AddBoxOutlinedIcon
+                                                                    fontSize="medium" color="black" />
+                                                            </IconButton>
+                                                        </Box>
+                                                    </Box>
+                                                </CardContent>
+                                            </Box>
+                                            <Box display="flex" alignItems="center">
+                                                <IconButton onClick={(e) => handleRemoveFromCart(e, item)}>
+                                                    <ClearIcon color="primary" fontSize="large" />
+                                                </IconButton>
+                                            </Box>
+                                        </Card>
+                                    )
+                                })
+                                :
+                                <Typography>
+                                    No items added yet.
+                                </Typography>
+                        }
+                    </Box>
                 </Paper>
             </Box>
             <Divider classes={{

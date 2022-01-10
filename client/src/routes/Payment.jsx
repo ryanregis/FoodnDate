@@ -1,5 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, {useContext} from 'react'
+import { Link,  useNavigate } from 'react-router-dom';
+
+import { OrderContext, ACTIONS } from '../context/OrderContext';
 
 import {
     Paper, Box, Typography, Chip, Grid, Divider, Button,
@@ -20,9 +22,21 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
+
+
 function Payment() {
+    const navigate = useNavigate();
     const classes = useStyles();
     const [payMethod, setPayMethod] = React.useState(null);
+    const {state, dispatch} = useContext(OrderContext);
+
+    const handleNext = () => {
+        if(payMethod === null || payMethod === "") swal("Please select payment method.", "", "warning");
+        else {
+            dispatch({type: ACTIONS.changePayMethod, payload: payMethod});
+            navigate("/order/review");
+        }
+    };
     return (
         <Box>
             <Grid container spacing={2}>
