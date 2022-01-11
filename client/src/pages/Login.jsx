@@ -66,7 +66,15 @@ export default function Login(props) {
     const [openReg, setOpenReg] = React.useState(false);
     const handleOpenReg = () => { setOpenReg(true) };
     const handleCloseReg = () => { setOpenReg(false) };
-    const handleLogin = () => { props.setLogin(true) };
+    
+    const handleLogin = (e) => { 
+        e.preventDefault();
+
+        props.setLogin(true) 
+    };
+
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
 
     return (
         <Box className="login">
@@ -82,11 +90,11 @@ export default function Login(props) {
             </Box>
             <Box className={classes.container}>
                 <Paper className={classes.loginForm} sx={{ borderRadius: 10, }}>
-                    <form className={classes.loginCreds} onSubmit={handleLogin}>
-                        <TextField required autoFocus fullWidth name="email" type="email" color="secondary" variant="outlined"
-                            label="Email Address" />
-                        <TextField required fullWidth name="password" type="password" color="secondary" variant="outlined"
-                            label="Password" />
+                    <form name="login" className={classes.loginCreds} onSubmit={handleLogin}>
+                        <TextField required autoFocus fullWidth name="email" type="email" color="secondary" variant="outlined" label="Email Address"
+                        value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <TextField required fullWidth name="password" type="password" color="secondary" variant="outlined" label="Password"
+                        value={password} onChange={e => setPassword(e.target.value)} />
 
                         <Button fullWidth component={Link} to="/" type="submit" color="secondary" variant="contained">
                             <Typography fontSize="1.125rem" fontWeight={500}>Log In</Typography>

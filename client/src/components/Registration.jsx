@@ -5,6 +5,8 @@ import theme from '../Theme';
 
 import CloseIcon from '@mui/icons-material/Close';
 
+import axios from 'axios';
+import swal from "sweetalert";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -36,13 +38,63 @@ const useStyles = makeStyles(() => ({
 
 export default function Registration(props) {
     const classes = useStyles();
-    const [has_allergies, setAllergies] = React.useState("");
+    const [textInput, setTextInput] = React.useState({
+        first_name: "",
+        last_name: "",
+        contact_number: 639,
+        address: "",
+        email: "",
+        password: "",
+        confirm_password: "",
+    });
+    const handleInput = (e) => {
+        return (
+            setTextInput({
+                ...textInput,
+                [e.target.name]: e.target.value
+            })
+        )
+    }
+    const [has_allergy, setAllergies] = React.useState(0);
+    const [allergens, setAllergens] = React.useState("No Allergens");
     const [checked_promotions, setCheckedPromotions] = React.useState(false);
-
+    const [relationship_status, setRelStatus] = React.useState(false);
+    const [gender, setGender] = React.useState(1);
+    const [sexual_orientation, setOrientation] = React.useState(1);
     const handleCheckPromotions = (e) => { setCheckedPromotions(e.target.checked) };
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (textInput.password !== textInput.confirm_password) {
+            swal("Mismatched Password!", "Input Passwords don't match. Please try again.", "error");
+            setTimeout(() => document.register.password.focus(), 1000 );
+        }
+        else {
+            const data = {
+                first_name: textInput.first_name,
+                last_name: textInput.last_name,
+                contact_number: textInput.contact_number,
+                address: textInput.address,
+                email: textInput.email,
+                password: textInput.password,
+                has_allergy,
+                allergens,
+                relationship_status,
+                gender, sexual_orientation,
+                checked_promotions: checked_promotions ? 1 : 0
+            }
+            console.log(data);
+            axios.post("http://localhost:5000/api/register", data).then((response) =>{
+                if(response.data.stat === "success"){
+                    swal("Success!", response.data.message, response.data.stat);
+                    props.closeModal();
+                } else {
+                    swal("Error!", response.data.message, response.data.stat)
+                }
+            })
+        }
     };
+
     const personalInfoFieldInputs = [
         { label: "First Name", name: "first_name" }, { label: "Last Name", name: "last_name" },
         { label: "Contact Number", name: "contact_number", type: "number" },
@@ -89,7 +141,7 @@ export default function Registration(props) {
             <Divider><Typography variant="subtitle2">Personal Information</Typography></Divider>
 
             <Box className={classes.inputFields}>
-                <form onSubmit={handleSubmit}>
+                <form name="register" onSubmit={handleSubmit}>
                     <Grid container spacing={1.5} mb={2}>
                         {personalInfoFieldInputs.map(input => {
                             return (
@@ -104,24 +156,29 @@ export default function Registration(props) {
                                                 </Typography>
 
                                                 <RadioGroup row
-                                                    name="has_allergies" value={has_allergies}
+                                                    name="has_allergy" value={has_allergy}
                                                     onChange={(e) => setAllergies(e.target.value)}>
-                                                    <FormControlLabel value="yes" control={<Radio required size="small" color="secondary" />} label={<Typography fontSize="0.85rem">Yes</Typography>} />
-                                                    <FormControlLabel value="no" control={<Radio required size="small" color="secondary" />} label={<Typography fontSize="0.85rem">No</Typography>} />
+                                                    <FormControlLabel value={1} control={<Radio required size="small" color="secondary" />} label={<Typography fontSize="0.85rem">Yes</Typography>} />
+                                                    <FormControlLabel value={0} control={<Radio required size="small" color="secondary" />} label={<Typography fontSize="0.85rem">No</Typography>} />
                                                 </RadioGroup>
 
                                             </Box>
-                                            <Box className={classes.allergyInput}>
-                                                <TextField required={has_allergies === "yes"}
-                                                    size="small" disabled={has_allergies === "no" || !has_allergies} color="secondary" label="Input allergens here..."
-                                                    helperText={has_allergies === "yes" ? "peanuts, dairy, gluten ..." : ""}
+                                            <Box mt={3} className={classes.allergyInput}>
+                                                <TextField
+                                                    value={has_allergy == 0 ? "No Allergens" : allergens}
+                                                    onChange={e => setAllergens(e.target.value)}
+                                                    required={has_allergy == 1}
+                                                    size="small" disabled={has_allergy == 0 } color="secondary" label="Input allergens here..."
+                                                    helperText={has_allergy == 1 ? "peanuts, dairy, gluten ..." : " "}
                                                 />
                                             </Box>
                                         </Box>
                                     </Grid>
 
-                                    : <Grid item xs={12} md={input.name === "address" ? 7 : 4}>
+                                    : <Grid item xs={12} md={input.name === "address" ? 7 : 4} sx={{mt: input.name === "address" ? 2 : 0}}>
                                         <TextField fullWidth required
+                                            value={eval(`textInput.${input.name}`)}
+                                            onChange={handleInput}
                                             className={classes.inputLabel}
                                             type={input.type ? input.type : "text"}
                                             size="small" variant="outlined"
@@ -143,7 +200,10 @@ export default function Registration(props) {
                                         <Typography>
                                             Are you in a relationship? <span style={{ color: theme.palette.primary.main }}>*</span>
                                         </Typography>
-                                        <RadioGroup row name={input.name}>
+                                        <RadioGroup
+                                            value={relationship_status}
+                                            onChange={e => setRelStatus(e.target.value)} row
+                                            name={input.name}>
                                             <FormControlLabel value="taken" control={<Radio color="secondary" required />} label="Yes" />
                                             <FormControlLabel value="single" control={<Radio color="secondary" required />} label="No" />
                                             <FormControlLabel value="complicated" control={<Radio color="secondary" required />} label="It's complicated" />
@@ -165,6 +225,8 @@ export default function Registration(props) {
 
                                             : <Grid item xs={12} md={4}>
                                                 <TextField fullWidth required
+                                                    value={input.name === "gender" ? gender : sexual_orientation}
+                                                    onChange={input.name === "gender" ? (e) => setGender(e.target.value) : (e) => setOrientation(e.target.value)}
                                                     className={classes.inputLabel}
                                                     select
                                                     size="small" variant="outlined"
