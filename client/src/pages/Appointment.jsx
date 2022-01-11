@@ -7,6 +7,10 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import "../App.css";
 
+import VideoPlayer from '../components/VideoPlayer';
+import Options from '../components/Options';
+import Notifications from '../components/Notifications';
+
 const useStyles = makeStyles(() => ({
     setAppoint: {
         borderRadius: '20px',
@@ -29,6 +33,12 @@ const useStyles = makeStyles(() => ({
         flexDirection: 'column',
         justifyContent: 'center',
     },
+    wrapper: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+      },
 
 }))
 let storeInfo = localStorage.getItem('memos' ) ? JSON.parse(localStorage.getItem('memos')) : [];
@@ -94,7 +104,7 @@ const Appointment = () => {
                 </Grid>
                 <Grid item sm={9} xs={12}>
                     <Grid container p={5} >
-                        <Grid item sm={12} xs={12}>
+                        <Grid item md={12} sm={12}>
                             <Box className={classes.setAppoint}>
                                 Hey @user has someone invited you for a virtual date?
                                 <Box >
@@ -106,7 +116,7 @@ const Appointment = () => {
                             </Box>
                         </Grid>
 
-                        <Grid p={5} item sm={6} xs={12}>
+                        <Grid p={5} item md={6} sm={12}>
                             <Card className={classes.calendarDesign}>
                                 <CardActionArea>
                                     <CardContent className='intro'>
@@ -132,7 +142,7 @@ const Appointment = () => {
                                 </CardActionArea>
                             </Card>
                         </Grid>
-                        <Grid p={5} item sm={6} xs={12}>
+                        <Grid p={5} item md={6} sm={12}>
                             <Card className={classes.calendarDesign}>
                                 <CardActionArea>
                                     <CardContent className='our-story'>
@@ -169,6 +179,17 @@ const Appointment = () => {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
+                        </Grid>
+                        <Grid  p={5} item md={12} sm={12}>
+                                
+                                <div className={classes.wrapper}>
+                                    <Typography variant='h3' align='center'>Video Chat</Typography>
+                                    <VideoPlayer/>
+                                    <Options>
+                                        <Notifications/>
+                                    </Options>
+                                </div>                                    
+                                                                 
                         </Grid>
                     </Grid>
                 </Grid>
