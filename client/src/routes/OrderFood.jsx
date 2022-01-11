@@ -1,13 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+
+import { ACTIONS, OrderContext } from "../context/OrderContext";
 
 import {
     Paper, Box, Typography, Chip, Grid, Divider, Button,
     ImageList, ImageListItem, ImageListItemBar, CardMedia
 } from "@mui/material";
+
 import { makeStyles } from '@mui/styles';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+
+import swal from "sweetalert";
 
 import theme from '../Theme';
 import { OrderDetails, OrderBreadcrumbs } from "../components";
@@ -38,12 +43,27 @@ const useStyles = makeStyles(() => ({
 }));
 
 function OrderFood() {
+    const navigate = useNavigate();
     const classes = useStyles();
+    const { state, dispatch } = useContext(OrderContext);
+
+    const handleAddToCart = (e, foodItem) => {
+        dispatch({ type: ACTIONS.addToCart, payload: { ...foodItem, quantity: 1 } })
+    }
+
+    const handleNext = () => {
+        if(state.items.length >= 1 && state.items.every(item => item.quantity >= 1)){
+            navigate("/order/schedule");
+        } else {
+            swal("Please select food to order", "", "warning");
+        }
+    };
+    
 
     return (
         <Box>
             <Grid container spacing={2}>
-                <Grid item xs={12} md={8} sx={{mb:5}}>
+                <Grid item xs={12} md={8} sx={{ mb: 5 }}>
                     <OrderBreadcrumbs current="orderFood" />
                     <Paper elevation={12} sx={{ minHeight: "60vh", mx: 5, borderRadius: 5, p: 5 }}>
                         <Typography sx={{ mb: 2, color: "black.main" }} variant="h4" align="center" fontWeight={700}>
@@ -84,9 +104,10 @@ function OrderFood() {
                                                                             {title.name}
                                                                         </Typography>
                                                                     } subtitle={
-                                                                        <Button color="secondary" variant="outlined">
+                                                                        <Button color="secondary" variant="outlined" onClick={(e) => handleAddToCart(e, { name: title.name, course: food.course, img: title.img })}>
                                                                             Add to Cart
                                                                         </Button>
+
                                                                     } position="below" />
                                                             </ImageListItem>
                                                         )
@@ -104,7 +125,7 @@ function OrderFood() {
                                 <NavigateBeforeIcon fontSize="large" />
                                 <Typography variant="h6">View My Orders</Typography>
                             </Button>
-                            <Button component={Link} to="/order/schedule" color="secondary" variant="contained" size='large'>
+                            <Button onClick={handleNext} color="secondary" variant="contained" size='large'>
                                 <Typography variant="h6">Set Schedule/Delivery</Typography>
                                 <NavigateNextIcon fontSize="large" />
                             </Button>

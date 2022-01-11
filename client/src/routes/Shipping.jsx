@@ -15,14 +15,34 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import theme from '../Theme';
 import { OrderDetails, OrderBreadcrumbs } from "../components";
 
-
+import swal from "sweetalert";
 
 
 function Shipping() {
+    const navigate = useNavigate();
     const [defAddressChoice, setDefAddressChoice] = React.useState(null);
-
+    const [signifAddress, setSignifAddress] = React.useState("Not available");
+    const [otherAddress, setOtherAddress] = React.useState("");
     const { state, dispatch } = useContext(OrderContext);
 
+    const handleNext = () => {
+        if (defAddressChoice === "yes") {
+            if (signifAddress === "") swal("Please input all fields.", "", "warning");
+            else {
+                dispatch({ type: ACTIONS.changeSOAddress, payload: signifAddress });
+                navigate("/order/payment");
+            }
+        } else if (defAddressChoice === "no") {
+            if (otherAddress === "" || signifAddress === "") swal("Please input all fields.", "", "warning");
+            else {
+                dispatch({ type: ACTIONS.changeSOAddress, payload: signifAddress });
+                dispatch({ type: ACTIONS.changeUAddress, payload: otherAddress });
+                navigate("/order/payment");
+            }
+        } else {
+            swal("Please input all fields.", "", "warning");
+        }
+    }
     return (
         <Box>
             <Grid container spacing={2}>
@@ -54,6 +74,8 @@ function Shipping() {
                                             Input new delivery address:
                                         </Typography>
                                         <TextField
+                                            value={otherAddress}
+                                            onChange={e => setOtherAddress(e.target.value)}
                                             variant="outlined"
                                             required color="secondary"
                                             label="New Delivery Address"
@@ -63,7 +85,7 @@ function Shipping() {
                             }
 
                             {
-                                state.forADate === "yes"  &&
+                                state.forADate === "yes" &&
 
                                 <Box mt={5} width="50%" >
                                     <Box mb={2} display="flex" justifyContent="space-between" alignItems="center" gap={3}>
@@ -71,6 +93,8 @@ function Shipping() {
                                             Enter SO's address:
                                         </Typography>
                                         <TextField
+                                            value={signifAddress}
+                                            onChange={e => setSignifAddress(e.target.value)}
                                             variant="outlined"
                                             required color="secondary"
                                             label="SO's Delivery Address"
@@ -85,7 +109,7 @@ function Shipping() {
                                 <NavigateBeforeIcon fontSize="large" />
                                 <Typography variant="h6">Set Schedule/Delivery</Typography>
                             </Button>
-                            <Button component={Link} to="/order/payment" color="secondary" variant="contained" size='large'>
+                            <Button onClick={handleNext} color="secondary" variant="contained" size='large'>
                                 <Typography variant="h6">Payment</Typography>
                                 <NavigateNextIcon fontSize="large" />
                             </Button>

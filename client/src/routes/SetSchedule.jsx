@@ -34,8 +34,8 @@ function SetSchedule() {
     const [today, setToday] = React.useState(new moment());
     const [sched, setSched] = React.useState(new moment());
     const [forDate, setForDate] = React.useState(null);
-    const [signifName, setSignifName] = React.useState("");
-    const [signifEmailAdd, setSignifEmailAdd] = React.useState("");
+    const [signifName, setSignifName] = React.useState("n/a");
+    const [signifEmailAdd, setSignifEmailAdd] = React.useState("n/a");
 
     const {state, dispatch} = useContext(OrderContext);
     // console.log(state);
@@ -52,10 +52,10 @@ function SetSchedule() {
             dispatch({type: ACTIONS.changeSchedule, payload: sched.format('LLL')});
             dispatch({type: ACTIONS.changeSOAddress, payload: ""});
             dispatch({type: ACTIONS.changeSOName, payload: signifName});
-            console.log(sched.format('LLL'));
+            // console.log(sched.format('LLL'));
             navigate("/order/shipping");
         } else {
-            swal("Please specify if order is for a date or not", "", "warning");
+            swal("Please input all fields", "", "warning");
         }
     };
 

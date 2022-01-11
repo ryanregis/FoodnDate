@@ -1,5 +1,4 @@
 import { useReducer, createContext, useMemo } from "react";
-import moment from "moment";
 export const OrderContext = createContext();
 
 export const ACTIONS = {
@@ -10,6 +9,10 @@ export const ACTIONS = {
     changePayMethod: "change_paymethod",
     changeSchedule: "change_schedule",
     changeForADate: "change_foradate",
+    addToCart: "add_to_cart",
+    removeFromCart: "remove_from_cart",
+    addQuantity: "add_quantity",
+    minusQuantity: "minus_quantity"
 };
 
 const initialState = {
@@ -19,7 +22,8 @@ const initialState = {
     sOName: "@SO",
     sOAddress: "Somewhere else",
     paymentMethod: "",
-    schedule: ""
+    schedule: "",
+    items: [],
 };
 
 function reducer(state, action) {
@@ -58,6 +62,30 @@ function reducer(state, action) {
             return {
                 ...state,
                 schedule: action.payload
+            }
+        case ACTIONS.addToCart:
+            if (action.payload === "" || state.items.some(item => item.name === action.payload.name)) return state;
+            return {
+                ...state,
+                items: [...state.items, action.payload]
+            }
+        case ACTIONS.removeFromCart:
+            return {
+                ...state,
+                items: state.items.filter(item => item.name !== action.payload.name)
+            }
+        case ACTIONS.addQuantity:
+            console.log(action.payload);
+            state.items.map(item => { if (item.name === action.payload.name) item.quantity++ });
+            return {
+                ...state,
+                items: state.items
+            }
+        case ACTIONS.minusQuantity:
+            state.items.map(item => { if (item.name === action.payload.name) item.quantity > 1 ? item.quantity-- : item.quantity });
+            return {
+                ...state,
+                items: state.items
             }
         default:
             return state;
