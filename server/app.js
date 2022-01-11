@@ -51,7 +51,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const server = require("http").createServer(app);
-const cors = require("cors"); //for cross origin
 const io = require("socket.io")(server, {
     cors: {
         origin: "*", //allow access on all origin
@@ -160,7 +159,7 @@ const PORT = process.env.PORT || 5000;
 // const buildPath = path.join(__dirname, '../client/dist');
 // app.use(express.static(buildPath));
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
     db.connect((err) => {
         if (err) console.log('Error:', err);
@@ -168,4 +167,4 @@ app.listen(PORT, () => {
     })
 });
 
-server.listen(PORT, console.log(`Server started on port ${PORT}.`));
+
