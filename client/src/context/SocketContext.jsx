@@ -20,7 +20,7 @@ const VideoCallProvider = ({ children }) => {
   const connectionRef = useRef();
 
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true}) //audio: true
+    navigator.mediaDevices.getUserMedia({ video: true}) //audio: true
       .then((currentStream) => {
         setStream(currentStream);
 

@@ -91,30 +91,34 @@ export default function Home() {
                 </Grid>
                 <Divider classes={{ root: classes.divider }} sx={{mt: 4}}/>
                 <Grid container p={3}  >
-                    <Grid item sm={12} xs={12}>
+                    <Grid item xs={12}>
                         <Typography align='center'  variant='h4' m={2} sx={{color:'primary.main'}}><b>BEST SELLERS</b></Typography>
                     </Grid>
-                    <Box px={5} sx={{ display: 'grid', gridTemplateColumns: {sm: '1fr 1fr', xs:'1fr'}, gridTemplateRows: { sm: '1fr 1fr 1fr', xs: 'repeat(5, 1fr)'}, gap:3, justifyContent:'center'}}>
+                    <Grid item xs={12} sx={{padding: '2%'}}> 
+                        <Grid container spacing={2}>
                         {besSel.map((item, index) => (
-                            <Card sx={{gridColumn:index === 0 ? '1/3' : 'auto'}} className={classes.bestSeller} key={index}>
-                                <CardActionArea>
-                                    <Box sx={{display: 'grid', gridTemplateColumns: {sm:'1fr 1fr', xs:'1fr'}}}>
-                                        <CardMedia
-                                            component="img"
-                                            height="200"
-                                            src={item.imgSrc}
-                                            alt="Boeuf Bourguignon (Beef Stew)"
-                                        />
-                                        <CardContent align='center' sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
-                                            <Typography variant='h5'><b>{item.title}</b></Typography>
-                                            <Typography variant='subtitle1' sx={{color:'neutral.main'}}>{item.type}</Typography>
-                                            <Typography variant='h6' fontWeight={400}>{item.description}</Typography>
-                                        </CardContent>
-                                    </Box>
-                                </CardActionArea>
-                            </Card>
+                            <Grid item xs={12} md={index === 0 ? 12: 6}>
+                                <Card  className={classes.bestSeller} key={index}>
+                                    <CardActionArea>
+                                        <Box sx={{display: 'grid', gridTemplateColumns: {sm:'1fr 1fr', xs:'1fr'}}}>
+                                            <CardMedia
+                                                component="img"
+                                                height="200"
+                                                src={item.imgSrc}
+                                                alt="Boeuf Bourguignon (Beef Stew)"
+                                            />
+                                            <CardContent align='center' sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
+                                                <Typography variant='h5'><b>{item.title}</b></Typography>
+                                                <Typography variant='subtitle1' sx={{color:'neutral.main'}}>{item.type}</Typography>
+                                                <Typography variant='h6' fontWeight={400}>{item.description}</Typography>
+                                            </CardContent>
+                                        </Box>
+                                    </CardActionArea>
+                                </Card>
+                            </Grid>
                         ))}
-                    </Box>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Divider classes={{ root: classes.divider }} sx={{mb: 4}}/>
                 

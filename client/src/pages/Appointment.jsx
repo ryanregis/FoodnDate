@@ -27,6 +27,7 @@ const useStyles = makeStyles(() => ({
     calendarDesign: {
         borderRadius: '20px',
         border: '2px solid #6A7EFC',
+        width: 'clamp(250px, 30vw, 400px)'
     },
     memoDesign: {
         display: 'flex',
@@ -98,13 +99,13 @@ const Appointment = () => {
             <Grid container sx={{ bgcolor: 'white.main' }}>
                 <Grid item alignItems='stretch' sm={3} xs={12} p={4} sx={{ bgcolor: 'primary.light', color: 'white.main' }}>
                     <Box variant='contained'>
-                        <Typography variant='h3'>Appointments</Typography>
+                        <Typography  sx={{fontSize: 'clamp(1.5rem, 3vw, 4rem)'}}>Appointments</Typography>
                         <Typography variant='body1'>You have no appointments yet.</Typography>
                     </Box>
                 </Grid>
                 <Grid item sm={9} xs={12}>
                     <Grid container p={5} >
-                        <Grid item md={12} sm={12}>
+                        <Grid item  sm={12}>
                             <Box className={classes.setAppoint}>
                                 Hey @user has someone invited you for a virtual date?
                                 <Box >
@@ -116,7 +117,7 @@ const Appointment = () => {
                             </Box>
                         </Grid>
 
-                        <Grid p={5} item md={6} sm={12}>
+                        <Grid p={4} item md={6} sm={12}>
                             <Card className={classes.calendarDesign}>
                                 <CardActionArea>
                                     <CardContent className='intro'>
@@ -127,22 +128,26 @@ const Appointment = () => {
                                         </Typography>
                                     </CardContent>
                                     <CardContent align='center'>
-                                        <LocalizationProvider dateAdapter={DateAdapter}>
-                                            <StaticDatePicker
-                                                displayStaticWrapperAs="desktop"
-                                                openTo="day"
-                                                value={value}
-                                                onChange={(newValue) => {
-                                                    setValue(newValue);
-                                                }}
-                                                renderInput={(params) => <TextField  {...params} />}
-                                            />
-                                        </LocalizationProvider>
+                                        <TableContainer>
+                                            <Table>
+                                                <LocalizationProvider dateAdapter={DateAdapter}>
+                                                    <StaticDatePicker
+                                                        displayStaticWrapperAs="desktop"
+                                                        openTo="day"
+                                                        value={value}
+                                                        onChange={(newValue) => {
+                                                            setValue(newValue);
+                                                        }}
+                                                        renderInput={(params) => <TextField  {...params} />}
+                                                    />
+                                                </LocalizationProvider>
+                                            </Table>
+                                        </TableContainer>
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
                         </Grid>
-                        <Grid p={5} item md={6} sm={12}>
+                        <Grid p={4} item md={6} sm={12}>
                             <Card className={classes.calendarDesign}>
                                 <CardActionArea>
                                     <CardContent className='our-story'>
