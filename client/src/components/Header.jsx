@@ -1,12 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Box, Typography, IconButton } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { NotificationDropdown, ProfileDropdown } from "./";
 
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
+import { UserContext } from "../context/UserContext";
 
 const styles = {
     root: {
@@ -31,7 +33,7 @@ const styles = {
 }
 
 export default function Header() {
-
+    const { userInfo, setUserInfo, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
     const [profileEl, setProfileEl] = React.useState(null);
     const [notifEl, setNotifEl] = React.useState(null);
     const openProfile = Boolean(profileEl);
@@ -40,6 +42,7 @@ export default function Header() {
     const handleNotifClick = (e) => setNotifEl(e.currentTarget);
     const handleProfileClose = () => setProfileEl(null);
     const handleNotifClose = () => setNotifEl(null);
+
 
     return (
         <Box sx={styles.root}>
@@ -53,7 +56,7 @@ export default function Header() {
                         <NotificationsNoneIcon sx={{ color: "white.main" }} fontSize="large" />
                     </IconButton>
                     <NotificationDropdown handleClose={handleNotifClose} open={openNotif} anchorEl={notifEl} />
-                    <Typography variant="navlink">Hi, @user</Typography>
+                    <Typography variant="navlink">Hi, {userInfo[0] ? userInfo[0].first_name : "@user" }</Typography>
                     <IconButton onClick={handleProfileClick} sx={{ mt: 0.5 }}>
                         <AccountCircleOutlinedIcon sx={{ color: "secondary.main", fontSize: "3rem", bgcolor: "white.main", borderRadius: 200, }} fontSize="large" />
                         <KeyboardArrowDownIcon sx={{ color: "white.main" }} fontSize="large" />

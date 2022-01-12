@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Paper, Menu, MenuItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -12,6 +12,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import ContactPageIcon from '@mui/icons-material/ContactPage';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+import axios from 'axios';
+
 const useStyles = makeStyles(() => ({
     root: {
         "& .MuiMenu-paper": {
@@ -21,11 +23,8 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const handleLogout = () => {
-
-};
-
 export default function ProfileDropdown(props) {
+    const navigate = useNavigate();
     const classes = useStyles();
     const profileContents = [
         { name: "My Profile", dest: "/profile", icon: <AccountCircleOutlinedIcon color='white' fontSize="large" /> },
@@ -35,6 +34,14 @@ export default function ProfileDropdown(props) {
         { name: "Contact Us", dest: "/contact", icon: <ContactPageIcon color='white' fontSize="large" /> },
         { name: "Logout", dest: "/login", icon: <LogoutIcon color='white' fontSize="large" /> },
     ];
+
+    const handleLogout = (e) => {
+        axios.post("http://localhost:5000/api/logout").then((response) => {
+            console.log(response);
+        }).catch(err => console.log(err)).then(() => {
+            navigate("/login");
+        });
+    };
 
     return (
         <Paper>
@@ -47,17 +54,24 @@ export default function ProfileDropdown(props) {
                 {
                     profileContents.map((content) => {
                         return (
-                            <MenuItem key={content.name} component={Link} to={String(content.dest)}
-                                onClick={
-                                    content.name === "Logout" ? handleLogout : props.handleClose
-                                }>
-                                <ListItemIcon  >
-                                    {content.icon}
-                                </ListItemIcon>
-                                <ListItemText sx={{ ml: 3 }}>
-                                    <Typography variant="h6">{content.name}</Typography>
-                                </ListItemText>
-                            </MenuItem>
+                            content.name === "Logout" ?
+                                <MenuItem key={content.name} onClick={handleLogout}>
+                                    <ListItemIcon  >
+                                        {content.icon}
+                                    </ListItemIcon>
+                                    <ListItemText sx={{ ml: 3 }}>
+                                        <Typography variant="h6">{content.name}</Typography>
+                                    </ListItemText>
+                                </MenuItem>
+                                : <MenuItem key={content.name} component={Link} to={String(content.dest)}
+                                    onClick={props.handleClose}>
+                                    <ListItemIcon  >
+                                        {content.icon}
+                                    </ListItemIcon>
+                                    <ListItemText sx={{ ml: 3 }}>
+                                        <Typography variant="h6">{content.name}</Typography>
+                                    </ListItemText>
+                                </MenuItem>
                         )
                     })
                 }
