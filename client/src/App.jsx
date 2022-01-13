@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-//for socket.io
+
 import { OrderProvider } from "./context/OrderContext";
-import { VideoCallProvider } from "./context/SocketContext";
+
 //for daily.co
 import Meeting from "./pages/Meeting";
 
@@ -23,7 +23,7 @@ function App() {
 
   return (
     <OrderProvider>
-      <VideoCallProvider>
+
       <ThemeProvider theme={theme}>
         
         <Routes>
@@ -49,7 +49,7 @@ function App() {
 
           {/* <Typography variant="h2">FoodnDate</Typography> */}
         </ThemeProvider>
-        </VideoCallProvider>
+
       </OrderProvider>
   );
 }

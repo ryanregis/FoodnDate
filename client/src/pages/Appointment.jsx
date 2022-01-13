@@ -7,10 +7,6 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import "../App.css";
 
-import VideoPlayer from '../components/VideoPlayer';
-import Options from '../components/Options';
-import Notifications from '../components/Notifications';
-
 const useStyles = makeStyles(() => ({
     setAppoint: {
         borderRadius: '20px',
@@ -202,15 +198,6 @@ const Appointment = () => {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                        </Grid>
-                        <Grid  p={5} item md={12} sm={12}> 
-                                <div className={classes.wrapper}>
-                                    <Typography variant='h3' align='center'>Video Chat</Typography>
-                                    <VideoPlayer/>
-                                    <Options>
-                                        <Notifications/>
-                                    </Options>
-                                </div>                                                                   
                         </Grid>
                     </Grid>
                 </Grid>
