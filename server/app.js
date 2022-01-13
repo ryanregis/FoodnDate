@@ -36,11 +36,6 @@ var sessionStore = new MySQLStore({
     }
 }, db.promise());
 
-app.use(cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
-    credentials: true
-}));
 
 app.use(session({
     secret: "FoodnDateSecretHeheheXD",
@@ -49,8 +44,15 @@ app.use(session({
     resave: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24,
-        sameSite: 'none'
+        sameSite: 'none',
+        httpOnly: true,
     }
+}));
+
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true
 }));
 
 app.use(express.json());
@@ -118,7 +120,6 @@ app.post("/api", (req, res) => {
 });
 
 app.post("/api/register", (request, response) => {
-    console.log(request.body);
     const {
         first_name, last_name, contact_number, address,
         email, password, has_allergy, allergens, relationship_status,
@@ -158,7 +159,7 @@ app.post("/api/register", (request, response) => {
                                                             else {
                                                                 db.commit((err) => {
                                                                     if (err) db.rollback(() => console.log(err))
-                                                                    else return response.json({stat: "success", message: "User is successfully registered!"});
+                                                                    else return response.json({ stat: "success", message: "User is successfully registered!" });
                                                                 })
                                                             }
                                                         })
@@ -189,6 +190,42 @@ app.post("/api/register", (request, response) => {
 
     )
 });
+
+app.post("/api/login", (request, response) => {
+    const { email, password } = request.body;
+
+    db.query(
+        `SELECT * FROM user_profile JOIN user_login ON user_profile.user_login_id = user_login.user_login_id JOIN user_other_details ON user_profile.user_other_details_id=user_other_details.user_other_details_id WHERE user_login.email = ?;`, email, async (err, result) => {
+            if (err) return response.json({ stat: "error", message: err });
+
+            if (result.length > 0) {
+                if (await bcrypt.compare(password, result[0].password)) {
+                    delete result[0].password;
+                    request.session.userInfo = result;
+                    return response.json({ stat: "success", message: "Successfully Logged In!", userInfo: result });
+                } else return response.json({ stat: "error", message: "Wrong password! Please try again" });
+            } else return response.json({ stat: "error", message: "User doesn't exist. Please register." })
+        }
+    )
+});
+
+app.get("/api/login", (request, response) => {
+    console.log(request.session.userInfo);
+    if (request.session.userInfo) {
+        return response.json({ stat: "success", isLoggedIn: true, userInfo: request.session.userInfo });
+    } else {
+        return response.json({ stat: "warning", isLoggedIn: false, message: "You're not logged in." });
+    }
+});
+
+app.post("/api/logout", (request, response) => {
+    request.session.destroy((err) => {
+        if (err) return response.json({ stat: "error", message: err });
+        sessionStore.close();
+        // response.clearCookie("FoodnDateSession");
+        return response.json({ stat: "success", message: "Successfully Logged Out!" });
+    })
+})
 
 const PORT = process.env.PORT || 5000;
 

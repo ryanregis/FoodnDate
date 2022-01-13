@@ -1,9 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import LoadingButton from "@mui/lab/LoadingButton";
 import { Box, Typography, Paper, TextField, Button, Divider, Modal } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import theme from '../Theme';
 import Registration from '../components/Registration';
+
+import axios from 'axios';
+import swal from 'sweetalert';
+
+import {UserContext} from '../context/UserContext';
+
+// axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.withCredentials = true;
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -61,16 +71,27 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Login(props) {
+    const { userInfo, setUserInfo } = useContext(UserContext);
+    const navigate = useNavigate();
     const classes = useStyles();
-
+    const [loading, setLoading] = React.useState(false);
     const [openReg, setOpenReg] = React.useState(false);
     const handleOpenReg = () => { setOpenReg(true) };
     const handleCloseReg = () => { setOpenReg(false) };
-    
-    const handleLogin = (e) => { 
-        e.preventDefault();
 
-        props.setLogin(true) 
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const data = { email, password };
+
+        axios.post("http://localhost:5000/api/login", data, { withCredentials: true }).then((response) => {
+            console.log(response.data);
+            if (response.data.stat === "success") {
+                swal(response.data.message, `Welcome back, ${response.data.userInfo[0].first_name}!`, response.data.stat);
+                setUserInfo(response.data.userInfo);
+                navigate("/");
+            } else swal(response.data.message, "", response.data.stat);
+        })
+            .catch((err) => swal("Error!", err, "error"));
     };
 
     const [email, setEmail] = React.useState("");
@@ -92,13 +113,16 @@ export default function Login(props) {
                 <Paper className={classes.loginForm} sx={{ borderRadius: 10, }}>
                     <form name="login" className={classes.loginCreds} onSubmit={handleLogin}>
                         <TextField required autoFocus fullWidth name="email" type="email" color="secondary" variant="outlined" label="Email Address"
-                        value={email} onChange={(e) => setEmail(e.target.value)} />
+                            value={email} onChange={(e) => setEmail(e.target.value)} />
                         <TextField required fullWidth name="password" type="password" color="secondary" variant="outlined" label="Password"
-                        value={password} onChange={e => setPassword(e.target.value)} />
+                            value={password} onChange={e => setPassword(e.target.value)} />
 
-                        <Button fullWidth component={Link} to="/" type="submit" color="secondary" variant="contained">
+                        <LoadingButton loading={loading}
+                            loadingIndicator={
+                                <Typography fontSize="1.125rem" fontWeight={500}>Logging In...</Typography>
+                            } type="submit" color="secondary" variant="contained">
                             <Typography fontSize="1.125rem" fontWeight={500}>Log In</Typography>
-                        </Button>
+                        </LoadingButton>
                     </form>
                     <Divider classes={{ root: classes.divider }} />
                     <Box className={classes.register}>
