@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Grid, Typography, Box, TextField, Button, Card, CardActionArea, CardContent, Table, TableHead, TableRow, TableCell, TableBody, TableContainer } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import moment from 'moment';
@@ -7,6 +7,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import StaticDatePicker from '@mui/lab/StaticDatePicker';
 import "../App.css";
 import swal from 'sweetalert';
+import { UserContext } from "../context/UserContext";
 
 const useStyles = makeStyles(() => ({
     setAppoint: {
@@ -42,6 +43,7 @@ const useStyles = makeStyles(() => ({
 }))
 let storeInfo = localStorage.getItem('memos') ? JSON.parse(localStorage.getItem('memos')) : [];
 const Appointment = () => {
+    const { userInfo} = useContext(UserContext);
     //for joining video chat room
     const [room, setRoom] = useState(null);
     const onSubmit = () => {
@@ -120,7 +122,7 @@ const Appointment = () => {
                     <Grid container p={5} spacing={2}>
                         <Grid item  sm={12}>
                             <Box className={classes.setAppoint}>
-                                Hey { } has someone invited you for a virtual date?
+                                Hey {userInfo[0] ? userInfo[0].first_name : "@user" } has someone invited you for a virtual date?
                                 <form>
                                     <Box display="flex" alignItems="center" >
                                         <TextField className={classes.fieldInput} variant='outlined' label='Enter invite code' />
@@ -131,7 +133,7 @@ const Appointment = () => {
                         </Grid>
                         <Grid item  sm={12}>
                             <Box className={classes.setAppoint}>
-                                Hey @user has someone invited you for a virtual date?
+                                Hey {userInfo[0] ? userInfo[0].first_name : "@user" } has someone invited you for a virtual date?
                                 <Box mx={3}>
                                     <form>
                                         <TextField  type="text" onChange={(e) => setRoom(e.target.value)} className={classes.fieldInput} variant='outlined' label='Enter Video Chat Room' />

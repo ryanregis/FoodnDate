@@ -17,7 +17,7 @@ var options = {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'onlyGodknowswhatitis99',
+    password: 'sniper@13579',
     database: 'food_n_date'
 };
 
@@ -59,6 +59,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //for daily.co
 app.use(logger("dev"));
+// app.use(cors());
 const API_KEY = process.env.daily_API_KEY;
 const headers = {
     Accept: "application/json",
@@ -113,7 +114,7 @@ const headers = {
   });
   
 
-app.use(cors());
+
 app.post("/api", (req, res) => {
     console.log("Connected to React!!!");
     // res.redirect("/");
