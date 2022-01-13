@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React, {useState, useEffect} from 'react';
-import { Grid, Typography, Box, TextField, Button, Card, CardContent, Table, TableHead, TableRow, TableCell, TableBody, TableContainer } from '@mui/material';
-=======
 import React, { useState, useEffect } from 'react';
 import { Grid, Typography, Box, TextField, Button, Card, CardActionArea, CardContent, Table, TableHead, TableRow, TableCell, TableBody, TableContainer } from '@mui/material';
->>>>>>> c6d58dc2219abe9436b8918699e340e585512609
 import { makeStyles } from '@mui/styles';
 import moment from 'moment';
 import DateAdapter from '@mui/lab/AdapterMoment'
@@ -125,15 +120,9 @@ const Appointment = () => {
                     <Grid container p={5} spacing={2}>
                         <Grid item  sm={12}>
                             <Box className={classes.setAppoint}>
-<<<<<<< HEAD
-                                Hey @user has someone invited you for a virtual date?
-                                <Box mx={2}>
-                                    <form>
-=======
                                 Hey { } has someone invited you for a virtual date?
                                 <form>
                                     <Box display="flex" alignItems="center" >
->>>>>>> c6d58dc2219abe9436b8918699e340e585512609
                                         <TextField className={classes.fieldInput} variant='outlined' label='Enter invite code' />
                                         <Button className={classes.fieldInput} variant='contained' sx={{ bgcolor: 'primary.main' }}>Set Appointment</Button>
                                     </Box>

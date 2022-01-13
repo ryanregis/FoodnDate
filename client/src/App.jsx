@@ -1,17 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import Meeting from "./pages/Meeting"
 
 import { UserContext } from "./context/UserContext";
 import { OrderProvider } from "./context/OrderContext";
 
-<<<<<<< HEAD
-//for daily.co
-import Meeting from "./pages/Meeting";
-
-import { ThemeProvider, Typography } from "@mui/material";
-=======
 import { ThemeProvider, Typography, Backdrop, CircularProgress } from "@mui/material";
->>>>>>> c6d58dc2219abe9436b8918699e340e585512609
 import theme from "./Theme";
 import './App.css';
 
@@ -84,17 +78,10 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
 
-<<<<<<< HEAD
-          {/* <Typography variant="h2">FoodnDate</Typography> */}
-        </ThemeProvider>
-
-      </OrderProvider>
-=======
         {/* <Typography variant="h2">FoodnDate</Typography> */}
       </ThemeProvider>
     </OrderProvider>
 
->>>>>>> c6d58dc2219abe9436b8918699e340e585512609
   );
 }
 
