@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Grid, Typography, Box, TextField, Button, Card, CardActionArea, CardContent, Table, TableHead, TableRow, TableCell, TableBody, TableContainer } from '@mui/material';
+import { Grid, Typography, Box, TextField, Button, Card, CardContent, Table, TableHead, TableRow, TableCell, TableBody, TableContainer } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import moment from 'moment';
 import DateAdapter from '@mui/lab/AdapterMoment'
@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
         fontSize: 'clamp(1.3rem, 1vw, 2rem)',
     },
     fieldInput: {
-        height: 'clamp(3rem, 2vh, 3rem)'
+        height: 'clamp(2rem, 8vh, 5rem)'
     },
     calendarDesign: {
         borderRadius: '20px',
@@ -133,7 +133,7 @@ const Appointment = () => {
 
                         <Grid p={4} item md={6} sm={12}>
                             <Card className={classes.calendarDesign}>
-                                <CardActionArea>
+                                
                                     <CardContent className='intro'>
                                         <Typography gutterBottom variant="body1" component="div">
                                             Current Date and Time: {<br />}
@@ -158,12 +158,12 @@ const Appointment = () => {
                                             </Table>
                                         </TableContainer>
                                     </CardContent>
-                                </CardActionArea>
+                                
                             </Card>
                         </Grid>
                         <Grid p={4} item md={6} sm={12}>
                             <Card className={classes.calendarDesign}>
-                                <CardActionArea>
+                                
                                     <CardContent className='our-story'>
                                         <Typography gutterBottom variant="h3" component="div" sx={{ color: 'white.main' }}>
                                             Memo
@@ -196,7 +196,7 @@ const Appointment = () => {
                                                 </Table>
                                             </TableContainer>
                                     </CardContent>
-                                </CardActionArea>
+                                
                             </Card>
                         </Grid>
                     </Grid>
