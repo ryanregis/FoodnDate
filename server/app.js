@@ -1,3 +1,9 @@
+//for daily.co
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
+require("dotenv").config();
+const fetch = require("node-fetch");
+const logger = require("morgan");
+
 const express = require("express");
 const mysql = require('mysql2');
 const path = require('path');
@@ -49,7 +55,62 @@ app.use(session({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+//for daily.co
+app.use(logger("dev"));
+const API_KEY = process.env.daily_API_KEY;
+const headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + API_KEY,
+  };
+  
+  const getRoom = (room) => {
+    return fetch(`https://api.daily.co/v1/rooms/${room}`, {
+      method: "GET",
+      headers,
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        return json;
+      })
+      .catch((err) => console.error("error:" + err));
+  };
+  
+  const createRoom = (room) => {
+    return fetch("https://api.daily.co/v1/rooms", {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        name: room,
+        properties: {
+          enable_screenshare: true,
+          enable_chat: true,
+          start_video_off: true,
+          start_audio_off: false,
+          lang: "en",
+        },
+      }),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        return json;
+      })
+      .catch((err) => console.log("error:" + err));
+  };
+  
+  app.get("/video-call/:id", async function (req, res) {
+    const roomId = req.params.id;
+  
+    const room = await getRoom(roomId);
+    if (room.error) {
+      const newRoom = await createRoom(roomId);
+      res.status(200).send(newRoom);
+    } else {
+      res.status(200).send(room);
+    }
+  });
+  
+//usage for socket.io
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
     cors: {
@@ -158,7 +219,7 @@ const PORT = process.env.PORT || 5000;
 
 // const buildPath = path.join(__dirname, '../client/dist');
 // app.use(express.static(buildPath));
-
+//server for socket.io
 server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
     db.connect((err) => {

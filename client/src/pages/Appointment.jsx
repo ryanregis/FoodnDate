@@ -44,6 +44,12 @@ const useStyles = makeStyles(() => ({
 }))
 let storeInfo = localStorage.getItem('memos' ) ? JSON.parse(localStorage.getItem('memos')) : [];
 const Appointment = () => {
+    //for joining video chat room
+    const [room, setRoom] = useState(null);
+    const onSubmit = () => {
+      window.location.assign(`/video/${room}`);
+    };
+    //for clock and calendar
     const [value, setValue] = React.useState(new moment());
     const [clock, setClock] = React.useState(`${moment().format('MMMM Do YYYY, h:mm a')}`);
     const classes = useStyles();
@@ -52,6 +58,7 @@ const Appointment = () => {
             setClock(`${moment().format('MMMM Do YYYY, h:mm a')}`);
         }, 0);
     }, []);
+    //for memo notes
     const [memo, setMemo] = useState('');
     const [id, setID] = useState(Date.now);
     const [infoEntry, setInfoEntry] =useState(storeInfo);
@@ -104,14 +111,25 @@ const Appointment = () => {
                     </Box>
                 </Grid>
                 <Grid item sm={9} xs={12}>
-                    <Grid container p={5} >
+                    <Grid container p={5} spacing={2}>
                         <Grid item  sm={12}>
                             <Box className={classes.setAppoint}>
                                 Hey @user has someone invited you for a virtual date?
-                                <Box >
+                                <Box mx={2}>
                                     <form>
                                         <TextField className={classes.fieldInput} variant='outlined' label='Enter invite code' />
                                         <Button className={classes.fieldInput} variant='contained' sx={{ bgcolor: 'primary.main' }}>Set Appointment</Button>
+                                    </form>
+                                </Box>
+                            </Box>
+                        </Grid>
+                        <Grid item  sm={12}>
+                            <Box className={classes.setAppoint}>
+                                Hey @user has someone invited you for a virtual date?
+                                <Box mx={3}>
+                                    <form>
+                                        <TextField  type="text" onChange={(e) => setRoom(e.target.value)} className={classes.fieldInput} variant='outlined' label='Enter Video Chat Room' />
+                                        <Button onClick={onSubmit} className={classes.fieldInput} variant='contained' sx={{ bgcolor: 'primary.main' }}>Join</Button>
                                     </form>
                                 </Box>
                             </Box>
@@ -185,16 +203,14 @@ const Appointment = () => {
                                 </CardActionArea>
                             </Card>
                         </Grid>
-                        <Grid  p={5} item md={12} sm={12}>
-                                
+                        <Grid  p={5} item md={12} sm={12}> 
                                 <div className={classes.wrapper}>
                                     <Typography variant='h3' align='center'>Video Chat</Typography>
                                     <VideoPlayer/>
                                     <Options>
                                         <Notifications/>
                                     </Options>
-                                </div>                                    
-                                                                 
+                                </div>                                                                   
                         </Grid>
                     </Grid>
                 </Grid>

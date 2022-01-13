@@ -80,11 +80,11 @@ const ContactUs = () => {
                     <Box variant='contained' className={classes.sendUs} sx={{bgcolor: 'secondary.main', color: 'white.main'}}>
                         <Typography variant='h4' align='center'>Send Us A Message</Typography>
                         <Box   p={8} > 
-                        <form >
+                        <form action="https://formsubmit.co/rver5387@gmail.com" method="POST">
                             <TextField  fullWidth name="name" type="text" color='black' label="Name" variant='filled' sx={{bgcolor:'white.main'}} className={classes.formInput}/>
                             <TextField  fullWidth name="email" type="email" color='black'  label="Email" variant='filled' sx={{bgcolor:'white.main', borderRadius:'10px'}} className={classes.formInput}/>
                             <TextField multiline rows={3}  fullWidth name="message" type="email" color='black'  label="Message" variant='filled' sx={{bgcolor:'white.main'}} className={classes.formInput}/>
-                            <Button  sx={{bgcolor:'black.main'}} variant="contained" className={classes.formInput}>
+                            <Button type="submit" sx={{bgcolor:'black.main'}} variant="contained" className={classes.formInput} onClick={(e)=>{confirm('Are you really sure you want to send this message?')}}>
                                 SEND <SendIcon sx={{marginLeft: '30%'}}/>
                             </Button>
                         </form>

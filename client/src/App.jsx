@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
+//for socket.io
 import { OrderProvider } from "./context/OrderContext";
 import { VideoCallProvider } from "./context/SocketContext";
+//for daily.co
+import Meeting from "./pages/Meeting";
 
 import { ThemeProvider, Typography } from "@mui/material";
 import theme from "./Theme";
@@ -29,6 +31,10 @@ function App() {
           <Route exact path="/" element={[<Header />, <Home />, <Footer />]} />
           <Route exact path="/admin" element={[<Header />, <Admin />, <Footer />]} />
           <Route exact path="/appointment" element={[<Header />, <Appointment />, <Footer />]} />
+
+          
+          <Route exact path="/video/:id" element={<Meeting/>} />
+
           <Route exact path="/about" element={[<Header />, <AboutUs />, <Footer />]} />
           <Route exact path="/contact" element={[<Header />, <ContactUs />, <Footer />]} />
           <Route exact path="/order" element={[<Header />, <Order />, <Footer />]} />
