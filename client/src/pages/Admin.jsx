@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Box, useMediaQuery, Tabs, Tab, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import theme from '../Theme';
 import { AdminTable } from '../components';
+import { UserContext } from '../context/UserContext';
+
+import { Navigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -37,6 +41,7 @@ function TabPanel(props) {
 }
 
 export default function Admin() {
+    const user = useContext(UserContext);
     const classes = useStyles();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
     const [tabValue, setTabValue] = React.useState(0);
@@ -44,7 +49,11 @@ export default function Admin() {
     const handleTabChange = (e, newValue) => {
         setTabValue(newValue);
     }
-
+    
+    if (user.userInfo.access !== "admin") {
+        swal("Unauthorized Entry", "You don't have the access role required to enter the page.", "error");
+        return <Navigate to="/" />;
+    }
     return (
         <Box>
             <Box sx={{ zIndex: 10, bgcolor: "neutral.main" }} >

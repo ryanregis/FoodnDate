@@ -1,12 +1,13 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Grid, Box, Typography, Card, CardActionArea, CardContent, CardMedia, Divider } from '@mui/material'
 import { makeStyles } from '@mui/styles';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import Carousel from 'react-material-ui-carousel';
 import "../App.css";
 import {beefStew1, cheeseSouffle, mousseChocolat, redWine, croissant} from '../assets/images/images.js';
 import theme from '../Theme';
+import { UserContext } from '../context/UserContext';
 
 const useStyles = makeStyles(() => ({
 
@@ -23,6 +24,7 @@ const useStyles = makeStyles(() => ({
     }
 }))
 export default function Home() {
+    const user = useContext(UserContext);
     const promo = [
         {
             bgImg: "holiday-promo",
@@ -73,7 +75,10 @@ export default function Home() {
             description: 'Great as a simple snack after meal',
         },
     ];
+    
     const classes = useStyles();
+    // console.log(user.isLoggedIn);
+    // if(!user.isLoggedIn) return <Navigate to="/login" replace />;
     return (
         <div>
             <Grid container sx={{bgcolor:'white.main'}}>

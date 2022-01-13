@@ -8,26 +8,25 @@ axios.defaults.withCredentials = true;
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    // const navigate = useNavigate();
 
     const [userInfo, setUserInfo] = useState([]);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(null);
 
-    useEffect(() => {
-        axios.get("http://localhost:5000/api/login").then((response) => {
-            console.log(response.data);
-            if (response.data.isLoggedIn) {
-                setUserInfo(response.data.userInfo);
-                setIsLoggedIn(true);
-            } else {
-                setIsLoggedIn(false);
-            }
-        })
-    }, []);
+    // useEffect(() => {
+    //     axios.get("http://localhost:5000/api/login").then((response) => {
+    //         console.log(response.data);
+    //         if (response.data.isLoggedIn) {
+    //             setUserInfo(response.data.userInfo);
+    //             setIsLoggedIn(true);
+    //         } else {
+    //             setIsLoggedIn(false);
+    //         }
+    //     })
+    // }, []);
 
     const userCreds = useMemo(() => {
         return { userInfo, setUserInfo, isLoggedIn, setIsLoggedIn };
-    }, [userInfo, setUserInfo, isLoggedIn, setIsLoggedIn]);
+    }, [userInfo, isLoggedIn]);
 
     return (
         <UserContext.Provider value={userCreds} >
