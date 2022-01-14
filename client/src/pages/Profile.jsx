@@ -55,10 +55,6 @@ const Profile = () => {
                                 <FormLabel>Email</FormLabel>
                                 <TextField disabled variant='outlined'  sx={{backgroundColor: 'white.main'}} value={userInfo[0] ? userInfo[0].email : "@user" }></TextField>
                             </FormControl>
-                            <FormControl>
-                                <FormLabel>Password</FormLabel>
-                                <TextField disabled variant='outlined'  sx={{backgroundColor: 'white.main'}} value={userInfo[0] ? userInfo[0].password : "@user" }></TextField>
-                            </FormControl>
                         </Box>
                         <Divider/>
                         <Box  sx={{display:'grid', gridTemplateColumns:{ sm: '1fr 1fr 1fr 1fr', xs: '1fr ' }, gap:3, p:3}}>
