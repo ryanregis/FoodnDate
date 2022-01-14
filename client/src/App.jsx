@@ -9,7 +9,7 @@ import theme from "./Theme";
 import './App.css';
 
 import { Header, Footer, PageNotFound } from "./components";
-import { Login, Home, Admin, Appointment, Order, AboutUs, ContactUs } from "./pages";
+import { Login, Home, Admin, Appointment, Order, AboutUs, ContactUs, Profile } from "./pages";
 import { ProtectedRoute, OrderFood, SetSchedule, Shipping, Payment, ReviewOrder } from "./routes";
 
 import axios from "axios";
@@ -66,6 +66,7 @@ function App() {
           <Route exact path="/order/shipping" element={[<Header />, <Shipping />, <Footer />]} />
           <Route exact path="/order/payment" element={[<Header />, <Payment />, <Footer />]} />
           <Route exact path="/order/review" element={[<Header />, <ReviewOrder />, <Footer />]} />
+          <Route exact path="/profile" element={[<Header />, <Profile />, <Footer />]} />
           {/* </Route> */}
           <Route exact path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
           <Route path="*" element={<PageNotFound />} />
