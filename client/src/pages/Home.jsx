@@ -84,7 +84,7 @@ export default function Home() {
             <Grid container sx={{bgcolor:'white.main'}}>
                 <Divider classes={{ root: classes.divider }} sx={{mt: 4}}/>
                 <Grid item sm={12} xs={12}>
-                    <Typography align='center' variant='h4' m={2} sx={{color:'secondary.main'}}><b>FEATURED PROMOS</b></Typography>
+                    <Typography id="featured" align='center' variant='h4' m={2} sx={{color:'secondary.main'}}><b>FEATURED PROMOS</b></Typography>
                     <Carousel className={classes.carousel}>
                         {promo.map((item, index) => (
                             <Box sx={{height:'50vh'}} className={item.bgImg}  key={index}>
@@ -96,7 +96,7 @@ export default function Home() {
                 </Grid>
                 <Divider classes={{ root: classes.divider }} sx={{mt: 4}}/>
                 <Grid container p={3}  >
-                    <Grid item sm={12} xs={12}>
+                    <Grid id="best" item sm={12} xs={12}>
                         <Typography align='center'  variant='h4' m={2} sx={{color:'primary.main'}}><b>BEST SELLERS</b></Typography>
                     </Grid>
                     <Box px={5} sx={{ display: 'grid', gridTemplateColumns: {sm: '1fr 1fr', xs:'1fr'}, gridTemplateRows: { sm: '1fr 1fr 1fr', xs: 'repeat(5, 1fr)'}, gap:3, justifyContent:'center'}}>

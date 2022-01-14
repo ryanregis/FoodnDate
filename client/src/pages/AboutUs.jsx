@@ -77,7 +77,7 @@ const AboutUs = () => {
                             <p style={{textAlign:'right'}}><i><b>sophistication</b></i></p>
                         </Box>
                     </div>
-                    <div>
+                    <div id="vision">
                         <Typography align='center' variant='h3' pt={2}>Our Vision</Typography>
                     </div>
                     <Box className={styles.vision} sx={{ display: 'grid', gridTemplateColumns: {sm:'1fr 1fr 1fr 1fr', xs:'1fr'}, gap:2}}>
@@ -96,7 +96,7 @@ const AboutUs = () => {
                             })}
                     </Box> 
                     <Box className='our-story'>
-                        <Box p={10}>
+                        <Box p={10} id="story">
                             <Typography  sx={{color: 'white.main'}} variant='h3' align='center'>Our Story</Typography>{<br></br>}
                             <Typography variant='body1' sx={{color: 'white.main'}} >From the simple aspirations to bring food with convenience and deliver a novel restaurant experience to your 
                                         home comes our idea to create FoodnDates.com {<br></br>}{<br></br>} Founded on December of 2021, FoodnDate aims to capitalize on the 
@@ -104,7 +104,7 @@ const AboutUs = () => {
                             </Typography>
                         </Box>
                     </Box> 
-                    <div>
+                    <div id="team">
                         <Typography align='center' variant='h3' pt={2}>Our Team</Typography>
                     </div>
                     <Box className={styles.vision} sx={{ display: 'grid', gridTemplateColumns: {sm:'1fr 1fr 1fr', xs:'1fr'}, gap:2, align:'center'}}>
