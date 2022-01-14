@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
 import { OrderContext, ACTIONS } from '../context/OrderContext';
@@ -37,21 +37,26 @@ function SetSchedule() {
     const [signifName, setSignifName] = React.useState("n/a");
     const [signifEmailAdd, setSignifEmailAdd] = React.useState("n/a");
 
-    const {state, dispatch} = useContext(OrderContext);
+    const { state, dispatch } = useContext(OrderContext);
+    const { userName, userAddress, forADate, sOEmail, sOName, sOAddress, paymentMethod, schedule, items } = state;
     // console.log(state);
     const handleNext = () => {
-        if(forDate === "no"){
-            dispatch({type: ACTIONS.changeForADate, payload: "no"});
-            dispatch({type: ACTIONS.changeSOName, payload: "Not available"});
-            dispatch({type: ACTIONS.changeSOAddress, payload: "Not available"});
-            dispatch({type: ACTIONS.changeSchedule, payload: sched.format('LLL')});
+        if (forDate === "no") {
+            dispatch({ type: ACTIONS.changeForADate, payload: "no" });
+            dispatch({ type: ACTIONS.changeSOName, payload: "Not available" });
+            dispatch({ type: ACTIONS.changeSOEmail, payload: "Not available" });
+            dispatch({ type: ACTIONS.changeSOAddress, payload: "Not available" });
+            dispatch({ type: ACTIONS.changeSchedule, payload: sched.format('LLL') });
+            localStorage.setItem("userDetails", JSON.stringify({ userName, userAddress, forADate: "no", sOEmail: "Not available", sOName: "Not available", sOAddress: "Not available", paymentMethod, schedule: sched.format('LLL') }));
             navigate("/order/shipping");
         }
-        else if(forDate === "yes") {
-            dispatch({type: ACTIONS.changeForADate, payload: "yes"});
-            dispatch({type: ACTIONS.changeSchedule, payload: sched.format('LLL')});
-            dispatch({type: ACTIONS.changeSOAddress, payload: ""});
-            dispatch({type: ACTIONS.changeSOName, payload: signifName});
+        else if (forDate === "yes") {
+            dispatch({ type: ACTIONS.changeForADate, payload: "yes" });
+            dispatch({ type: ACTIONS.changeSOEmail, payload: signifEmailAdd });
+            dispatch({ type: ACTIONS.changeSchedule, payload: sched.format('LLL') });
+            dispatch({ type: ACTIONS.changeSOAddress, payload: "" });
+            dispatch({ type: ACTIONS.changeSOName, payload: signifName });
+            localStorage.setItem("userDetails", JSON.stringify({ userName, userAddress, forADate: "yes", sOEmail: signifEmailAdd, sOName: signifName, sOAddress: "", paymentMethod, schedule: sched.format('LLL') }));
             // console.log(sched.format('LLL'));
             navigate("/order/shipping");
         } else {
@@ -121,7 +126,7 @@ function SetSchedule() {
                                 forDate === "no" &&
                                 <Box mt={5} width="70%" >
                                     <Box mb={2} display="flex" justifyContent="space-between" alignItems="center">
-                                        <Typography variant="h6" sx={{pb: 3}}>Set the delivery schedule for your order:</Typography>
+                                        <Typography variant="h6" sx={{ pb: 3 }}>Set the delivery schedule for your order:</Typography>
                                         <LocalizationProvider dateAdapter={DateAdapter}>
                                             <DateTimePicker ampm disablePast required
                                                 minDate={today}
@@ -131,7 +136,7 @@ function SetSchedule() {
                                                 label="Pick Date and Time"
                                                 value={sched}
                                                 onChange={(newValue) => setSched(newValue)}
-                                                
+
                                             />
                                         </LocalizationProvider>
                                     </Box>

@@ -29,11 +29,12 @@ function Payment() {
     const classes = useStyles();
     const [payMethod, setPayMethod] = React.useState(null);
     const {state, dispatch} = useContext(OrderContext);
-
+    const { userName, userAddress, forADate, sOEmail, sOName, sOAddress, paymentMethod, schedule, items } = state;
     const handleNext = () => {
         if(payMethod === null || payMethod === "") swal("Please select payment method.", "", "warning");
         else {
             dispatch({type: ACTIONS.changePayMethod, payload: payMethod});
+            localStorage.setItem("userDetails", JSON.stringify({ userName, userAddress, forADate, sOName, sOAddress, paymentMethod: payMethod, schedule}));
             navigate("/order/review");
         }
     };
@@ -84,7 +85,7 @@ function Payment() {
                                 <NavigateBeforeIcon fontSize="large" />
                                 <Typography variant="h6">Shipping</Typography>
                             </Button>
-                            <Button component={Link} to="/order/review" color="secondary" variant="contained" size='large'>
+                            <Button onClick={handleNext} color="secondary" variant="contained" size='large'>
                                 <Typography variant="h6">Review Completed Order</Typography>
                                 <NavigateNextIcon fontSize="large" />
                             </Button>

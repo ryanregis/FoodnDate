@@ -9,7 +9,8 @@ import SendIcon from '@mui/icons-material/Send';
 import { makeStyles } from '@mui/styles'
 import theme from '../Theme';
 import { ThemeProvider, Typography, Box, Button, TextField} from '@mui/material';
-import swal from 'sweetalert';
+
+
 const useStyles = makeStyles(()=>({
     conSend: {
         padding: '5%',
@@ -52,9 +53,6 @@ const contact = [
     },
 ]
 const ContactUs = () => {
-    const sendMessage = (e) => {
-        swal("Success!", "Your Message had been Sent", "success");
-    };
     const classes = useStyles();
     return (
         <div>
@@ -82,11 +80,11 @@ const ContactUs = () => {
                     <Box variant='contained' className={classes.sendUs} sx={{bgcolor: 'secondary.main', color: 'white.main'}}>
                         <Typography variant='h4' align='center'>Send Us A Message</Typography>
                         <Box   p={8} > 
-                        <form action="https://formsubmit.co/rver5387@gmail.com" method="POST">
+                        <form >
                             <TextField  fullWidth name="name" type="text" color='black' label="Name" variant='filled' sx={{bgcolor:'white.main'}} className={classes.formInput}/>
                             <TextField  fullWidth name="email" type="email" color='black'  label="Email" variant='filled' sx={{bgcolor:'white.main', borderRadius:'10px'}} className={classes.formInput}/>
                             <TextField multiline rows={3}  fullWidth name="message" type="email" color='black'  label="Message" variant='filled' sx={{bgcolor:'white.main'}} className={classes.formInput}/>
-                            <Button type="submit" sx={{bgcolor:'black.main'}} variant="contained" className={classes.formInput} onClick={sendMessage}>
+                            <Button  sx={{bgcolor:'black.main'}} variant="contained" className={classes.formInput}>
                                 SEND <SendIcon sx={{marginLeft: '30%'}}/>
                             </Button>
                         </form>

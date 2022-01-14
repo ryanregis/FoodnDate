@@ -43,22 +43,23 @@ const useStyles = makeStyles(() => ({
 }));
 
 function OrderFood() {
+
     const navigate = useNavigate();
     const classes = useStyles();
     const { state, dispatch } = useContext(OrderContext);
 
     const handleAddToCart = (e, foodItem) => {
-        dispatch({ type: ACTIONS.addToCart, payload: { ...foodItem, quantity: 1 } })
+        dispatch({ type: ACTIONS.addToCart, payload: { ...foodItem, quantity: 1, subtotal: foodItem.price * 1 } })
     }
 
     const handleNext = () => {
-        if(state.items.length >= 1 && state.items.every(item => item.quantity >= 1)){
+        if (state.items.length >= 1 && state.items.every(item => item.quantity >= 1)) {
             navigate("/order/schedule");
         } else {
             swal("Please select food to order", "", "warning");
         }
     };
-    
+
 
     return (
         <Box>
@@ -91,7 +92,7 @@ function OrderFood() {
                                                 {
                                                     food.titles.map((title) => {
                                                         return (
-                                                            <ImageListItem sx={{ border: "2px solid", borderColor: "secondary.main", mx: 2, mb: 2 }}>
+                                                            <ImageListItem key={title.id} sx={{ border: "2px solid", borderColor: "secondary.main", mx: 2, mb: 2 }}>
                                                                 <CardMedia
                                                                     component="img"
                                                                     height="150"
@@ -99,15 +100,19 @@ function OrderFood() {
                                                                 />
                                                                 <ImageListItemBar
                                                                     classes={{ titleWrap: classes.imgTextRoot, title: classes.imgTitle, subtitle: classes.imgSubtitle }}
-                                                                    sx={{ height: 100, p: 1, }} title={
+                                                                    sx={{ height: "100%", p: 1, }} title={
                                                                         <Typography variant="body2" fontWeight={500} align="center">
                                                                             {title.name}
                                                                         </Typography>
                                                                     } subtitle={
-                                                                        <Button color="secondary" variant="outlined" onClick={(e) => handleAddToCart(e, { name: title.name, course: food.course, img: title.img })}>
-                                                                            Add to Cart
-                                                                        </Button>
-
+                                                                        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap={2}>
+                                                                            <Typography variant="body2">&#8369; {title.price}</Typography>
+                                                                            <Button 
+                                                                            disabled={state.items.some(item => item.id === title.id)} color="secondary" variant="outlined" onClick={(e) => handleAddToCart(e, {
+                                                                                id: title.id, name: title.name, course: food.course, img: title.img, price: title.price })}>
+                                                                                Add to Cart
+                                                                            </Button>
+                                                                        </Box>
                                                                     } position="below" />
                                                             </ImageListItem>
                                                         )

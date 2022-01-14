@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Typography, Grid, InputBase, Button } from '@mui/material';
-
+import {Link} from "react-router-dom";
 
 const styles = {
     root: {
@@ -48,9 +48,9 @@ const styles = {
 export default function Footer() {
 
     const gridTexts = [
-        { title: "Main Page", subtitles: ["My Orders", "My Appointments", "Featured Promos", "Best Sellers"] },
-        { title: "About Us", subtitles: ["Our Vision", "Our Story", "Our Team"] },
-        { title: "Contact Us", subtitles: ["Contact Details", "Send us a message"] }
+        { title: "Main Page", subtitles: ["My Orders", "My Appointments", "Featured Promos", "Best Sellers"], dest: ["/order", "/appointment", "/#featured", "/#best_seller"] },
+        { title: "About Us", subtitles: ["Our Vision", "Our Story", "Our Team"], dest: ["/about#vision", "/about#story", "/about#team"] },
+        { title: "Contact Us", subtitles: ["Contact Details", "Send us a message"], dest: ["/contact", "/contact"] }
     ];
 
     return (
@@ -61,9 +61,11 @@ export default function Footer() {
                         <Grid item xs={12} md={6} key={content.title} lg>
                             <Typography variant="footer_title">{content.title}</Typography>
                             <Box sx={styles.subtitleTexts}>
-                                {content.subtitles.map(text => {
+                                {content.subtitles.map((text, index) => {
                                     return (
-                                        <Typography key={text} variant="footer_subtitle" fontSize="0.85em">{text}</Typography>
+                                        <Typography component={Link} to={String(content.dest[index])} key={text} color="white.main" variant="footer_subtitle" fontSize="0.85em" sx={{textDecorationLine: "none"}}>
+                                            {text}
+                                            </Typography>
                                     )
                                 })}
                             </Box>

@@ -1,9 +1,3 @@
-//for daily.co
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
-require("dotenv").config();
-const fetch = require("node-fetch");
-const logger = require("morgan");
-
 const express = require("express");
 const mysql = require('mysql2');
 const path = require('path');
@@ -17,7 +11,7 @@ var options = {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'sniper@13579',
+    password: 'onlyGodknowswhatitis99',
     database: 'food_n_date'
 };
 
@@ -57,63 +51,6 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-//for daily.co
-app.use(logger("dev"));
-// app.use(cors());
-const API_KEY = process.env.daily_API_KEY;
-const headers = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + API_KEY,
-  };
-  
-  const getRoom = (room) => {
-    return fetch(`https://api.daily.co/v1/rooms/${room}`, {
-      method: "GET",
-      headers,
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        return json;
-      })
-      .catch((err) => console.error("error:" + err));
-  };
-  
-  const createRoom = (room) => {
-    return fetch("https://api.daily.co/v1/rooms", {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        name: room,
-        properties: {
-          enable_screenshare: true,
-          enable_chat: true,
-          start_video_off: true,
-          start_audio_off: false,
-          lang: "en",
-        },
-      }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        return json;
-      })
-      .catch((err) => console.log("error:" + err));
-  };
-  
-  app.get("/video-call/:id", async function (req, res) {
-    const roomId = req.params.id;
-  
-    const room = await getRoom(roomId);
-    if (room.error) {
-      const newRoom = await createRoom(roomId);
-      res.status(200).send(newRoom);
-    } else {
-      res.status(200).send(room);
-    }
-  });
-  
-
 
 app.post("/api", (req, res) => {
     console.log("Connected to React!!!");
@@ -219,6 +156,85 @@ app.get("/api/login", (request, response) => {
     }
 });
 
+app.post("/api/order", (request, response) => {
+    const {
+        user_profile_id,
+        items,
+        amount,
+        dates_email,
+        dates_address,
+        payment_type,
+        date_scheduled,
+    } = request.body;
+    let payment_id;
+
+    db.beginTransaction((err) => {
+        if (err) return console.log(err);
+        db.query(
+            `INSERT INTO payment (payment_type, amount) VALUES (?,?)`, [payment_type, amount],
+            (err) => {
+                if (err) {
+                    db.rollback(() => console.log(err));
+                    return response.json({ stat: "error", message: err });
+                }
+                db.query(
+                    `SELECT LAST_INSERT_ID()`, (err, result) => {
+                        if (err) {
+                            db.rollback(() => console.log(err));
+                            return response.json({ stat: "error", message: err });
+                        }
+                        console.log(result[0]);
+                        payment_id = result[0]['LAST_INSERT_ID()'];
+
+                        db.query(
+                            `INSERT INTO orders (user_profile_id, food_id, payment_id, quantity) VALUES ?`,
+                            [items.map((item) => [user_profile_id, item.id, payment_id, item.quantity])], (err) => {
+                                if (err) {
+                                    db.rollback(() => console.log(err));
+                                    return response.json({ stat: "error", message: err });
+                                }
+
+                                db.query(
+                                    `INSERT INTO appointment (user_profile_id, dates_email, dates_address, date_scheduled) VALUES (?,?,?,?)`,
+                                    [user_profile_id, dates_email || "Not Available", dates_address, date_scheduled],
+                                    (err) => {
+                                        if (err) {
+                                            db.rollback(() => console.log(err));
+                                            return response.json({ stat: "error", message: err });
+                                        }
+
+                                        db.commit((err) => {
+                                            if (err) {
+                                                db.rollback(() => console.log(err));
+                                                return response.json({ stat: "error", message: err });
+                                            }
+
+                                            return response.json({ stat: "success", message: "Successfully submitted your order" });
+                                        })
+                                    }
+                                )
+                            })
+                    })
+            })
+    })
+})
+
+app.post("/api/orders", (request, response) => {
+    const {user_profile_id} = request.body;
+
+    db.query(
+        `SELECT * FROM orders JOIN food ON orders.food_id = food.food_id JOIN payment ON orders.payment_id = payment.payment_id WHERE orders.user_profile_id = ?`, [user_profile_id],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                return response.json({ stat: "error", message: err });
+            }
+            console.log(result);
+            return response.json({stat: "success", orders: result});
+        }
+        )
+})
+
 app.post("/api/logout", (request, response) => {
     request.session.destroy((err) => {
         if (err) return response.json({ stat: "error", message: err });
@@ -227,6 +243,8 @@ app.post("/api/logout", (request, response) => {
         return response.json({ stat: "success", message: "Successfully Logged Out!" });
     })
 })
+
+
 
 const PORT = process.env.PORT || 5000;
 
@@ -240,5 +258,3 @@ app.listen(PORT, () => {
         else console.log('DB Connected.');
     })
 });
-
-
