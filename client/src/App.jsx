@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import Meeting from "./pages/Meeting"
 
 import { UserContext } from "./context/UserContext";
 import { OrderProvider } from "./context/OrderContext";
@@ -11,7 +12,7 @@ import './App.css';
 import { Header, Footer, PageNotFound } from "./components";
 import { Login, Home, Admin, Appointment, Order, AboutUs, ContactUs } from "./pages";
 import { ProtectedRoute, OrderFood, SetSchedule, Shipping, Payment, ReviewOrder } from "./routes";
-
+import Profile from "./pages/Profile";
 import axios from "axios";
 
 
@@ -19,7 +20,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 function App() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { userInfo, setUserInfo, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
@@ -33,7 +34,7 @@ function App() {
       }
       else {
         setIsLoggedIn(false);
-        navigate("/login");
+        // navigate("/login");
       }
       setLoading(false);
     }).catch(err => { console.log(err); setLoading(false) });
@@ -52,12 +53,18 @@ function App() {
   return (
 
     <OrderProvider>
+
       <ThemeProvider theme={theme}>
+        
         <Routes>
           {/* <Route path="/" element={<ProtectedRoute auth={isLoggedIn} />}> */}
           <Route exact path="/" element={[<Header />, <Home />, <Footer />]} />
           <Route exact path="/admin" element={[<Header />, <Admin />, <Footer />]} />
           <Route exact path="/appointment" element={[<Header />, <Appointment />, <Footer />]} />
+
+          
+          <Route exact path="/video/:id" element={<Meeting/>} />
+          <Route exact path="/profile" element={[<Header />, <Profile/>, <Footer />]} />
           <Route exact path="/about" element={[<Header />, <AboutUs />, <Footer />]} />
           <Route exact path="/contact" element={[<Header />, <ContactUs />, <Footer />]} />
           <Route exact path="/order" element={[<Header />, <Order />, <Footer />]} />
