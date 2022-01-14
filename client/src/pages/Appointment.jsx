@@ -123,17 +123,6 @@ const Appointment = () => {
                         <Grid item  sm={12}>
                             <Box className={classes.setAppoint}>
                                 Hey {userInfo[0] ? userInfo[0].first_name : "@user" } has someone invited you for a virtual date?
-                                <form>
-                                    <Box display="flex" alignItems="center" >
-                                        <TextField className={classes.fieldInput} variant='outlined' label='Enter invite code' />
-                                        <Button className={classes.fieldInput} variant='contained' sx={{ bgcolor: 'primary.main' }}>Set Appointment</Button>
-                                    </Box>
-                                </form>
-                            </Box>
-                        </Grid>
-                        <Grid item  sm={12}>
-                            <Box className={classes.setAppoint}>
-                                Hey {userInfo[0] ? userInfo[0].first_name : "@user" } has someone invited you for a virtual date?
                                 <Box mx={3}>
                                     <form>
                                         <TextField  type="text" onChange={(e) => setRoom(e.target.value)} className={classes.fieldInput} variant='outlined' label='Enter Video Chat Room' />
