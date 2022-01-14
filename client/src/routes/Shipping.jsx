@@ -24,12 +24,14 @@ function Shipping() {
     const [signifAddress, setSignifAddress] = React.useState("Not available");
     const [otherAddress, setOtherAddress] = React.useState("");
     const { state, dispatch } = useContext(OrderContext);
+    const { userName, userAddress, forADate, sOName, sOAddress, paymentMethod, schedule, items } = state;
 
     const handleNext = () => {
         if (defAddressChoice === "yes") {
             if (signifAddress === "") swal("Please input all fields.", "", "warning");
             else {
                 dispatch({ type: ACTIONS.changeSOAddress, payload: signifAddress });
+                localStorage.setItem("userDetails", JSON.stringify({ userName, userAddress, forADate, sOName, sOAddress: signifAddress, paymentMethod, schedule}));
                 navigate("/order/payment");
             }
         } else if (defAddressChoice === "no") {
@@ -37,6 +39,7 @@ function Shipping() {
             else {
                 dispatch({ type: ACTIONS.changeSOAddress, payload: signifAddress });
                 dispatch({ type: ACTIONS.changeUAddress, payload: otherAddress });
+                localStorage.setItem("userDetails", JSON.stringify({ userName, userAddress: otherAddress, forADate, sOName, sOAddress: signifAddress, paymentMethod, schedule}));
                 navigate("/order/payment");
             }
         } else {
