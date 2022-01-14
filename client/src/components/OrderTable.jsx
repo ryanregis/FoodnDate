@@ -5,7 +5,7 @@ import axios from "axios";
 import { UserContext } from '../context/UserContext';
 
 const headers = [
-    { title: "ID" }, { title: "Order Details" }, { title: "Quantity" }, { title: "Price" },
+    { title: "ID" }, { title: "Food Name" }, { title: "Quantity" }, { title: "Price" },
     { title: "Payment Method" }
 ];
 
@@ -22,7 +22,8 @@ export default function OrderTable(props) {
                 props.viewOrders(orders);
             } else console.log(response.data.message);
 
-        })
+        });
+        props.viewOrders(orders);
     }, []);
     return (
         <TableContainer component={Box}>
@@ -32,7 +33,7 @@ export default function OrderTable(props) {
                         {
                             headers.map((h) => {
                                 return <TableCell align="center" sx={{ color: "black.main" }}>
-                                    <Typography variant="h5">
+                                    <Typography variant="h6">
                                         {h.title}
                                     </Typography>
                                 </TableCell>

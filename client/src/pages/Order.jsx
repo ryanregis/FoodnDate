@@ -29,8 +29,6 @@ export default function Order() {
     const user = useContext(UserContext);
     const [orders, setOrders] = useState([]);
 
-
-
     return (
         <Box className={classes.root}>
             <Paper elevation={6} sx={{ minHeight: "50vh", borderRadius: 5, p: 5 }}>
@@ -47,10 +45,10 @@ export default function Order() {
                 </Box>
                 <Divider />
                 <OrderTable viewOrders={setOrders} />
-                {orders.length < 1 &&
+                {/* {orders.length < 1 &&
                 <Typography align="center" my={3} sx={{ color: "black.main" }}>
                     It seems you don't have any orders.
-                </Typography>}
+                </Typography>} */}
                 <Divider />
 
             </Paper>
