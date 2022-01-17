@@ -9,7 +9,7 @@ const Meeting = () => {
       const domain = "https://foodndate.daily.co/";
   
       axios
-        .get(`http://localhost:5000/video-call/${id}`)
+        .get(`http://localhost:5000/api/video-call/${id}`)
         .then((res) => {
           if (res.status === 200) {
             const script = document.createElement("script");
@@ -17,7 +17,7 @@ const Meeting = () => {
               iframeStyle: {
                 position: "relative",
                 width: "100%",
-                height: "80vh",
+                height: "90vh",
                 border: "0",
                 zIndex: 9999
               },

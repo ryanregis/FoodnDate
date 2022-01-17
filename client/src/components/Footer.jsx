@@ -63,7 +63,7 @@ export default function Footer() {
                             <Box sx={styles.subtitleTexts}>
                                 {content.subtitles.map((text, index) => {
                                     return (
-                                        <Typography component={Link} to={String(content.dest[index])} key={text} color="white.main" variant="footer_subtitle" fontSize="0.85em" sx={{textDecorationLine: "none"}}>
+                                        <Typography component="a" href={String(content.dest[index])} key={text} color="white.main" variant="footer_subtitle" fontSize="0.85em" sx={{textDecorationLine: "none"}}>
                                             {text}
                                             </Typography>
                                     )

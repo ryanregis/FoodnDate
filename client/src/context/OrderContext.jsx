@@ -129,13 +129,13 @@ export const OrderProvider = ({ children }) => {
     const user = useContext(UserContext);
 
     const initialState = {
-        userName: user.userInfo[0].first_name,
-        userAddress: user.userInfo[0].address,
+        userName:  user.userInfo[0] ? user.userInfo[0].first_name : "@user",
+        userAddress: user.userInfo[0] ? user.userInfo[0].address : "@address",
         forADate: null,
         sOEmail: "@SOEmail",
         sOName: "@SO",
         sOAddress: "Somewhere else",
-        paymentMethod: "",
+        paymentMethod: "COD",
         schedule: "",
         items: [],
     };

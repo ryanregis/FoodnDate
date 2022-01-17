@@ -44,7 +44,10 @@ export default function OrderTable(props) {
                 <TableBody>
                     {orders.length < 1 ?
                         <TableRow >
-                            <TableCell align="center">
+                            <TableCell align="center" colSpan={5}>
+                                <Typography align="center">
+                                    It seems you don't have any orders yet.
+                                </Typography>
                             </TableCell>
                         </TableRow>
 

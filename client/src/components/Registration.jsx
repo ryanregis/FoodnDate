@@ -67,6 +67,7 @@ export default function Registration(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        props.setLoading(true);
         if (textInput.password !== textInput.confirm_password) {
             swal("Mismatched Password!", "Input Passwords don't match. Please try again.", "error");
             setTimeout(() => document.register.password.focus(), 1000 );
@@ -88,12 +89,12 @@ export default function Registration(props) {
             console.log(data);
             axios.post("http://localhost:5000/api/register", data).then((response) =>{
                 if(response.data.stat === "success"){
-                    swal("Success!", response.data.message, response.data.stat);
                     props.closeModal();
+                    swal("Success!", response.data.message, response.data.stat);
                 } else {
-                    swal("Error!", response.data.message, response.data.stat)
+                    swal("Error!", response.data.message, response.data.stat);
                 }
-            })
+            }).catch(err => console.log(err)).then(() => props.setLoading(false))
         }
     };
 

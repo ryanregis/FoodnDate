@@ -1,3 +1,8 @@
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 1;
+require("dotenv").config();
+const fetch = require("node-fetch");
+const logger = require("morgan");
+
 const express = require("express");
 const mysql = require('mysql2');
 const path = require('path');
@@ -8,11 +13,11 @@ const app = express();
 const cors = require('cors');
 
 var options = {
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: 'onlyGodknowswhatitis99',
-    database: 'food_n_date'
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME
 };
 
 var db = mysql.createConnection(options);
@@ -32,7 +37,7 @@ var sessionStore = new MySQLStore({
 
 
 app.use(session({
-    secret: "FoodnDateSecretHeheheXD",
+    secret: process.env.SESSION_SECRET,
     store: sessionStore,
     saveUninitialized: false,
     resave: false,
@@ -51,6 +56,61 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(logger("dev"));
+
+const API_KEY = process.env.daily_API_KEY;
+const headers = {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + API_KEY,
+};
+
+const getRoom = (room) => {
+    return fetch(`https://api.daily.co/v1/rooms/${room}`, {
+        method: "GET",
+        headers,
+    })
+        .then((res) => res.json())
+        .then((json) => {
+            return json;
+        })
+        .catch((err) => console.error("error:" + err));
+};
+
+const createRoom = (room) => {
+    return fetch("https://api.daily.co/v1/rooms", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+            name: room,
+            properties: {
+                enable_screenshare: true,
+                enable_chat: true,
+                start_video_off: true,
+                start_audio_off: false,
+                lang: "en",
+            },
+        }),
+    })
+        .then((res) => res.json())
+        .then((json) => {
+            return json;
+        })
+        .catch((err) => console.log("error:" + err));
+};
+
+app.get("/api/video-call/:id", async function (req, res) {
+    const roomId = req.params.id;
+
+    const room = await getRoom(roomId);
+    if (room.error) {
+        const newRoom = await createRoom(roomId);
+        res.status(200).send(newRoom);
+    } else {
+        res.status(200).send(room);
+    }
+});
 
 app.post("/api", (req, res) => {
     console.log("Connected to React!!!");
@@ -220,7 +280,7 @@ app.post("/api/order", (request, response) => {
 })
 
 app.post("/api/orders", (request, response) => {
-    const {user_profile_id} = request.body;
+    const { user_profile_id } = request.body;
 
     db.query(
         `SELECT * FROM orders JOIN food ON orders.food_id = food.food_id JOIN payment ON orders.payment_id = payment.payment_id WHERE orders.user_profile_id = ?`, [user_profile_id],
@@ -230,9 +290,9 @@ app.post("/api/orders", (request, response) => {
                 return response.json({ stat: "error", message: err });
             }
             console.log(result);
-            return response.json({stat: "success", orders: result});
+            return response.json({ stat: "success", orders: result });
         }
-        )
+    )
 })
 
 app.post("/api/logout", (request, response) => {

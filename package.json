@@ -1,0 +1,27 @@
+{
+  "name": "foodndate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanregis/FoodnDate.git"
+  },
+  "keywords": [
+    "online",
+    "restaurant",
+    "virtual",
+    "dating",
+    "food",
+    "meetings"
+  ],
+  "author": "Ryan Gerome Regis, Ron Velarde, Ralph Santolorin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryanregis/FoodnDate/issues"
+  },
+  "homepage": "https://github.com/ryanregis/FoodnDate#readme"
+}

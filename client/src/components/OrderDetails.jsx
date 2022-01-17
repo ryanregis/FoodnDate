@@ -76,36 +76,37 @@ export default function OrderDetails(props) {
         axios.post("http://localhost:5000/api/order", data).then(response => {
             if (response.data.stat === "success") {
                 swal("Hope you enjoy your food!", response.data.message, "success");
+                localStorage.setItem("userDetails", JSON.stringify({
+                    userName: user.userInfo[0].first_name,
+                    userAddress: user.userInfo[0].address,
+                    forADate: null,
+                    sOEmail: "@SOEmail",
+                    sOName: "@SO",
+                    sOAddress: "Somewhere else",
+                    paymentMethod: "COD",
+                    schedule: "",
+                }));
+                localStorage.setItem("cartItems", JSON.stringify([]));
+                dispatch({ type: ACTIONS.initCart, payload: [] });
+                dispatch({
+                    type: ACTIONS.changeAllUser, payload: {
+                        userName: user.userInfo[0].first_name,
+                        userAddress: user.userInfo[0].address,
+                        forADate: null,
+                        sOEmail: "@SOEmail",
+                        sOName: "@SO",
+                        sOAddress: "Somewhere else",
+                        paymentMethod: "",
+                        schedule: "",
+                    }
+                });
+                navigate("/order");
             } else {
-                swal("Error!", response.data.message, "error")
+                swal("Error!", response.data.message, "error");
+                navigate("/order");
             }
         }).catch(err => console.log(err));
-        localStorage.setItem("userDetails", JSON.stringify({
-            userName: user.userInfo[0].first_name,
-            userAddress: user.userInfo[0].address,
-            forADate: null,
-            sOEmail: "@SOEmail",
-            sOName: "@SO",
-            sOAddress: "Somewhere else",
-            paymentMethod: "COD",
-            schedule: "",
 
-        }));
-        localStorage.setItem("cartItems", []);
-        dispatch({ type: ACTIONS.initCart, payload: [] });
-        dispatch({
-            type: ACTIONS.changeAllUser, payload: {
-                userName: user.userInfo[0].first_name,
-                userAddress: user.userInfo[0].address,
-                forADate: null,
-                sOEmail: "@SOEmail",
-                sOName: "@SO",
-                sOAddress: "Somewhere else",
-                paymentMethod: "",
-                schedule: "",
-            }
-        });
-        navigate("/order");
 
     };
 

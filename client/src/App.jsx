@@ -32,11 +32,12 @@ function App() {
         setIsLoggedIn(true);
       }
       else {
+        setUserInfo([]);
         setIsLoggedIn(false);
         navigate("/login");
       }
       setLoading(false);
-    }).catch(err => { console.log(err); setLoading(false) });
+    })
   }, []);
 
   if (loading) {
@@ -68,7 +69,7 @@ function App() {
           <Route exact path="/order/review" element={[<Header />, <ReviewOrder />, <Footer />]} />
           <Route exact path="/profile" element={[<Header />, <Profile />, <Footer />]} />
           {/* </Route> */}
-          <Route exact path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login />} />
+          <Route exact path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login setLoading={setLoading} />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
 

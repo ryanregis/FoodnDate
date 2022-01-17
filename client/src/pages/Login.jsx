@@ -74,7 +74,7 @@ export default function Login(props) {
     const { userInfo, setUserInfo } = useContext(UserContext);
     const navigate = useNavigate();
     const classes = useStyles();
-    const [loading, setLoading] = React.useState(false);
+    // const [loading, setLoading] = React.useState(false);
     const [openReg, setOpenReg] = React.useState(false);
     const handleOpenReg = () => { setOpenReg(true) };
     const handleCloseReg = () => { setOpenReg(false) };
@@ -117,7 +117,7 @@ export default function Login(props) {
                         <TextField required fullWidth name="password" type="password" color="secondary" variant="outlined" label="Password"
                             value={password} onChange={e => setPassword(e.target.value)} />
 
-                        <LoadingButton loading={loading}
+                        <LoadingButton loading={false}
                             loadingIndicator={
                                 <Typography fontSize="1.125rem" fontWeight={500}>Logging In...</Typography>
                             } type="submit" color="secondary" variant="contained">
@@ -134,7 +134,7 @@ export default function Login(props) {
                 </Paper>
             </Box>
             <Modal open={openReg} onClose={handleCloseReg} className={classes.modal}>
-                <Registration closeModal={handleCloseReg} />
+                <Registration setLoading={props.setLoading} closeModal={handleCloseReg} />
             </Modal>
 
         </Box>
