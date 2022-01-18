@@ -217,7 +217,7 @@ app.post("/api/login", (request, response) => {
 });
 
 app.get("/api/login", (request, response) => {
-    // console.log(request.session.userInfo);
+    console.log(request.session.userInfo);
     if (request.session.userInfo) {
         return response.json({ stat: "success", isLoggedIn: true, userInfo: request.session.userInfo });
     } else {
