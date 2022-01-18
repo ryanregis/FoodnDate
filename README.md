@@ -27,6 +27,8 @@ npm run serve
 ```
 
 4. You can then go into [http://localhost:3000](http://localhost:3000) to run the whole program.
+<br>
+<hr>
 
 ### Created by:
 - [Ralph Santolorin](https://github.com/ralphfromthesky)
