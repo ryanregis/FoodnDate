@@ -62,6 +62,10 @@ app.use(logger("dev"));
 const buildPath = path.join(__dirname, '../client/dist');
 app.use(express.static(buildPath));
 
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+});
+
 const API_KEY = process.env.daily_API_KEY;
 const headers = {
     Accept: "application/json",
