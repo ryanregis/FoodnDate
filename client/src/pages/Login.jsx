@@ -10,7 +10,8 @@ import Registration from '../components/Registration';
 import axios from 'axios';
 import swal from 'sweetalert';
 
-import {UserContext} from '../context/UserContext';
+import { UserContext } from '../context/UserContext';
+import { useSnackbar } from 'notistack';
 
 // axios.defaults.baseURL = "http://localhost:5000";
 // axios.defaults.withCredentials = true;
@@ -71,6 +72,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Login(props) {
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const { userInfo, setUserInfo } = useContext(UserContext);
     const navigate = useNavigate();
     const classes = useStyles();
@@ -83,10 +85,10 @@ export default function Login(props) {
         e.preventDefault();
         const data = { email, password };
 
-        axios.post("http://localhost:5000/api/login", data, { withCredentials: true }).then((response) => {
+        axios.post("/api/login", data, { withCredentials: true }).then((response) => {
             console.log(response.data);
             if (response.data.stat === "success") {
-                swal(response.data.message, `Welcome back, ${response.data.userInfo[0].first_name}!`, response.data.stat);
+                enqueueSnackbar(response.data.message, { variant: response.data.stat });
                 setUserInfo(response.data.userInfo);
                 navigate("/");
             } else swal(response.data.message, "", response.data.stat);
@@ -113,9 +115,13 @@ export default function Login(props) {
                 <Paper className={classes.loginForm} sx={{ borderRadius: 10, }}>
                     <form name="login" className={classes.loginCreds} onSubmit={handleLogin}>
                         <TextField required autoFocus fullWidth name="email" type="email" color="secondary" variant="outlined" label="Email Address"
-                            value={email} onChange={(e) => setEmail(e.target.value)} />
+                            value={email} onChange={(e) => setEmail(e.target.value)}
+                            inputProps={{ maxLength: 100 }} />
+
                         <TextField required fullWidth name="password" type="password" color="secondary" variant="outlined" label="Password"
-                            value={password} onChange={e => setPassword(e.target.value)} />
+                            value={password} onChange={e => setPassword(e.target.value)}
+                            inputProps={{ maxLength: 20 }}
+                        />
 
                         <LoadingButton loading={false}
                             loadingIndicator={

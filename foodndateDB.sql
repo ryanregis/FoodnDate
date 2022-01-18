@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `food_n_date` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `food_n_date`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
 --
 -- Host: localhost    Database: food_n_date
@@ -26,14 +24,16 @@ DROP TABLE IF EXISTS `appointment`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `appointment` (
   `appointment_id` int NOT NULL AUTO_INCREMENT,
+  `user_profile_id` int NOT NULL,
   `dates_email` varchar(100) NOT NULL,
   `dates_address` varchar(100) NOT NULL,
-  `date_scheduled` datetime NOT NULL,
-  `dates_contact_number` varchar(100) NOT NULL,
+  `date_scheduled` varchar(100) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`appointment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`appointment_id`),
+  KEY `fk_user_profile_id_idx` (`user_profile_id`),
+  CONSTRAINT `fk_user_profile_id` FOREIGN KEY (`user_profile_id`) REFERENCES `user_profile` (`user_profile_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,33 +42,8 @@ CREATE TABLE `appointment` (
 
 LOCK TABLES `appointment` WRITE;
 /*!40000 ALTER TABLE `appointment` DISABLE KEYS */;
+INSERT INTO `appointment` VALUES (1,1,'Not Available','Not available','January 29, 2022 5:25 PM','2022-01-14 08:06:37','2022-01-14 08:06:37'),(2,1,'Not Available','Somewhere, Over There','January 23, 2022 2:15 PM','2022-01-14 11:53:35','2022-01-14 11:53:35'),(3,5,'Not Available','Not available','January 22, 2022 4:30 PM','2022-01-14 14:15:08','2022-01-14 14:15:08');
 /*!40000 ALTER TABLE `appointment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `checkout`
---
-
-DROP TABLE IF EXISTS `checkout`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `checkout` (
-  `checkout_id` int NOT NULL AUTO_INCREMENT,
-  `order_id` int NOT NULL,
-  `payment_id` int NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `date_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`checkout_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `checkout`
---
-
-LOCK TABLES `checkout` WRITE;
-/*!40000 ALTER TABLE `checkout` DISABLE KEYS */;
-/*!40000 ALTER TABLE `checkout` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -164,15 +139,18 @@ CREATE TABLE `orders` (
   `orders_id` int NOT NULL AUTO_INCREMENT,
   `user_profile_id` int NOT NULL,
   `food_id` int NOT NULL,
+  `payment_id` int NOT NULL,
   `quantity` varchar(50) NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`orders_id`),
   KEY `fk_food_id_idx` (`food_id`),
   KEY `fk_user_profile_id_idx` (`user_profile_id`),
+  KEY `fk_orders_payment_id_idx` (`payment_id`),
   CONSTRAINT `fk_orders_food_id` FOREIGN KEY (`food_id`) REFERENCES `food` (`food_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `fk_orders_payment_id` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`payment_id`),
   CONSTRAINT `fk_orders_user_profile_id` FOREIGN KEY (`user_profile_id`) REFERENCES `user_profile` (`user_profile_id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,6 +159,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (7,1,2,6,'1','2022-01-14 08:06:36','2022-01-14 08:06:36'),(8,1,7,6,'1','2022-01-14 08:06:36','2022-01-14 08:06:36'),(9,1,13,6,'1','2022-01-14 08:06:36','2022-01-14 08:06:36'),(10,1,1,7,'1','2022-01-14 11:53:35','2022-01-14 11:53:35'),(11,1,6,7,'1','2022-01-14 11:53:35','2022-01-14 11:53:35'),(12,1,23,7,'1','2022-01-14 11:53:35','2022-01-14 11:53:35'),(13,1,19,7,'1','2022-01-14 11:53:35','2022-01-14 11:53:35'),(14,5,15,8,'2','2022-01-14 14:15:08','2022-01-14 14:15:08'),(15,5,21,8,'2','2022-01-14 14:15:08','2022-01-14 14:15:08');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,15 +172,12 @@ DROP TABLE IF EXISTS `payment`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `payment` (
   `payment_id` int NOT NULL AUTO_INCREMENT,
-  `orders_id` int NOT NULL,
   `payment_type` varchar(45) NOT NULL,
-  `sub_total_amount` varchar(45) NOT NULL,
+  `amount` int NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`payment_id`),
-  KEY `fk_order_id_idx` (`orders_id`),
-  CONSTRAINT `fk_orders_id` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`orders_id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`payment_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -210,6 +186,7 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
+INSERT INTO `payment` VALUES (6,'COD',1200,'2022-01-14 08:06:36','2022-01-14 08:06:36'),(7,'EWALLET',920,'2022-01-14 11:53:35','2022-01-14 11:53:35'),(8,'COD',560,'2022-01-14 14:15:08','2022-01-14 14:15:08');
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,7 +211,7 @@ CREATE TABLE `sessiontbl` (
 
 LOCK TABLES `sessiontbl` WRITE;
 /*!40000 ALTER TABLE `sessiontbl` DISABLE KEYS */;
-INSERT INTO `sessiontbl` VALUES ('0T0RLQUxXkM4tfM5zeYlNZlvE2ns6omO',1642142543,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2022-01-14T06:33:07.124Z\",\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"none\"},\"userInfo\":[{\"user_profile_id\":1,\"first_name\":\"Ryan Gerome\",\"last_name\":\"Regis\",\"contact_number\":\"639123456789\",\"address\":\"Barangay 168, Caloocan City\",\"gender_id\":1,\"user_login_id\":5,\"user_other_details_id\":5,\"date_created\":\"2022-01-12T12:17:06.000Z\",\"date_updated\":\"2022-01-12T12:17:06.000Z\",\"email\":\"ryanregis99@gmail.com\",\"access\":\"user\",\"relationship_status\":\"single\",\"sexual_orientation_id\":10,\"has_allergy\":0,\"allergens\":\"No Allergens\",\"checked_promotions\":0}]}');
+INSERT INTO `sessiontbl` VALUES ('GtP3WILRgsFtLlnF9D-PEoHiGUnv6wYM',1642519277,'{\"cookie\":{\"originalMaxAge\":86400000,\"expires\":\"2022-01-18T15:19:01.904Z\",\"httpOnly\":true,\"path\":\"/\",\"sameSite\":\"none\"},\"userInfo\":[{\"user_profile_id\":5,\"first_name\":\"Ryan\",\"last_name\":\"Regis\",\"contact_number\":\"639123456789\",\"address\":\"Barangay 168, Caloocan City\",\"gender_id\":1,\"user_login_id\":9,\"user_other_details_id\":9,\"date_created\":\"2022-01-14T06:11:42.000Z\",\"date_updated\":\"2022-01-14T06:11:42.000Z\",\"email\":\"ryanregis23@gmail.com\",\"access\":\"user\",\"relationship_status\":\"single\",\"sexual_orientation_id\":1,\"has_allergy\":0,\"allergens\":\"No Allergens\",\"checked_promotions\":1}]}');
 /*!40000 ALTER TABLE `sessiontbl` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +256,7 @@ CREATE TABLE `user_login` (
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_login_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +265,7 @@ CREATE TABLE `user_login` (
 
 LOCK TABLES `user_login` WRITE;
 /*!40000 ALTER TABLE `user_login` DISABLE KEYS */;
-INSERT INTO `user_login` VALUES (5,'ryanregis99@gmail.com','$2b$08$yfP8WM46dQareDmb0Bn.O.orq1uqPpJmbHT/JJSvb2Bh8jm8Jn9Si','user','2022-01-12 20:17:05','2022-01-12 20:17:05'),(6,'hello@world.com','$2b$08$o.tiUH59YMqu.Zbpfa1SN.TVZIF1K8.aJgPVeca4Mx5kTdVhF1jc2','user','2022-01-13 03:31:58','2022-01-13 03:31:58');
+INSERT INTO `user_login` VALUES (5,'ryanregis99@gmail.com','$2b$08$yfP8WM46dQareDmb0Bn.O.orq1uqPpJmbHT/JJSvb2Bh8jm8Jn9Si','admin','2022-01-12 20:17:05','2022-01-14 11:56:28'),(6,'hello@world.com','$2b$08$o.tiUH59YMqu.Zbpfa1SN.TVZIF1K8.aJgPVeca4Mx5kTdVhF1jc2','user','2022-01-13 03:31:58','2022-01-13 03:31:58'),(7,'ryanregis@gmail.com','$2b$08$AsNTr6bg5blr2ScBomm/ze2bazJqQpOwVB2lCIE.zSd3npdfsgry6','user','2022-01-14 13:27:13','2022-01-14 13:27:13'),(8,'test@test.com','$2b$08$nVCJJC7LSlFVgZrjUDdp5.t/r3wTnIfZ4/HJpyaiLVL.DM5CuPqvC','user','2022-01-14 13:47:29','2022-01-14 13:47:29'),(9,'ryanregis23@gmail.com','$2b$08$vFuHmoOwtv6gJZpiVX.8Kunpmf.e4ak8UYHTcAPK4Isw9HbZYnFF2','user','2022-01-14 14:11:42','2022-01-14 14:11:42'),(10,'test@test99.com','$2b$08$IEnO4Lk/dgNqwtY.uI9xKOvqr0neJHmhAZh8JvTsTMjsYETZFKDvu','user','2022-01-14 14:20:14','2022-01-14 14:20:14');
 /*!40000 ALTER TABLE `user_login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,7 +288,7 @@ CREATE TABLE `user_other_details` (
   PRIMARY KEY (`user_other_details_id`),
   KEY `fk_sexual_orientation_id_idx` (`sexual_orientation_id`),
   CONSTRAINT `fk_sexual_orientation_id` FOREIGN KEY (`sexual_orientation_id`) REFERENCES `sexual_orientation` (`sexual_orirentation_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -320,7 +297,7 @@ CREATE TABLE `user_other_details` (
 
 LOCK TABLES `user_other_details` WRITE;
 /*!40000 ALTER TABLE `user_other_details` DISABLE KEYS */;
-INSERT INTO `user_other_details` VALUES (5,'single',10,0,'No Allergens',0,'2022-01-12 20:17:06','2022-01-12 20:17:06'),(6,'single',1,0,'No Allergens',1,'2022-01-13 03:31:58','2022-01-13 03:31:58');
+INSERT INTO `user_other_details` VALUES (5,'single',10,0,'No Allergens',0,'2022-01-12 20:17:06','2022-01-12 20:17:06'),(6,'single',1,0,'No Allergens',1,'2022-01-13 03:31:58','2022-01-13 03:31:58'),(7,'single',1,0,'No Allergens',0,'2022-01-14 13:27:13','2022-01-14 13:27:13'),(8,'single',10,1,'Peanuts',1,'2022-01-14 13:47:29','2022-01-14 13:47:29'),(9,'single',1,0,'No Allergens',1,'2022-01-14 14:11:42','2022-01-14 14:11:42'),(10,'single',1,0,'No Allergens',1,'2022-01-14 14:20:14','2022-01-14 14:20:14');
 /*!40000 ALTER TABLE `user_other_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -346,10 +323,8 @@ CREATE TABLE `user_profile` (
   KEY `fk_user_other_details_id_idx` (`user_other_details_id`),
   KEY `fk_user_login_id_idx` (`user_login_id`),
   KEY `fk_gender_id_idx` (`gender_id`),
-  CONSTRAINT `fk_gender_id` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`gender_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `fk_user_login_id` FOREIGN KEY (`user_login_id`) REFERENCES `user_login` (`user_login_id`),
-  CONSTRAINT `fk_user_other_details_id` FOREIGN KEY (`user_other_details_id`) REFERENCES `user_other_details` (`user_other_details_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+  CONSTRAINT `fk_gender_id` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`gender_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,7 +333,7 @@ CREATE TABLE `user_profile` (
 
 LOCK TABLES `user_profile` WRITE;
 /*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
-INSERT INTO `user_profile` VALUES (1,'Ryan Gerome','Regis','639123456789','Barangay 168, Caloocan City',1,5,5,'2022-01-12 20:17:06','2022-01-12 20:17:06'),(2,'hello','world','639123456789','Somewhere',1,6,6,'2022-01-13 03:31:59','2022-01-13 03:31:59');
+INSERT INTO `user_profile` VALUES (1,'Ryan Gerome','Regis','639123456789','Barangay 168, Caloocan City',1,5,5,'2022-01-12 20:17:06','2022-01-12 20:17:06'),(2,'hello','world','639123456789','Somewhere',1,6,6,'2022-01-13 03:31:59','2022-01-13 03:31:59'),(3,'Ryan Gerome','Regis','639123456789','Caloocan City',1,7,7,'2022-01-14 13:27:13','2022-01-14 13:27:13'),(4,'Test','Test','6391234565789','Somewhere, Out There',14,8,8,'2022-01-14 13:47:29','2022-01-14 13:47:29'),(5,'Ryan','Regis','639123456789','Barangay 168, Caloocan City',1,9,9,'2022-01-14 14:11:43','2022-01-14 14:11:43');
 /*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -371,4 +346,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-13 15:12:35
+-- Dump completed on 2022-01-18 13:57:12

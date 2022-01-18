@@ -15,7 +15,7 @@ export default function OrderTable(props) {
     const user = useContext(UserContext);
 
     useEffect(() => {
-        axios.post("http://localhost:5000/api/orders", { user_profile_id: user.userInfo[0].user_profile_id }).then((response) => {
+        axios.post("/api/orders", { user_profile_id: user.userInfo[0].user_profile_id }).then((response) => {
             console.log(response);
             if (response.data.stat === "success") {
                 setOrders(response.data.orders);

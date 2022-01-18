@@ -87,7 +87,7 @@ export default function Registration(props) {
                 checked_promotions: checked_promotions ? 1 : 0
             }
             console.log(data);
-            axios.post("http://localhost:5000/api/register", data).then((response) =>{
+            axios.post("/api/register", data).then((response) =>{
                 if(response.data.stat === "success"){
                     props.closeModal();
                     swal("Success!", response.data.message, response.data.stat);

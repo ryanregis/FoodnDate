@@ -9,7 +9,7 @@ const Meeting = () => {
       const domain = "https://foodndate.daily.co/";
   
       axios
-        .get(`http://localhost:5000/api/video-call/${id}`)
+        .get(`/api/video-call/${id}`)
         .then((res) => {
           if (res.status === 200) {
             const script = document.createElement("script");

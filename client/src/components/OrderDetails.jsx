@@ -73,7 +73,7 @@ export default function OrderDetails(props) {
             payment_type: paymentMethod,
             date_scheduled: schedule
         };
-        axios.post("http://localhost:5000/api/order", data).then(response => {
+        axios.post("/api/order", data).then(response => {
             if (response.data.stat === "success") {
                 swal("Hope you enjoy your food!", response.data.message, "success");
                 localStorage.setItem("userDetails", JSON.stringify({
