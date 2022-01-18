@@ -22,7 +22,6 @@ function App() {
   
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { userInfo, setUserInfo, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
 
   useEffect(() => {

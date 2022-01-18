@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
 import { ACTIONS, OrderContext } from "../context/OrderContext";
+import { UserContext } from '../context/UserContext';
 
 import {
     Paper, Box, Typography, Chip, Grid, Divider, Button,
@@ -43,10 +44,21 @@ const useStyles = makeStyles(() => ({
 }));
 
 function OrderFood() {
-
+    const user = useContext(UserContext);
     const navigate = useNavigate();
     const classes = useStyles();
     const { state, dispatch } = useContext(OrderContext);
+
+    useEffect(() => {
+        dispatch({
+            type: ACTIONS.changeAllUser, 
+            payload: {
+                ...state,
+                userName: user.userInfo[0].first_name,
+                userAddress: user.userInfo[0].address,
+            }
+        });
+    }, [])
 
     const handleAddToCart = (e, foodItem) => {
         dispatch({ type: ACTIONS.addToCart, payload: { ...foodItem, quantity: 1, subtotal: foodItem.price * 1 } })
@@ -107,9 +119,10 @@ function OrderFood() {
                                                                     } subtitle={
                                                                         <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center" gap={2}>
                                                                             <Typography variant="body2">&#8369; {title.price}</Typography>
-                                                                            <Button 
-                                                                            disabled={state.items.some(item => item.id === title.id)} color="secondary" variant="outlined" onClick={(e) => handleAddToCart(e, {
-                                                                                id: title.id, name: title.name, course: food.course, img: title.img, price: title.price })}>
+                                                                            <Button
+                                                                                disabled={state.items.some(item => item.id === title.id)} color="secondary" variant="outlined" onClick={(e) => handleAddToCart(e, {
+                                                                                    id: title.id, name: title.name, course: food.course, img: title.img, price: title.price
+                                                                                })}>
                                                                                 Add to Cart
                                                                             </Button>
                                                                         </Box>

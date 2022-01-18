@@ -67,6 +67,7 @@ app.get("*", (req, res) => {
 });
 
 const API_KEY = process.env.daily_API_KEY;
+
 const headers = {
     Accept: "application/json",
     "Content-Type": "application/json",

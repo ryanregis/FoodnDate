@@ -126,11 +126,10 @@ function reducer(state, action) {
 }
 
 export const OrderProvider = ({ children }) => {
-    const user = useContext(UserContext);
 
     const initialState = {
-        userName:  user.userInfo[0] ? user.userInfo[0].first_name : "@user",
-        userAddress: user.userInfo[0] ? user.userInfo[0].address : "@address",
+        userName:  "@user",
+        userAddress: "@address",
         forADate: null,
         sOEmail: "@SOEmail",
         sOName: "@SO",
