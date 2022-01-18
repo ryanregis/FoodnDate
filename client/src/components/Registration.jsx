@@ -70,7 +70,7 @@ export default function Registration(props) {
         props.setLoading(true);
         if (textInput.password !== textInput.confirm_password) {
             swal("Mismatched Password!", "Input Passwords don't match. Please try again.", "error");
-            setTimeout(() => document.register.password.focus(), 1000 );
+            setTimeout(() => document.register.password.focus(), 1000);
         }
         else {
             const data = {
@@ -87,8 +87,8 @@ export default function Registration(props) {
                 checked_promotions: checked_promotions ? 1 : 0
             }
             console.log(data);
-            axios.post("/api/register", data).then((response) =>{
-                if(response.data.stat === "success"){
+            axios.post("/api/register", data).then((response) => {
+                if (response.data.stat === "success") {
                     props.closeModal();
                     swal("Success!", response.data.message, response.data.stat);
                 } else {
@@ -168,18 +168,20 @@ export default function Registration(props) {
                                             </Box>
                                             <Box mt={3} className={classes.allergyInput}>
                                                 <TextField
+                                                    inputProps={{ maxLength: 45 }}
                                                     value={has_allergy == 0 ? "No Allergens" : allergens}
                                                     onChange={e => setAllergens(e.target.value)}
                                                     required={has_allergy == 1}
-                                                    size="small" disabled={has_allergy == 0 } color="secondary" label="Input allergens here..."
+                                                    size="small" disabled={has_allergy == 0} color="secondary" label="Input allergens here..."
                                                     helperText={has_allergy == 1 ? "peanuts, dairy, gluten ..." : " "}
                                                 />
                                             </Box>
                                         </Box>
                                     </Grid>
 
-                                    : <Grid item xs={12} md={input.name === "address" ? 7 : 4} sx={{mt: input.name === "address" ? 2 : 0}}>
+                                    : <Grid item xs={12} md={input.name === "address" ? 7 : 4} sx={{ mt: input.name === "address" ? 2 : 0 }}>
                                         <TextField fullWidth required
+                                            inputProps={{ maxLength: input.type ? 20 : 100}}
                                             value={eval(`textInput.${input.name}`)}
                                             onChange={handleInput}
                                             className={classes.inputLabel}
