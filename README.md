@@ -26,7 +26,7 @@ cd FoodnDate // or whatever the folder name is
 npm run serve
 ```
 
-4. You can then go into [http://localhost:3000](http://localhost:3000) to run the whole program.
+4. You can then go into [http://localhost:3000](http://localhost:3000) to view the program.
 <br>
 <hr>
 
