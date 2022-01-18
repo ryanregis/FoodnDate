@@ -17,7 +17,7 @@
     "meetings"
   ],
   "author": "Ryan Gerome Regis, Ron Velarde, Ralph Santolorin",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",

@@ -1,6 +1,7 @@
 {
   "name": "food_n_date",
   "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "npm install && vite build",
