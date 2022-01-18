@@ -91,7 +91,7 @@ export default function Login(props) {
                 enqueueSnackbar(response.data.message, { variant: response.data.stat });
                 setUserInfo(response.data.userInfo);
                 navigate("/");
-            } else swal(response.data.message, "", response.data.stat);
+            } else swal(response.data.message, "Error!", "error");
         })
             .catch((err) => swal("Error!", err, "error"));
     };
