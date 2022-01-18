@@ -18,7 +18,7 @@ git clone https://github.com/ryanregis/FoodnDate.git
 2. Make sure you go into the root folder by typing: 
 
 ```javascript
-cd FoodnDate-main // or whatever the folder name is
+cd FoodnDate // or whatever the folder name is
 ```
 
 3. Run the program by typing:
